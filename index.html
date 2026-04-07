@@ -156,28 +156,7 @@ nav{
 .hstat-num span{color:var(--gold)}
 .hstat-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--subtle)}
 
-/* hero right: floating cards */
-.hero-cards{
-  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
-  max-width:380px;margin-left:auto;
-}
-.hcard{
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:12px;padding:1.5rem 1.25rem;
-  transition:transform .3s,box-shadow .3s;
-}
-.hcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(14,30,53,0.1)}
-.hcard:nth-child(2){margin-top:1.5rem}
-.hcard:nth-child(4){margin-top:-1rem}
-.hcard-icon{font-size:1.5rem;margin-bottom:.75rem}
-.hcard-name{font-family:var(--serif);font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.3rem}
-.hcard-sub{font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;color:var(--subtle)}
-.hcard-dot{
-  display:inline-flex;align-items:center;gap:.35rem;
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;
-  margin-top:.75rem;color:var(--muted);
-}
+
 .dot-live{width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e}
 .dot-dev{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 5px var(--gold)}
 
@@ -545,33 +524,7 @@ footer{
         <a href="#services" class="btn btn-fill">看我們做什麼</a>
         <a href="#contact" class="btn btn-outline">立即聯絡</a>
       </div>
-      <!-- Floating product cards -->
-      <div class="hero-cards" style="margin-top:3rem">
-        <div class="hcard">
-          <div class="hcard-icon">🍜</div>
-          <div class="hcard-name">吃吃帖</div>
-          <div class="hcard-sub">美食社群 App</div>
-          <div class="hcard-dot"><span class="dot-live"></span>已上架</div>
-        </div>
-        <div class="hcard">
-          <div class="hcard-icon">🚗</div>
-          <div class="hcard-name">別扣我</div>
-          <div class="hcard-sub">行車安全 App</div>
-          <div class="hcard-dot"><span class="dot-live"></span>已上架</div>
-        </div>
-        <div class="hcard">
-          <div class="hcard-icon">⚙️</div>
-          <div class="hcard-name">委託開發</div>
-          <div class="hcard-sub">外包接案</div>
-          <div class="hcard-dot"><span class="dot-live"></span>接案中</div>
-        </div>
-        <div class="hcard">
-          <div class="hcard-icon">🚕</div>
-          <div class="hcard-name">叫車系統</div>
-          <div class="hcard-sub">車隊管理</div>
-          <div class="hcard-dot"><span class="dot-dev"></span>開發中</div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -867,7 +820,7 @@ document.addEventListener('mousemove',e=>{
   cursor.style.left=mx+'px';cursor.style.top=my+'px';
 });
 (function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
-document.querySelectorAll('a,button,.srv-item,.prd-row,.cnt-card,.hcard').forEach(el=>{
+document.querySelectorAll('a,button,.srv-item,.prd-row,.cnt-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
   el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
 });
