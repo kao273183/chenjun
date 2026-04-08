@@ -144,17 +144,18 @@ nav{
 .btn-outline:hover{border-color:var(--mid);color:var(--mid)}
 
 .hero-stats{
-  display:flex;gap:3rem;margin-top:3.5rem;
-  padding-top:2rem;
-  border-top:1px solid var(--border);
+  display:flex;gap:.75rem;flex-wrap:wrap;margin-top:3rem;
+  padding-top:2rem;border-top:1px solid var(--border);
   opacity:0;animation:fadeUp .7s .6s forwards;
 }
-.hstat-num{
-  font-family:var(--serif);font-weight:900;font-size:2.2rem;
-  color:var(--ink);line-height:1;margin-bottom:.3rem;
+.hero-tag{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;
+  padding:.45rem 1rem;border-radius:20px;
+  border:1px solid var(--border-mid);
+  color:var(--mid);background:var(--white);
+  transition:background .2s,border-color .2s,color .2s;
 }
-.hstat-num span{color:var(--gold)}
-.hstat-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;color:var(--subtle)}
+.hero-tag:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 
 
 .dot-live{width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e}
@@ -500,18 +501,10 @@ footer{
         <span class="line">改變產業</span>
       </h1>
       <div class="hero-stats">
-        <div>
-          <div class="hstat-num">3<span>+</span></div>
-          <div class="hstat-label">上線產品</div>
-        </div>
-        <div>
-          <div class="hstat-num">4</div>
-          <div class="hstat-label">上架連結</div>
-        </div>
-        <div>
-          <div class="hstat-num">全<span>端</span></div>
-          <div class="hstat-label">技術覆蓋</div>
-        </div>
+        <span class="hero-tag">外包開發</span>
+        <span class="hero-tag">QA 測試</span>
+        <span class="hero-tag">數位轉型</span>
+        <span class="hero-tag">自有產品</span>
       </div>
     </div>
     <div class="hero-right">
