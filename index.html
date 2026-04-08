@@ -1,824 +1,1626 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>宸鈞數位 — 我們打造軟體</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0E1E35;
-  --bg:#F4F7FB;
-  --mid:#3D6FA8;
-  --gold:#E8B84B;
-  --white:#FFFFFF;
-  --surface:#EBF0F8;
-  --muted:#5C7A9C;
-  --subtle:#8FA8C4;
-  --border:rgba(14,30,53,0.1);
-  --border-mid:rgba(61,111,168,0.2);
-  --serif:'Noto Serif TC',serif;
-  --sans:'DM Sans',sans-serif;
-  --mono:'DM Mono',monospace;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宸鈞數位 — 你的點子，我們實現</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);overflow-x:hidden;cursor:none}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.022;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:128px}
+    :root {
+      --ink: #0E1E35;
+      --bg: #F4F7FB;
+      --mid: #3D6FA8;
+      --gold: #E8B84B;
+      --white: #FFFFFF;
+      --surface: #EBF0F8;
+      --muted: #5C7A9C;
+      --subtle: #8FA8C4;
+      --border: rgba(14, 30, 53, 0.1);
+      --border-mid: rgba(61, 111, 168, 0.2);
+      --serif: 'Noto Serif TC', serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
 
-/* CURSOR */
-.cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
-.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--mid);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.6}
-.cursor.hover{width:16px;height:16px;background:var(--mid)}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.4rem 3rem;
-  background:rgba(244,247,251,0.85);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-}
-.nav-logo{
-  font-family:var(--serif);font-weight:900;font-size:1.05rem;
-  color:var(--ink);text-decoration:none;
-  display:flex;align-items:center;gap:.6rem;
-}
-.nav-logo-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;
-}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;
-  color:var(--muted);text-decoration:none;
-  transition:color .2s;
-}
-.nav-links a:hover{color:var(--ink)}
-.nav-cta{
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;
-  padding:.5rem 1.2rem;
-  background:var(--ink);color:var(--bg);
-  text-decoration:none;border-radius:2px;
-  transition:background .2s;
-}
-.nav-cta:hover{background:var(--mid)}
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      cursor: none
+    }
 
-/* HERO */
-#hero{
-  min-height:100vh;
-  display:grid;grid-template-rows:1fr auto;
-  padding:8rem 3rem 4rem;
-  position:relative;overflow:hidden;
-}
-.hero-glow{
-  position:absolute;
-  width:600px;height:600px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(61,111,168,0.12) 0%,transparent 70%);
-  right:-100px;top:50%;transform:translateY(-50%);
-  pointer-events:none;
-}
-.hero-glow2{
-  position:absolute;
-  width:300px;height:300px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(232,184,75,0.1) 0%,transparent 70%);
-  left:20%;top:20%;
-  pointer-events:none;
-}
-.hero-content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.hero-left{position:relative;z-index:1}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;
-  color:var(--mid);margin-bottom:2rem;
-  opacity:0;animation:fadeUp .7s .1s forwards;
-}
-.hero-eyebrow::before{
-  content:'';display:block;width:24px;height:1px;background:var(--gold);
-}
-.hero-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(3rem,5.5vw,6.5rem);
-  line-height:1;letter-spacing:-.03em;
-  margin-bottom:2rem;
-  opacity:0;animation:fadeUp .7s .25s forwards;
-}
-.hero-title .line{display:block}
-.hero-title .hl{
-  display:inline;
-  background:linear-gradient(90deg,var(--gold),#F5C842);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.hero-title .outline{
-  -webkit-text-stroke:2px var(--ink);
-  color:transparent;
-}
-.hero-right{
-  position:relative;z-index:1;
-  opacity:0;animation:fadeUp .7s .4s forwards;
-}
-.hero-desc{
-  font-size:1.05rem;line-height:1.85;
-  color:var(--muted);margin-bottom:2.5rem;
-  max-width:400px;
-}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
-.btn{
-  font-family:var(--mono);font-size:.8rem;letter-spacing:.05em;
-  padding:.9rem 2rem;text-decoration:none;
-  display:inline-block;transition:transform .15s,background .2s,border-color .2s;
-  border-radius:3px;
-}
-.btn:hover{transform:translateY(-3px)}
-.btn-fill{background:var(--ink);color:var(--bg);border:2px solid var(--ink)}
-.btn-fill:hover{background:var(--mid);border-color:var(--mid)}
-.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--border-mid)}
-.btn-outline:hover{border-color:var(--mid);color:var(--mid)}
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px
+    }
 
-.hero-stats{
-  display:flex;gap:.75rem;flex-wrap:wrap;margin-top:3rem;
-  padding-top:2rem;border-top:1px solid var(--border);
-  opacity:0;animation:fadeUp .7s .6s forwards;
-}
-.hero-tag{
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;
-  padding:.45rem 1rem;border-radius:20px;
-  border:1px solid var(--border-mid);
-  color:var(--mid);background:var(--white);
-  transition:background .2s,border-color .2s,color .2s;
-}
-.hero-tag:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+    /* CURSOR */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--mid);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      opacity: 0.6
+    }
+
+    .cursor.hover {
+      width: 16px;
+      height: 16px;
+      background: var(--mid)
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: rgba(244, 247, 251, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .nav-logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: .75rem;
+      letter-spacing: .06em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink)
+    }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: .75rem;
+      letter-spacing: .06em;
+      padding: .5rem 1.2rem;
+      background: var(--ink);
+      color: var(--bg);
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background .2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--mid)
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61, 111, 168, 0.12) 0%, transparent 70%);
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .hero-glow2 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 184, 75, 0.1) 0%, transparent 70%);
+      left: 20%;
+      top: 20%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      color: var(--mid);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .7s .1s forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(3rem, 5.5vw, 6.5rem);
+      line-height: 1;
+      letter-spacing: -.03em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .7s .25s forwards;
+    }
+
+    .hero-title .line {
+      display: block
+    }
+
+    .hero-title .hl {
+      display: inline;
+      background: linear-gradient(90deg, var(--gold), #F5C842);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title .outline {
+      -webkit-text-stroke: 2px var(--ink);
+      color: transparent;
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp .7s .4s forwards;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: .8rem;
+      letter-spacing: .05em;
+      padding: .9rem 2rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform .15s, background .2s, border-color .2s;
+      border-radius: 3px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px)
+    }
+
+    .btn-fill {
+      background: var(--ink);
+      color: var(--bg);
+      border: 2px solid var(--ink)
+    }
+
+    .btn-fill:hover {
+      background: var(--mid);
+      border-color: var(--mid)
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 2px solid var(--border-mid)
+    }
+
+    .btn-outline:hover {
+      border-color: var(--mid);
+      color: var(--mid)
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp .7s .6s forwards;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: .75rem;
+      letter-spacing: .06em;
+      padding: .45rem 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-mid);
+      color: var(--mid);
+      background: var(--white);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+
+    .hero-tag:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--bg)
+    }
 
 
-.dot-live{width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e}
-.dot-dev{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 5px var(--gold)}
+    .dot-live {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 5px #22c55e
+    }
 
-/* MARQUEE */
-.marquee-wrap{background:var(--ink);padding:.9rem 0;overflow:hidden;white-space:nowrap}
-.marquee-inner{display:inline-flex;animation:mq 22s linear infinite}
-.marquee-inner:hover{animation-play-state:paused}
-.mitem{
-  font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;
-  color:rgba(244,247,251,0.45);padding:0 2.5rem;
-  border-right:1px solid rgba(244,247,251,0.08);flex-shrink:0;
-}
-.mitem b{color:var(--gold);font-weight:400}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .dot-dev {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 5px var(--gold)
+    }
 
-/* SECTION COMMONS */
-.sec-label{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
-  color:var(--mid);display:flex;align-items:center;gap:.75rem;
-  margin-bottom:2.5rem;
-}
-.sec-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+    /* MARQUEE */
+    .marquee-wrap {
+      background: var(--ink);
+      padding: .9rem 0;
+      overflow: hidden;
+      white-space: nowrap
+    }
 
-/* SERVICES */
-#services{padding:8rem 3rem;max-width:1400px;margin:0 auto}
-.srv-header{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:4rem;flex-wrap:wrap;gap:2rem;
-}
-.srv-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(2.2rem,3.5vw,4rem);
-  line-height:1.05;letter-spacing:-.03em;
-}
-.srv-sub{max-width:300px;color:var(--muted);line-height:1.75;font-size:.95rem}
-.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.srv-item{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:16px;padding:2.5rem 2rem;
-  position:relative;overflow:hidden;
-  transition:transform .3s,border-color .3s,box-shadow .3s;
-}
-.srv-item::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--mid),var(--gold));
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .4s cubic-bezier(.77,0,.18,1);
-}
-.srv-item:hover{
-  transform:translateY(-6px);
-  border-color:var(--border-mid);
-  box-shadow:0 20px 48px rgba(14,30,53,0.1);
-}
-.srv-item:hover::before{transform:scaleX(1)}
-.srv-num{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--subtle);margin-bottom:2rem}
-.srv-icon{
-  width:48px;height:48px;border-radius:12px;
-  background:var(--surface);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;margin-bottom:1.5rem;
-}
-.srv-name{font-family:var(--serif);font-size:1.4rem;font-weight:900;margin-bottom:.6rem;color:var(--ink)}
-.srv-desc{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:1.75rem}
-.srv-tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.stag{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.04em;
-  padding:.25rem .6rem;
-  background:var(--surface);color:var(--mid);
-  border-radius:4px;
-}
+    .marquee-inner {
+      display: inline-flex;
+      animation: mq 22s linear infinite
+    }
 
-/* WHY */
-#why{background:var(--ink);color:var(--bg);padding:8rem 3rem}
-.why-inner{max-width:1400px;margin:0 auto}
-.why-header{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:end;margin-bottom:5rem;
-}
-.why-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(2.5rem,4vw,5rem);
-  line-height:1;letter-spacing:-.03em;
-}
-.why-title em{font-style:normal;color:var(--gold)}
-.why-lead{
-  color:rgba(244,247,251,0.55);line-height:1.8;font-size:1rem;
-  padding-top:1rem;border-top:1px solid rgba(244,247,251,0.1);
-}
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-.why-item{
-  padding:2.5rem 2rem 2.5rem 0;
-  border-right:1px solid rgba(244,247,251,0.08);
-}
-.why-item:last-child{border-right:none;padding-right:0}
-.why-big{
-  font-family:var(--serif);font-weight:900;
-  font-size:3.5rem;color:var(--gold);
-  line-height:1;margin-bottom:.4rem;letter-spacing:-.03em;
-}
-.why-label{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
-  color:rgba(244,247,251,0.35);margin-bottom:.75rem;
-}
-.why-text{font-size:.88rem;color:rgba(244,247,251,0.55);line-height:1.75}
+    .marquee-inner:hover {
+      animation-play-state: paused
+    }
 
-/* PRODUCTS */
-#products{padding:8rem 3rem;max-width:1400px;margin:0 auto}
-.prd-header{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:4rem;flex-wrap:wrap;gap:2rem;
-}
-.prd-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(2.2rem,3.5vw,4rem);
-  line-height:1.05;letter-spacing:-.03em;
-}
-.prd-row{
-  display:grid;grid-template-columns:72px 1fr 1.2fr 220px;
-  align-items:center;gap:2rem;
-  padding:2rem 1.5rem;
-  border-bottom:1px solid var(--border);
-  text-decoration:none;color:inherit;
-  border-radius:8px;
-  transition:background .2s;
-}
-.prd-row:first-child{border-top:1px solid var(--border)}
-.prd-row:hover{background:var(--white)}
-.prd-num{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--subtle)}
-.prd-name{font-family:var(--serif);font-weight:900;font-size:1.7rem;letter-spacing:-.02em;margin-bottom:.25rem;color:var(--ink)}
-.prd-sub{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--subtle)}
-.prd-desc{font-size:.9rem;color:var(--muted);line-height:1.65}
-.prd-right{text-align:right}
-.prd-status{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
-  padding:.3rem .75rem;
-  background:var(--surface);border-radius:20px;
-  margin-bottom:.75rem;color:var(--muted);
-}
-.dot{width:5px;height:5px;border-radius:50%}
-.dot-live{background:#22c55e;box-shadow:0 0 5px #22c55e}
-.dot-dev{background:var(--gold);box-shadow:0 0 5px var(--gold)}
-.prd-links{display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap}
-.plink{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.04em;
-  padding:.35rem .85rem;border-radius:4px;
-  text-decoration:none;transition:background .2s,color .2s;
-}
-.plink-ios{background:var(--ink);color:var(--bg)}
-.plink-ios:hover{background:var(--mid)}
-.plink-and{background:var(--mid);color:var(--white)}
-.plink-and:hover{background:var(--ink)}
-.plink-ghost{
-  background:transparent;color:var(--ink);
-  border:1px solid var(--border-mid);
-}
-.plink-ghost:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+    .mitem {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      color: rgba(244, 247, 251, 0.45);
+      padding: 0 2.5rem;
+      border-right: 1px solid rgba(244, 247, 251, 0.08);
+      flex-shrink: 0;
+    }
 
-/* PROCESS */
-#process{background:var(--surface);padding:8rem 3rem}
-.proc-inner{max-width:1400px;margin:0 auto}
-.proc-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(2.2rem,3.5vw,4rem);
-  line-height:1.05;letter-spacing:-.03em;
-  margin-bottom:4rem;
-}
-.proc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
-.proc-grid::before{
-  content:'';position:absolute;
-  top:28px;left:10%;right:10%;height:1px;
-  background:linear-gradient(90deg,transparent,var(--border-mid),var(--gold),var(--border-mid),transparent);
-}
-.proc-step{padding:0 1.5rem 0 0;position:relative}
-.step-circle{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--white);border:2px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:.8rem;font-weight:700;
-  color:var(--mid);margin-bottom:1.5rem;
-  position:relative;z-index:1;
-  transition:background .3s,border-color .3s;
-}
-.proc-step:hover .step-circle{background:var(--ink);border-color:var(--ink);color:var(--gold)}
-.step-name{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--ink)}
-.step-desc{font-size:.85rem;color:var(--muted);line-height:1.65}
+    .mitem b {
+      color: var(--gold);
+      font-weight: 400
+    }
 
-/* STACK */
-#stack{padding:8rem 3rem;max-width:1400px;margin:0 auto}
-.stk-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(2.2rem,3.5vw,4rem);
-  letter-spacing:-.03em;line-height:1.05;
-  margin-bottom:4rem;
-}
-.stk-groups{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
-.stk-group{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:16px;padding:2rem 1.75rem;
-}
-.stk-gname{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
-  color:var(--mid);margin-bottom:1.25rem;
-  display:flex;align-items:center;gap:.5rem;
-}
-.stk-gname::before{content:'';display:block;width:12px;height:2px;background:var(--gold);border-radius:1px}
-.stk-items{display:flex;flex-direction:column;gap:.5rem}
-.sitem{
-  font-size:.92rem;font-weight:400;color:var(--ink);
-  display:flex;align-items:center;gap:.6rem;
-  padding:.3rem 0;border-bottom:1px solid var(--border);
-}
-.sitem:last-child{border-bottom:none}
-.sitem::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--mid);flex-shrink:0}
+    @keyframes mq {
+      from {
+        transform: translateX(0)
+      }
 
-/* CONTACT */
-#contact{background:var(--ink);color:var(--bg);padding:8rem 3rem}
-.cnt-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
-.cnt-eyebrow{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
-  color:var(--gold);margin-bottom:1.5rem;
-}
-.cnt-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
-.cnt-title{
-  font-family:var(--serif);font-weight:900;
-  font-size:clamp(2.5rem,4vw,5rem);
-  line-height:1;letter-spacing:-.03em;margin-bottom:1.5rem;
-}
-.cnt-title em{font-style:normal;color:var(--gold)}
-.cnt-desc{color:rgba(244,247,251,0.5);line-height:1.85;margin-bottom:2.5rem}
-.cnt-email{
-  font-family:var(--mono);font-size:1rem;
-  color:var(--white);text-decoration:none;letter-spacing:.04em;
-  border-bottom:1px solid rgba(232,184,75,0.4);padding-bottom:4px;
-  transition:color .2s,border-color .2s;
-}
-.cnt-email:hover{color:var(--gold);border-color:var(--gold)}
-.cnt-cards{display:flex;flex-direction:column;gap:.75rem}
-.cnt-card{
-  border:1px solid rgba(244,247,251,0.08);
-  border-radius:12px;padding:1.5rem;
-  transition:border-color .2s,background .2s;
-}
-.cnt-card:hover{border-color:rgba(232,184,75,0.35);background:rgba(232,184,75,0.04)}
-.cc-icon{font-size:1.2rem;margin-bottom:.5rem}
-.cc-title{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:.35rem;color:var(--white)}
-.cc-desc{font-size:.85rem;color:rgba(244,247,251,0.45);line-height:1.65}
+      to {
+        transform: translateX(-50%)
+      }
+    }
 
-/* FOOTER */
-footer{
-  background:rgba(8,14,24,1);
-  padding:2rem 3rem;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:1rem;
-}
-.ft-logo{
-  font-family:var(--serif);font-weight:900;font-size:.95rem;
-  color:var(--bg);display:flex;align-items:center;gap:.5rem;
-}
-.ft-logo-dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
-.ft-links{display:flex;gap:2rem}
-.ft-links a{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
-  color:rgba(244,247,251,0.3);text-decoration:none;transition:color .2s;
-}
-.ft-links a:hover{color:var(--bg)}
-.ft-copy{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:rgba(244,247,251,0.18)}
+    /* SECTION COMMONS */
+    .sec-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .14em;
+      color: var(--mid);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 2.5rem;
+    }
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
-.reveal.visible{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold)
+    }
 
-/* RESPONSIVE */
-@media(max-width:1100px){
-  .srv-grid{grid-template-columns:1fr 1fr}
-  .why-grid{grid-template-columns:1fr 1fr}
-  .why-item{border-bottom:1px solid rgba(244,247,251,0.08);padding-bottom:2rem;margin-bottom:1.5rem}
-  .proc-grid{grid-template-columns:1fr 1fr;gap:2rem}
-  .proc-grid::before{display:none}
-  .stk-groups{grid-template-columns:1fr 1fr}
-  .cnt-inner{grid-template-columns:1fr}
-  .prd-row{grid-template-columns:60px 1fr 200px}
-  .prd-desc{display:none}
-  .hero-cards{display:none}
-  .hero-content{grid-template-columns:1fr}
-  .why-header{grid-template-columns:1fr}
-}
-@media(max-width:768px){
-  nav{padding:1.25rem 1.5rem}
-  .nav-links,.nav-cta{display:none}
-  #hero{padding:7rem 1.5rem 4rem}
-  #services,#products,#why,#stack,#contact,#process{padding:5rem 1.5rem}
-  .srv-grid{grid-template-columns:1fr}
-  .why-grid{grid-template-columns:1fr}
-  .stk-groups{grid-template-columns:1fr}
-  .proc-grid{grid-template-columns:1fr}
-  .prd-row{grid-template-columns:1fr;gap:1rem}
-  .prd-num,.prd-desc{display:none}
-  .prd-right{text-align:left}
-  .hero-stats{gap:2rem}
-  footer{flex-direction:column;text-align:center;padding:2rem 1.5rem}
-  .ft-links{flex-wrap:wrap;justify-content:center}
-}
-</style>
+    /* SERVICES */
+    #services {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .srv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .srv-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(2.2rem, 3.5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+
+    .srv-sub {
+      max-width: 300px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: .95rem
+    }
+
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem
+    }
+
+    .srv-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+    }
+
+    .srv-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--mid), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s cubic-bezier(.77, 0, .18, 1);
+    }
+
+    .srv-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-mid);
+      box-shadow: 0 20px 48px rgba(14, 30, 53, 0.1);
+    }
+
+    .srv-item:hover::before {
+      transform: scaleX(1)
+    }
+
+    .srv-num {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .12em;
+      color: var(--subtle);
+      margin-bottom: 2rem
+    }
+
+    .srv-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .srv-name {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: .6rem;
+      color: var(--ink)
+    }
+
+    .srv-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.75rem
+    }
+
+    .srv-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem
+    }
+
+    .stag {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .04em;
+      padding: .25rem .6rem;
+      background: var(--surface);
+      color: var(--mid);
+      border-radius: 4px;
+    }
+
+    /* WHY */
+    #why {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 8rem 3rem
+    }
+
+    .why-inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .why-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 5rem;
+    }
+
+    .why-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 4vw, 5rem);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+
+    .why-title em {
+      font-style: normal;
+      color: var(--gold)
+    }
+
+    .why-lead {
+      color: rgba(244, 247, 251, 0.55);
+      line-height: 1.8;
+      font-size: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(244, 247, 251, 0.1);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0
+    }
+
+    .why-item {
+      padding: 2.5rem 2rem 2.5rem 0;
+      border-right: 1px solid rgba(244, 247, 251, 0.08);
+    }
+
+    .why-item:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .why-big {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 3.5rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .4rem;
+      letter-spacing: -.03em;
+    }
+
+    .why-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      color: rgba(244, 247, 251, 0.35);
+      margin-bottom: .75rem;
+    }
+
+    .why-text {
+      font-size: .88rem;
+      color: rgba(244, 247, 251, 0.55);
+      line-height: 1.75
+    }
+
+    /* PRODUCTS */
+    #products {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .prd-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .prd-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(2.2rem, 3.5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+
+    .prd-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 1.2fr 220px;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      border-radius: 8px;
+      transition: background .2s;
+    }
+
+    .prd-row:first-child {
+      border-top: 1px solid var(--border)
+    }
+
+    .prd-row:hover {
+      background: var(--white)
+    }
+
+    .prd-num {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      color: var(--subtle)
+    }
+
+    .prd-name {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: 1.7rem;
+      letter-spacing: -.02em;
+      margin-bottom: .25rem;
+      color: var(--ink)
+    }
+
+    .prd-sub {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .06em;
+      color: var(--subtle)
+    }
+
+    .prd-desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.65
+    }
+
+    .prd-right {
+      text-align: right
+    }
+
+    .prd-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: var(--mono);
+      font-size: .66rem;
+      letter-spacing: .08em;
+      padding: .3rem .75rem;
+      background: var(--surface);
+      border-radius: 20px;
+      margin-bottom: .75rem;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%
+    }
+
+    .dot-live {
+      background: #22c55e;
+      box-shadow: 0 0 5px #22c55e
+    }
+
+    .dot-dev {
+      background: var(--gold);
+      box-shadow: 0 0 5px var(--gold)
+    }
+
+    .prd-links {
+      display: flex;
+      gap: .5rem;
+      justify-content: flex-end;
+      flex-wrap: wrap
+    }
+
+    .plink {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .04em;
+      padding: .35rem .85rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+
+    .plink-ios {
+      background: var(--ink);
+      color: var(--bg)
+    }
+
+    .plink-ios:hover {
+      background: var(--mid)
+    }
+
+    .plink-and {
+      background: var(--mid);
+      color: var(--white)
+    }
+
+    .plink-and:hover {
+      background: var(--ink)
+    }
+
+    .plink-ghost {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border-mid);
+    }
+
+    .plink-ghost:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink)
+    }
+
+    /* PROCESS */
+    #process {
+      background: var(--surface);
+      padding: 8rem 3rem
+    }
+
+    .proc-inner {
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .proc-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(2.2rem, 3.5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      margin-bottom: 4rem;
+    }
+
+    .proc-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative
+    }
+
+    .proc-grid::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-mid), var(--gold), var(--border-mid), transparent);
+    }
+
+    .proc-step {
+      padding: 0 1.5rem 0 0;
+      position: relative
+    }
+
+    .step-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      transition: background .3s, border-color .3s;
+    }
+
+    .proc-step:hover .step-circle {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--gold)
+    }
+
+    .step-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+      color: var(--ink)
+    }
+
+    .step-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65
+    }
+
+    /* STACK */
+    #stack {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto
+    }
+
+    .stk-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(2.2rem, 3.5vw, 4rem);
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      margin-bottom: 4rem;
+    }
+
+    .stk-groups {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem
+    }
+
+    .stk-group {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+    }
+
+    .stk-gname {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      color: var(--mid);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .stk-gname::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 1px
+    }
+
+    .stk-items {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem
+    }
+
+    .sitem {
+      font-size: .92rem;
+      font-weight: 400;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .3rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sitem:last-child {
+      border-bottom: none
+    }
+
+    .sitem::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--mid);
+      flex-shrink: 0
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 8rem 3rem
+    }
+
+    .cnt-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start
+    }
+
+    .cnt-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .cnt-eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold)
+    }
+
+    .cnt-title {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 4vw, 5rem);
+      line-height: 1;
+      letter-spacing: -.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .cnt-title em {
+      font-style: normal;
+      color: var(--gold)
+    }
+
+    .cnt-desc {
+      color: rgba(244, 247, 251, 0.5);
+      line-height: 1.85;
+      margin-bottom: 2.5rem
+    }
+
+    .cnt-email {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: .04em;
+      border-bottom: 1px solid rgba(232, 184, 75, 0.4);
+      padding-bottom: 4px;
+      transition: color .2s, border-color .2s;
+    }
+
+    .cnt-email:hover {
+      color: var(--gold);
+      border-color: var(--gold)
+    }
+
+    .cnt-cards {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem
+    }
+
+    .cnt-card {
+      border: 1px solid rgba(244, 247, 251, 0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color .2s, background .2s;
+    }
+
+    .cnt-card:hover {
+      border-color: rgba(232, 184, 75, 0.35);
+      background: rgba(232, 184, 75, 0.04)
+    }
+
+    .cc-icon {
+      font-size: 1.2rem;
+      margin-bottom: .5rem
+    }
+
+    .cc-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .35rem;
+      color: var(--white)
+    }
+
+    .cc-desc {
+      font-size: .85rem;
+      color: rgba(244, 247, 251, 0.45);
+      line-height: 1.65
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(8, 14, 24, 1);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .ft-logo {
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: .95rem;
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .ft-logo-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold)
+    }
+
+    .ft-links {
+      display: flex;
+      gap: 2rem
+    }
+
+    .ft-links a {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .06em;
+      color: rgba(244, 247, 251, 0.3);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .ft-links a:hover {
+      color: var(--bg)
+    }
+
+    .ft-copy {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .04em;
+      color: rgba(244, 247, 251, 0.18)
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s, transform .7s
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none
+    }
+
+    .d1 {
+      transition-delay: .1s
+    }
+
+    .d2 {
+      transition-delay: .2s
+    }
+
+    .d3 {
+      transition-delay: .3s
+    }
+
+    .d4 {
+      transition-delay: .4s
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1100px) {
+      .srv-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .why-item {
+        border-bottom: 1px solid rgba(244, 247, 251, 0.08);
+        padding-bottom: 2rem;
+        margin-bottom: 1.5rem
+      }
+
+      .proc-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem
+      }
+
+      .proc-grid::before {
+        display: none
+      }
+
+      .stk-groups {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .cnt-inner {
+        grid-template-columns: 1fr
+      }
+
+      .prd-row {
+        grid-template-columns: 60px 1fr 200px
+      }
+
+      .prd-desc {
+        display: none
+      }
+
+      .hero-cards {
+        display: none
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr
+      }
+
+      .why-header {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:768px) {
+      nav {
+        padding: 1.25rem 1.5rem
+      }
+
+      .nav-links,
+      .nav-cta {
+        display: none
+      }
+
+      #hero {
+        padding: 7rem 1.5rem 4rem
+      }
+
+      #services,
+      #products,
+      #why,
+      #stack,
+      #contact,
+      #process {
+        padding: 5rem 1.5rem
+      }
+
+      .srv-grid {
+        grid-template-columns: 1fr
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr
+      }
+
+      .stk-groups {
+        grid-template-columns: 1fr
+      }
+
+      .proc-grid {
+        grid-template-columns: 1fr
+      }
+
+      .prd-row {
+        grid-template-columns: 1fr;
+        gap: 1rem
+      }
+
+      .prd-num,
+      .prd-desc {
+        display: none
+      }
+
+      .prd-right {
+        text-align: left
+      }
+
+      .hero-stats {
+        gap: 2rem
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem
+      }
+
+      .ft-links {
+        flex-wrap: wrap;
+        justify-content: center
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-dot"></span>
-    宸鈞數位
-  </a>
-  <ul class="nav-links">
-    <li><a href="#services">服務</a></li>
-    <li><a href="#products">產品</a></li>
-    <li><a href="#process">流程</a></li>
-    <li><a href="#stack">技術</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">立即聯絡</a>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      宸鈞數位
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">服務</a></li>
+      <li><a href="#products">產品</a></li>
+      <li><a href="#process">流程</a></li>
+      <li><a href="#stack">技術</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">立即聯絡</a>
+  </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-content">
-    <div class="hero-left">
-      <p class="hero-eyebrow">CHEN-JUN DIGITAL · 台北 · 2026</p>
-      <h1 class="hero-title">
-        <span class="line">我們</span>
-        <span class="line"><span class="hl">打造軟體</span></span>
-        <span class="line outline">也用軟體</span>
-        <span class="line">改變產業</span>
-      </h1>
-      <div class="hero-stats">
-        <span class="hero-tag">外包開發</span>
-        <span class="hero-tag">QA 測試</span>
-        <span class="hero-tag">數位轉型</span>
-        <span class="hero-tag">自有產品</span>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <p class="hero-eyebrow">CHEN-JUN DIGITAL · 台北 · 2026</p>
+        <h1 class="hero-title">
+          <span class="line">我們</span>
+          <span class="line"><span class="hl">打造軟體</span></span>
+          <span class="line outline">也用軟體</span>
+          <span class="line">改變產業</span>
+        </h1>
+        <div class="hero-stats">
+          <span class="hero-tag">外包開發</span>
+          <span class="hero-tag">QA 測試</span>
+          <span class="hero-tag">數位轉型</span>
+          <span class="hero-tag">自有產品</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <p class="hero-desc">
+          外包開發、外包測試、自有產品——<br>
+          從新創到傳統產業，我們用技術把你的想法<br>變成真實可用的產品。<br><br>
+          不只是寫程式，我們是你的技術夥伴。
+        </p>
+        <div class="hero-btns">
+          <a href="#services" class="btn btn-fill">看我們做什麼</a>
+          <a href="#contact" class="btn btn-outline">立即聯絡</a>
+        </div>
+
       </div>
     </div>
-    <div class="hero-right">
-      <p class="hero-desc">
-        外包開發、外包測試、自有產品——<br>
-        從新創到傳統產業，我們用技術把你的想法<br>變成真實可用的產品。<br><br>
-        不只是寫程式，我們是你的技術夥伴。
-      </p>
-      <div class="hero-btns">
-        <a href="#services" class="btn btn-fill">看我們做什麼</a>
-        <a href="#contact" class="btn btn-outline">立即聯絡</a>
-      </div>
+  </section>
 
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span class="mitem">外包開發 <b>·</b> OUTSOURCE DEV</span>
+      <span class="mitem">外包測試 <b>·</b> QA TESTING</span>
+      <span class="mitem">Flutter <b>·</b> Firebase</span>
+      <span class="mitem">吃吃帖 <b>·</b> CHICHITIE</span>
+      <span class="mitem">別扣我 <b>·</b> NOKOU</span>
+      <span class="mitem">叫車媒合 <b>·</b> TAXI DISPATCH</span>
+      <span class="mitem">LINE LIFF <b>·</b> Next.js</span>
+      <span class="mitem">數位轉型 <b>·</b> DIGITAL TRANSFORM</span>
+      <span class="mitem">外包開發 <b>·</b> OUTSOURCE DEV</span>
+      <span class="mitem">外包測試 <b>·</b> QA TESTING</span>
+      <span class="mitem">Flutter <b>·</b> Firebase</span>
+      <span class="mitem">吃吃帖 <b>·</b> CHICHITIE</span>
+      <span class="mitem">別扣我 <b>·</b> NOKOU</span>
+      <span class="mitem">叫車媒合 <b>·</b> TAXI DISPATCH</span>
+      <span class="mitem">LINE LIFF <b>·</b> Next.js</span>
+      <span class="mitem">數位轉型 <b>·</b> DIGITAL TRANSFORM</span>
     </div>
   </div>
-</section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="mitem">外包開發 <b>·</b> OUTSOURCE DEV</span>
-    <span class="mitem">外包測試 <b>·</b> QA TESTING</span>
-    <span class="mitem">Flutter <b>·</b> Firebase</span>
-    <span class="mitem">吃吃帖 <b>·</b> CHICHITIE</span>
-    <span class="mitem">別扣我 <b>·</b> NOKOU</span>
-    <span class="mitem">叫車媒合 <b>·</b> TAXI DISPATCH</span>
-    <span class="mitem">LINE LIFF <b>·</b> Next.js</span>
-    <span class="mitem">數位轉型 <b>·</b> DIGITAL TRANSFORM</span>
-    <span class="mitem">外包開發 <b>·</b> OUTSOURCE DEV</span>
-    <span class="mitem">外包測試 <b>·</b> QA TESTING</span>
-    <span class="mitem">Flutter <b>·</b> Firebase</span>
-    <span class="mitem">吃吃帖 <b>·</b> CHICHITIE</span>
-    <span class="mitem">別扣我 <b>·</b> NOKOU</span>
-    <span class="mitem">叫車媒合 <b>·</b> TAXI DISPATCH</span>
-    <span class="mitem">LINE LIFF <b>·</b> Next.js</span>
-    <span class="mitem">數位轉型 <b>·</b> DIGITAL TRANSFORM</span>
-  </div>
-</div>
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="srv-header reveal">
+      <div>
+        <div class="sec-label">01 · 我們的服務</div>
+        <h2 class="srv-title">你需要的，<br>我們都做</h2>
+      </div>
+      <p class="srv-sub">從 App 開發到系統測試，提供完整的軟體外包服務，讓你專注在核心業務。</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv-item reveal">
+        <div class="srv-num">001 · 外包開發</div>
+        <div class="srv-icon">⚙️</div>
+        <h3 class="srv-name">軟體委託開發</h3>
+        <p class="srv-desc">從需求訪談、系統設計到交付上線，提供全程技術支援。擅長行動 App、後台系統、LINE 生態整合。</p>
+        <div class="srv-tags">
+          <span class="stag">iOS App</span><span class="stag">Android App</span>
+          <span class="stag">後台系統</span><span class="stag">LINE Bot</span><span class="stag">LIFF</span>
+        </div>
+      </div>
+      <div class="srv-item reveal d1">
+        <div class="srv-num">002 · 外包測試</div>
+        <div class="srv-icon">🧪</div>
+        <h3 class="srv-name">QA 品質測試</h3>
+        <p class="srv-desc">已有產品但缺乏測試資源？提供功能測試、自動化測試、上架前全面驗收，確保品質穩定交付。</p>
+        <div class="srv-tags">
+          <span class="stag">功能測試</span><span class="stag">自動化測試</span>
+          <span class="stag">壓力測試</span><span class="stag">上架審核</span><span class="stag">Bug Report</span>
+        </div>
+      </div>
+      <div class="srv-item reveal d2">
+        <div class="srv-num">003 · 數位轉型</div>
+        <div class="srv-icon">🔄</div>
+        <h3 class="srv-name">傳統產業數位化</h3>
+        <p class="srv-desc">計程車隊、餐飲、物流——我們了解台灣傳統產業，幫你打造真正能用、員工也願意用的數位工具。</p>
+        <div class="srv-tags">
+          <span class="stag">系統規劃</span><span class="stag">流程自動化</span>
+          <span class="stag">雲端導入</span><span class="stag">LINE 整合</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- SERVICES -->
-<section id="services">
-  <div class="srv-header reveal">
+  <!-- WHY -->
+  <section id="why">
+    <div class="why-inner">
+      <div class="why-header reveal">
+        <h2 class="why-title">為什麼選<em>宸鈞</em>，<br>不選別人？</h2>
+        <p class="why-lead">我們不只是外包商——自己也做產品、自己也走過上架流程，所以我們真的懂你在面對什麼。</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <div class="why-big">3+</div>
+          <div class="why-label">自有產品上線</div>
+          <div class="why-text">我們自己也做產品，懂得從用戶角度思考，不只是按規格寫程式。</div>
+        </div>
+        <div class="why-item reveal d1">
+          <div class="why-big">2</div>
+          <div class="why-label">雙平台上架經驗</div>
+          <div class="why-text">App Store + Google Play 審核流程熟悉，減少你在上架卡關的時間成本。</div>
+        </div>
+        <div class="why-item reveal d2">
+          <div class="why-big">全端</div>
+          <div class="why-label">技術能力覆蓋</div>
+          <div class="why-text">從 Flutter App 到 Next.js 後台、Firebase 雲端，一個團隊搞定全部。</div>
+        </div>
+        <div class="why-item reveal d3">
+          <div class="why-big">直接</div>
+          <div class="why-label">溝通方式</div>
+          <div class="why-text">沒有業務層、沒有傳話。你直接和工程師溝通，需求不失真，進度透明。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="prd-header reveal">
+      <div>
+        <div class="sec-label">02 · 自有產品</div>
+        <h2 class="prd-title">我們自己<br>也做產品</h2>
+      </div>
+      <p class="srv-sub" style="color:var(--muted)">每一個自有產品，都是我們對某個真實問題的答案。</p>
+    </div>
     <div>
-      <div class="sec-label">01 · 我們的服務</div>
-      <h2 class="srv-title">你需要的，<br>我們都做</h2>
-    </div>
-    <p class="srv-sub">從 App 開發到系統測試，提供完整的軟體外包服務，讓你專注在核心業務。</p>
-  </div>
-  <div class="srv-grid">
-    <div class="srv-item reveal">
-      <div class="srv-num">001 · 外包開發</div>
-      <div class="srv-icon">⚙️</div>
-      <h3 class="srv-name">軟體委託開發</h3>
-      <p class="srv-desc">從需求訪談、系統設計到交付上線，提供全程技術支援。擅長行動 App、後台系統、LINE 生態整合。</p>
-      <div class="srv-tags">
-        <span class="stag">iOS App</span><span class="stag">Android App</span>
-        <span class="stag">後台系統</span><span class="stag">LINE Bot</span><span class="stag">LIFF</span>
+      <div class="prd-row reveal">
+        <div class="prd-num">001</div>
+        <div>
+          <div class="prd-name">吃吃帖</div>
+          <div class="prd-sub">CHICHITIE · 美食社群 App</div>
+        </div>
+        <div class="prd-desc">以地圖為核心的美食分享平台。探索附近真實食記，發現巷弄裡值得一去的好店。Flutter 開發，iOS + Android 雙平台上架。</div>
+        <div class="prd-right">
+          <div class="prd-status"><span class="dot dot-live"></span>已上架</div>
+          <div class="prd-links">
+            <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443" class="plink plink-ios"
+              target="_blank">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=com.antigravity.foodie_map" class="plink plink-and"
+              target="_blank">Google Play</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="srv-item reveal d1">
-      <div class="srv-num">002 · 外包測試</div>
-      <div class="srv-icon">🧪</div>
-      <h3 class="srv-name">QA 品質測試</h3>
-      <p class="srv-desc">已有產品但缺乏測試資源？提供功能測試、自動化測試、上架前全面驗收，確保品質穩定交付。</p>
-      <div class="srv-tags">
-        <span class="stag">功能測試</span><span class="stag">自動化測試</span>
-        <span class="stag">壓力測試</span><span class="stag">上架審核</span><span class="stag">Bug Report</span>
+      <div class="prd-row reveal">
+        <div class="prd-num">002</div>
+        <div>
+          <div class="prd-name">別扣我</div>
+          <div class="prd-sub">NOKOU · 行車安全 App</div>
+        </div>
+        <div class="prd-desc">專為台灣駕駛設計的即時超速預警 App。自動偵測道路速限、語音提醒、Apple CarPlay 整合，Dynamic Island 即時顯示。</div>
+        <div class="prd-right">
+          <div class="prd-status"><span class="dot dot-live"></span>已上架</div>
+          <div class="prd-links">
+            <a href="https://apps.apple.com/tw/app/%E5%88%A5%E6%89%A3%E6%88%91-%E4%BD%A0%E7%9A%84%E8%A1%8C%E5%8B%95%E5%84%80%E8%A1%A8%E6%9D%BF/id6758271584"
+              class="plink plink-ios" target="_blank">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=com.minikao.speed_defense_system"
+              class="plink plink-and" target="_blank">Google Play</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="srv-item reveal d2">
-      <div class="srv-num">003 · 數位轉型</div>
-      <div class="srv-icon">🔄</div>
-      <h3 class="srv-name">傳統產業數位化</h3>
-      <p class="srv-desc">計程車隊、餐飲、物流——我們了解台灣傳統產業，幫你打造真正能用、員工也願意用的數位工具。</p>
-      <div class="srv-tags">
-        <span class="stag">系統規劃</span><span class="stag">流程自動化</span>
-        <span class="stag">雲端導入</span><span class="stag">LINE 整合</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY -->
-<section id="why">
-  <div class="why-inner">
-    <div class="why-header reveal">
-      <h2 class="why-title">為什麼選<em>宸鈞</em>，<br>不選別人？</h2>
-      <p class="why-lead">我們不只是外包商——自己也做產品、自己也走過上架流程，所以我們真的懂你在面對什麼。</p>
-    </div>
-    <div class="why-grid">
-      <div class="why-item reveal">
-        <div class="why-big">3+</div>
-        <div class="why-label">自有產品上線</div>
-        <div class="why-text">我們自己也做產品，懂得從用戶角度思考，不只是按規格寫程式。</div>
-      </div>
-      <div class="why-item reveal d1">
-        <div class="why-big">2</div>
-        <div class="why-label">雙平台上架經驗</div>
-        <div class="why-text">App Store + Google Play 審核流程熟悉，減少你在上架卡關的時間成本。</div>
-      </div>
-      <div class="why-item reveal d2">
-        <div class="why-big">全端</div>
-        <div class="why-label">技術能力覆蓋</div>
-        <div class="why-text">從 Flutter App 到 Next.js 後台、Firebase 雲端，一個團隊搞定全部。</div>
-      </div>
-      <div class="why-item reveal d3">
-        <div class="why-big">直接</div>
-        <div class="why-label">溝通方式</div>
-        <div class="why-text">沒有業務層、沒有傳話。你直接和工程師溝通，需求不失真，進度透明。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCTS -->
-<section id="products">
-  <div class="prd-header reveal">
-    <div>
-      <div class="sec-label">02 · 自有產品</div>
-      <h2 class="prd-title">我們自己<br>也做產品</h2>
-    </div>
-    <p class="srv-sub" style="color:var(--muted)">每一個自有產品，都是我們對某個真實問題的答案。</p>
-  </div>
-  <div>
-    <div class="prd-row reveal">
-      <div class="prd-num">001</div>
-      <div>
-        <div class="prd-name">吃吃帖</div>
-        <div class="prd-sub">CHICHITIE · 美食社群 App</div>
-      </div>
-      <div class="prd-desc">以地圖為核心的美食分享平台。探索附近真實食記，發現巷弄裡值得一去的好店。Flutter 開發，iOS + Android 雙平台上架。</div>
-      <div class="prd-right">
-        <div class="prd-status"><span class="dot dot-live"></span>已上架</div>
-        <div class="prd-links">
-          <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443" class="plink plink-ios" target="_blank">App Store</a>
-          <a href="https://play.google.com/store/apps/details?id=com.antigravity.foodie_map" class="plink plink-and" target="_blank">Google Play</a>
+      <div class="prd-row reveal">
+        <div class="prd-num">003</div>
+        <div>
+          <div class="prd-name">叫車媒合平台</div>
+          <div class="prd-sub">TAXI DISPATCH · 車隊管理系統</div>
+        </div>
+        <div class="prd-desc">從乘客叫車到車隊管理的一站式解決方案。LINE 整合叫車、即時 GPS 派單、跳表計費，SaaS 與買斷兩種授權。</div>
+        <div class="prd-right">
+          <div class="prd-status"><span class="dot dot-dev"></span>開發中</div>
+          <div class="prd-links">
+            <a href="#contact" class="plink plink-ghost">洽詢合作</a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="prd-row reveal">
-      <div class="prd-num">002</div>
-      <div>
-        <div class="prd-name">別扣我</div>
-        <div class="prd-sub">NOKOU · 行車安全 App</div>
-      </div>
-      <div class="prd-desc">專為台灣駕駛設計的即時超速預警 App。自動偵測道路速限、語音提醒、Apple CarPlay 整合，Dynamic Island 即時顯示。</div>
-      <div class="prd-right">
-        <div class="prd-status"><span class="dot dot-live"></span>已上架</div>
-        <div class="prd-links">
-          <a href="https://apps.apple.com/tw/app/%E5%88%A5%E6%89%A3%E6%88%91-%E4%BD%A0%E7%9A%84%E8%A1%8C%E5%8B%95%E5%84%80%E8%A1%A8%E6%9D%BF/id6758271584" class="plink plink-ios" target="_blank">App Store</a>
-          <a href="https://play.google.com/store/apps/details?id=com.minikao.speed_defense_system" class="plink plink-and" target="_blank">Google Play</a>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="proc-inner">
+      <div class="sec-label reveal">03 · 合作流程</div>
+      <h2 class="proc-title reveal">從想法到上線<br>五個步驟</h2>
+      <div class="proc-grid">
+        <div class="proc-step reveal">
+          <div class="step-circle">01</div>
+          <div class="step-name">需求訪談</div>
+          <div class="step-desc">深入了解你的業務場景與痛點，確認目標用戶和核心功能優先順序。</div>
+        </div>
+        <div class="proc-step reveal d1">
+          <div class="step-circle">02</div>
+          <div class="step-name">系統規劃</div>
+          <div class="step-desc">設計技術架構、資料結構與 API 規格，提供詳細開發報價與時程。</div>
+        </div>
+        <div class="proc-step reveal d2">
+          <div class="step-circle">03</div>
+          <div class="step-name">迭代開發</div>
+          <div class="step-desc">以兩週為一個 sprint，定期 Demo，確保開發方向與你的期望一致。</div>
+        </div>
+        <div class="proc-step reveal d3">
+          <div class="step-circle">04</div>
+          <div class="step-name">測試驗收</div>
+          <div class="step-desc">功能測試、壓力測試、上架審核前全面 QA，確保產品穩定交付。</div>
+        </div>
+        <div class="proc-step reveal d4">
+          <div class="step-circle">05</div>
+          <div class="step-name">上線維護</div>
+          <div class="step-desc">協助部署上線、雙平台送審，提供上線後維護支援。</div>
         </div>
       </div>
     </div>
-    <div class="prd-row reveal">
-      <div class="prd-num">003</div>
-      <div>
-        <div class="prd-name">叫車媒合平台</div>
-        <div class="prd-sub">TAXI DISPATCH · 車隊管理系統</div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="sec-label reveal">04 · 技術棧</div>
+    <h2 class="stk-title reveal">我們用什麼<br>把它打造出來</h2>
+    <div class="stk-groups">
+      <div class="stk-group reveal">
+        <div class="stk-gname">行動開發</div>
+        <div class="stk-items">
+          <div class="sitem">Flutter / Dart</div>
+          <div class="sitem">iOS (Swift)</div>
+          <div class="sitem">Android (Kotlin)</div>
+          <div class="sitem">CarPlay / Android Auto</div>
+          <div class="sitem">WidgetKit / Dynamic Island</div>
+        </div>
       </div>
-      <div class="prd-desc">從乘客叫車到車隊管理的一站式解決方案。LINE 整合叫車、即時 GPS 派單、跳表計費，SaaS 與買斷兩種授權。</div>
-      <div class="prd-right">
-        <div class="prd-status"><span class="dot dot-dev"></span>開發中</div>
-        <div class="prd-links">
-          <a href="#contact" class="plink plink-ghost">洽詢合作</a>
+      <div class="stk-group reveal d1">
+        <div class="stk-gname">後端與雲端</div>
+        <div class="stk-items">
+          <div class="sitem">Firebase Firestore</div>
+          <div class="sitem">Cloud Functions</div>
+          <div class="sitem">Firebase Auth / FCM</div>
+          <div class="sitem">Next.js / React</div>
+          <div class="sitem">Vercel / Cloud Run</div>
+        </div>
+      </div>
+      <div class="stk-group reveal d2">
+        <div class="stk-gname">整合與 API</div>
+        <div class="stk-items">
+          <div class="sitem">LINE LIFF / Messaging API</div>
+          <div class="sitem">Google Maps API</div>
+          <div class="sitem">OpenStreetMap (OSM)</div>
+          <div class="sitem">Mapbox Directions</div>
+          <div class="sitem">RevenueCat IAP</div>
+        </div>
+      </div>
+      <div class="stk-group reveal d3">
+        <div class="stk-gname">測試與部署</div>
+        <div class="stk-items">
+          <div class="sitem">GitHub Actions CI/CD</div>
+          <div class="sitem">Firebase App Distribution</div>
+          <div class="sitem">TestFlight</div>
+          <div class="sitem">Pytest / Appium</div>
+          <div class="sitem">Firestore Security Rules</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROCESS -->
-<section id="process">
-  <div class="proc-inner">
-    <div class="sec-label reveal">03 · 合作流程</div>
-    <h2 class="proc-title reveal">從想法到上線<br>五個步驟</h2>
-    <div class="proc-grid">
-      <div class="proc-step reveal">
-        <div class="step-circle">01</div>
-        <div class="step-name">需求訪談</div>
-        <div class="step-desc">深入了解你的業務場景與痛點，確認目標用戶和核心功能優先順序。</div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="cnt-inner">
+      <div class="reveal">
+        <div class="cnt-eyebrow">05 · 聯絡我們</div>
+        <h2 class="cnt-title">有想法？<br>來找<em>我們</em><br>聊聊。</h2>
+        <p class="cnt-desc">無論是外包開發、QA 測試、或是想了解叫車系統方案，歡迎直接寄信，我們一個工作天內回覆。</p>
+        <a href="mailto:kao273183@gmail.com" class="cnt-email">kao273183@gmail.com</a>
       </div>
-      <div class="proc-step reveal d1">
-        <div class="step-circle">02</div>
-        <div class="step-name">系統規劃</div>
-        <div class="step-desc">設計技術架構、資料結構與 API 規格，提供詳細開發報價與時程。</div>
-      </div>
-      <div class="proc-step reveal d2">
-        <div class="step-circle">03</div>
-        <div class="step-name">迭代開發</div>
-        <div class="step-desc">以兩週為一個 sprint，定期 Demo，確保開發方向與你的期望一致。</div>
-      </div>
-      <div class="proc-step reveal d3">
-        <div class="step-circle">04</div>
-        <div class="step-name">測試驗收</div>
-        <div class="step-desc">功能測試、壓力測試、上架審核前全面 QA，確保產品穩定交付。</div>
-      </div>
-      <div class="proc-step reveal d4">
-        <div class="step-circle">05</div>
-        <div class="step-name">上線維護</div>
-        <div class="step-desc">協助部署上線、雙平台送審，提供上線後維護支援。</div>
+      <div class="cnt-cards reveal d1">
+        <div class="cnt-card">
+          <div class="cc-icon">💬</div>
+          <div class="cc-title">外包開發詢問</div>
+          <div class="cc-desc">有 App、後台、LINE Bot 的開發需求？告訴我們你的想法和預算，我們提供免費評估。</div>
+        </div>
+        <div class="cnt-card">
+          <div class="cc-icon">🧪</div>
+          <div class="cc-title">QA 測試服務</div>
+          <div class="cc-desc">已有產品但測試資源不足？提供一次性或長期 QA 外包方案，靈活配合你的發布節奏。</div>
+        </div>
+        <div class="cnt-card">
+          <div class="cc-icon">🚕</div>
+          <div class="cc-title">叫車系統合作</div>
+          <div class="cc-desc">計程車行或車隊有數位化需求？標準版買斷或總站版 SaaS，歡迎洽詢。</div>
+        </div>
+        <div class="cnt-card">
+          <div class="cc-icon">🔄</div>
+          <div class="cc-title">數位轉型諮詢</div>
+          <div class="cc-desc">傳統產業想導入數位工具？提供免費一小時需求諮詢，找到最適合的切入點。</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- STACK -->
-<section id="stack">
-  <div class="sec-label reveal">04 · 技術棧</div>
-  <h2 class="stk-title reveal">我們用什麼<br>把它打造出來</h2>
-  <div class="stk-groups">
-    <div class="stk-group reveal">
-      <div class="stk-gname">行動開發</div>
-      <div class="stk-items">
-        <div class="sitem">Flutter / Dart</div>
-        <div class="sitem">iOS (Swift)</div>
-        <div class="sitem">Android (Kotlin)</div>
-        <div class="sitem">CarPlay / Android Auto</div>
-        <div class="sitem">WidgetKit / Dynamic Island</div>
-      </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="ft-logo"><span class="ft-logo-dot"></span>宸鈞數位 · CHEN-JUN DIGITAL</div>
+    <div class="ft-links">
+      <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443" target="_blank">吃吃帖</a>
+      <a href="https://apps.apple.com/tw/app/%E5%88%A5%E6%89%A3%E6%88%91-%E4%BD%A0%E7%9A%84%E8%A1%8C%E5%8B%95%E5%84%80%E8%A1%A8%E6%9D%BF/id6758271584"
+        target="_blank">別扣我 iOS</a>
+      <a href="https://play.google.com/store/apps/details?id=com.minikao.speed_defense_system" target="_blank">別扣我
+        Android</a>
+      <a href="#contact">聯絡我們</a>
     </div>
-    <div class="stk-group reveal d1">
-      <div class="stk-gname">後端與雲端</div>
-      <div class="stk-items">
-        <div class="sitem">Firebase Firestore</div>
-        <div class="sitem">Cloud Functions</div>
-        <div class="sitem">Firebase Auth / FCM</div>
-        <div class="sitem">Next.js / React</div>
-        <div class="sitem">Vercel / Cloud Run</div>
-      </div>
-    </div>
-    <div class="stk-group reveal d2">
-      <div class="stk-gname">整合與 API</div>
-      <div class="stk-items">
-        <div class="sitem">LINE LIFF / Messaging API</div>
-        <div class="sitem">Google Maps API</div>
-        <div class="sitem">OpenStreetMap (OSM)</div>
-        <div class="sitem">Mapbox Directions</div>
-        <div class="sitem">RevenueCat IAP</div>
-      </div>
-    </div>
-    <div class="stk-group reveal d3">
-      <div class="stk-gname">測試與部署</div>
-      <div class="stk-items">
-        <div class="sitem">GitHub Actions CI/CD</div>
-        <div class="sitem">Firebase App Distribution</div>
-        <div class="sitem">TestFlight</div>
-        <div class="sitem">Pytest / Appium</div>
-        <div class="sitem">Firestore Security Rules</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="ft-copy">© 2026 宸鈞數位有限公司 · 台北市大同區赤峰街</div>
+  </footer>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="cnt-inner">
-    <div class="reveal">
-      <div class="cnt-eyebrow">05 · 聯絡我們</div>
-      <h2 class="cnt-title">有想法？<br>來找<em>我們</em><br>聊聊。</h2>
-      <p class="cnt-desc">無論是外包開發、QA 測試、或是想了解叫車系統方案，歡迎直接寄信，我們一個工作天內回覆。</p>
-      <a href="mailto:kao273183@gmail.com" class="cnt-email">kao273183@gmail.com</a>
-    </div>
-    <div class="cnt-cards reveal d1">
-      <div class="cnt-card">
-        <div class="cc-icon">💬</div>
-        <div class="cc-title">外包開發詢問</div>
-        <div class="cc-desc">有 App、後台、LINE Bot 的開發需求？告訴我們你的想法和預算，我們提供免費評估。</div>
-      </div>
-      <div class="cnt-card">
-        <div class="cc-icon">🧪</div>
-        <div class="cc-title">QA 測試服務</div>
-        <div class="cc-desc">已有產品但測試資源不足？提供一次性或長期 QA 外包方案，靈活配合你的發布節奏。</div>
-      </div>
-      <div class="cnt-card">
-        <div class="cc-icon">🚕</div>
-        <div class="cc-title">叫車系統合作</div>
-        <div class="cc-desc">計程車行或車隊有數位化需求？標準版買斷或總站版 SaaS，歡迎洽詢。</div>
-      </div>
-      <div class="cnt-card">
-        <div class="cc-icon">🔄</div>
-        <div class="cc-title">數位轉型諮詢</div>
-        <div class="cc-desc">傳統產業想導入數位工具？提供免費一小時需求諮詢，找到最適合的切入點。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="ft-logo"><span class="ft-logo-dot"></span>宸鈞數位 · CHEN-JUN DIGITAL</div>
-  <div class="ft-links">
-    <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443" target="_blank">吃吃帖</a>
-    <a href="https://apps.apple.com/tw/app/%E5%88%A5%E6%89%A3%E6%88%91-%E4%BD%A0%E7%9A%84%E8%A1%8C%E5%8B%95%E5%84%80%E8%A1%A8%E6%9D%BF/id6758271584" target="_blank">別扣我 iOS</a>
-    <a href="https://play.google.com/store/apps/details?id=com.minikao.speed_defense_system" target="_blank">別扣我 Android</a>
-    <a href="#contact">聯絡我們</a>
-  </div>
-  <div class="ft-copy">© 2026 宸鈞數位有限公司 · 台北市大同區赤峰街</div>
-</footer>
-
-<script>
-const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cursor.style.left=mx+'px';cursor.style.top=my+'px';
-});
-(function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
-document.querySelectorAll('a,button,.srv-item,.prd-row,.cnt-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
-  el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
-});
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+  <script>
+    const cursor = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    });
+    (function animRing() { rx += (mx - rx) * .1; ry += (my - ry) * .1; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing) })();
+    document.querySelectorAll('a,button,.srv-item,.prd-row,.cnt-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }), { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
 </body>
+
 </html>
