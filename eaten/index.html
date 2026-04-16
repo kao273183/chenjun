@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">吃吃帖 Eaten - 你的美食地圖</title>
+    <link rel="icon" type="image/png" href="assets/app_icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Inter:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6006600875700960"
+        crossorigin="anonymous"></script>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="不再煩惱吃什麼！「吃吃帖」為你精選每日美食，探索附近好店，記錄你的美食足跡。立即下載 iOS 與 Android App。">
+    <meta name="keywords" content="美食地圖, 餐廳推薦, 隱藏美食, 吃吃帖, Eaten, ChiChiTie, 台灣美食, 美食日記, Foodie Map">
+    <meta name="author" content="ChiChiTie Team">
+    <link rel="canonical" href="https://kao273183.github.io/Eaten/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kao273183.github.io/Eaten/">
+    <meta property="og:title" content="吃吃帖 Eaten - 你的美食地圖">
+    <meta property="og:description" content="不再煩惱吃什麼！「吃吃帖」為你精選每日美食，探索附近好店，記錄你的美食足跡。">
+    <meta property="og:image" content="https://kao273183.github.io/Eaten/assets/app_icon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://kao273183.github.io/Eaten/">
+    <meta property="twitter:title" content="吃吃帖 Eaten - 你的美食地圖">
+    <meta property="twitter:description" content="不再煩惱吃什麼！「吃吃帖」為你精選每日美食，探索附近好店，記錄你的美食足跡。">
+    <meta property="twitter:image" content="https://kao273183.github.io/Eaten/assets/app_icon.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "吃吃帖 Eaten",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "Food & DrinkApplication",
+      "image": "https://kao273183.github.io/Eaten/assets/app_icon.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "TWD"
+      },
+      "downloadUrl": "https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443",
+      "featureList": "每日精選美食, 附近好店推薦, 美食足跡記錄, 社群分享",
+      "author": {
+          "@type": "Organization",
+          "name": "ChiChiTie Team"
+      }
+    }
+    </script>
+    <style>
+        .lang-switch {
+            margin-left: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-color, #3D2B1F);
+            border: 1px solid #d9c5b8;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .lang-switch:hover {
+            background-color: #F9F2EA;
+            color: #E8695A;
+            border-color: #E8695A;
+        }
+
+        [data-theme="dark"] .lang-switch {
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        [data-theme="dark"] .lang-switch:hover {
+            background-color: #2A201B;
+            border-color: #E8695A;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="assets/app_icon.png" alt="Eaten Logo"> <span data-i18n="app_name">吃吃帖</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features" data-i18n="nav_features">功能介紹</a>
+                    <a href="#guide" data-i18n="nav_guide">使用教學</a>
+                    <a href="#faq" data-i18n="nav_faq">常見問題</a>
+                    <a href="#download" class="btn-primary" data-i18n="nav_download">立即下載</a>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button id="langToggle" class="lang-switch" data-lang-toggle>EN / 中</button>
+                </div>
+                <div class="nav-mobile-lang">
+                    <button class="hamburger" id="hamburger" aria-label="開啟選單" aria-expanded="false">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <button id="themeToggleMobile" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button class="lang-switch mobile-only" data-lang-toggle>EN / 中</button>
+                </div>
+            </nav>
+        </div>
+        <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+            <div class="container">
+                <a href="#features" class="mobile-nav-link" data-i18n="nav_features">功能介紹</a>
+                <a href="#guide" class="mobile-nav-link" data-i18n="nav_guide">使用教學</a>
+                <a href="#faq" class="mobile-nav-link" data-i18n="nav_faq">常見問題</a>
+                <a href="#download" class="mobile-nav-link mobile-cta" data-i18n="nav_download">立即下載</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="food-floats" aria-hidden="true">
+            <span class="ff" style="left:4%;top:18%;--t:5s;--d:0s">🍜</span>
+            <span class="ff" style="left:7%;top:72%;--t:6.5s;--d:1.2s">🍣</span>
+            <span class="ff" style="left:91%;top:22%;--t:4.5s;--d:0.6s">🧋</span>
+            <span class="ff" style="left:87%;top:68%;--t:7s;--d:2s">🍔</span>
+            <span class="ff" style="left:48%;top:6%;--t:5.5s;--d:1.8s">🌮</span>
+            <span class="ff" style="left:30%;top:88%;--t:6s;--d:3s">🍰</span>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1 data-i18n="hero_title">探索城市中的<br><span class="highlight">隱藏美食</span></h1>
+                <p data-i18n="hero_subtitle">不再煩惱吃什麼！「吃吃帖」為你精選每日美食，探索附近好店，記錄你的美食足跡。</p>
+                <div class="cta-buttons">
+                    <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443"
+                        class="badge-link" target="_blank">
+                        <img src="assets/badge_appstore.svg" alt="Download on the App Store" class="store-badge">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.antigravity.foodie_map"
+                        class="badge-link" target="_blank">
+                        <img src="assets/badge_googleplay.png" alt="Get it on Google Play" class="store-badge googleplay">
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-carousel">
+                    <div class="phone-frame" id="phoneFrame">
+                        <div class="carousel-track" id="carouselTrack">
+                            <img class="carousel-slide active" src="assets/app_screen_1.png" alt="App Screenshot 1">
+                            <img class="carousel-slide" src="assets/app_screen_2.png" alt="App Screenshot 2">
+                            <img class="carousel-slide" src="assets/app_screen_3.png" alt="App Screenshot 3">
+                        </div>
+                    </div>
+                    <div class="carousel-dots" id="carouselDots">
+                        <span class="dot active" data-index="0"></span>
+                        <span class="dot" data-index="1"></span>
+                        <span class="dot" data-index="2"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item" data-animate data-animate-delay="0">
+                    <div class="stat-value">
+                        <span class="stat-number" data-target="100">0</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <p class="stat-label" data-i18n="statsUsers">活躍用戶</p>
+                </div>
+                <div class="stat-item" data-animate data-animate-delay="100">
+                    <div class="stat-value">
+                        <span class="stat-number" data-target="500">0</span>
+                        <span class="stat-suffix">+</span>
+                    </div>
+                    <p class="stat-label" data-i18n="statsPosts">美食貼文</p>
+                </div>
+                <div class="stat-item" data-animate data-animate-delay="200">
+                    <div class="stat-value">
+                        <span class="stat-number" data-target="22">0</span>
+                        <span class="stat-suffix"></span>
+                    </div>
+                    <p class="stat-label" data-i18n="statsCities">縣市覆蓋</p>
+                </div>
+                <div class="stat-item" data-animate data-animate-delay="300">
+                    <div class="stat-value">
+                        <span class="stat-number" data-target="4.8" data-decimals="1">0</span>
+                        <span class="stat-suffix">★</span>
+                    </div>
+                    <p class="stat-label" data-i18n="statsRating">平均評分</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 data-animate data-i18n="features_title">為什麼選擇吃吃帖？</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-animate data-animate-delay="0">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <h3 data-i18n="feature_1_title">今日精選</h3>
+                    <p data-i18n="feature_1_desc">每日推薦 5 家精選美食，左滑跳過、右滑收藏，輕鬆決定下一餐。</p>
+                </div>
+                <div class="feature-card" data-animate data-animate-delay="100">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h3 data-i18n="feature_2_title">附近美食</h3>
+                    <p data-i18n="feature_2_desc">依據您的所在位置，即時推薦周邊的熱門美食貼文與隱藏好店。</p>
+                </div>
+                <div class="feature-card" data-animate data-animate-delay="200">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </div>
+                    <h3 data-i18n="feature_3_title">社群分享</h3>
+                    <p data-i18n="feature_3_desc">分享你的美食心得，還可以一鍵生成精美分享圖，邀請朋友一起去吃！</p>
+                </div>
+                <div class="feature-card" data-animate data-animate-delay="300">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+                    <h3 data-i18n="feature_4_title">專屬清單</h3>
+                    <p data-i18n="feature_4_desc">建立你的口袋名單，再也不怕忘記好吃的店在哪裡。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Badges -->
+    <section id="badges" class="badges-section">
+        <div class="container">
+            <h2 data-animate data-i18n="badges_title">美食成就系統</h2>
+            <p class="section-subtitle" data-animate data-animate-delay="100"
+                data-i18n="badges_subtitle">達成指定目標（如發貼文、獲得讚賞）即可解鎖專屬徽章，記錄你的美食里程碑！</p>
+            <div class="badges-grid">
+                <div class="badge-card seed" data-animate data-animate-delay="0">
+                    <div class="badge-icon">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <h3 data-i18n="badge_seed_title">萌芽美食家</h3>
+                    <p data-i18n="badge_seed_desc">剛開始探索美食世界的你，分享第一篇貼文即可獲得。</p>
+                </div>
+                <div class="badge-card explorer" data-animate data-animate-delay="150">
+                    <div class="badge-icon">
+                        <i class="fa-regular fa-compass"></i>
+                    </div>
+                    <h3 data-i18n="badge_explorer_title">探索美食家</h3>
+                    <p data-i18n="badge_explorer_desc">積極探索城市各個角落，累積 10 篇貼文與 50 個讚。</p>
+                </div>
+                <div class="badge-card legendary" data-animate data-animate-delay="300">
+                    <div class="badge-icon">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h3 data-i18n="badge_legendary_title">傳奇美食家</h3>
+                    <p data-i18n="badge_legendary_desc">你的品味引領潮流！累積 100 篇貼文與被 500 人收藏。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guide -->
+    <section id="guide" class="guide-section">
+        <div class="container">
+            <h2 data-animate data-i18n="guide_title">如何開始</h2>
+            <div class="guide-steps">
+                <div class="step-card" data-animate data-animate-delay="0">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step_1_title">下載並註冊</h3>
+                        <p data-i18n="step_1_desc">安裝 App 後，使用 Google 或 Apple 帳號快速登入，只需幾秒鐘即可開始。</p>
+                    </div>
+                </div>
+                <div class="step-card" data-animate data-animate-delay="150">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step_2_title">發布第一篇美食</h3>
+                        <p data-i18n="step_2_desc">點擊「+」按鈕，上傳照片、選擇餐廳，並寫下你的真實評價。第一篇貼文還能獲得額外獎勵！</p>
+                    </div>
+                </div>
+                <div class="step-card" data-animate data-animate-delay="300">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-i18n="step_3_title">探索附近美食</h3>
+                        <p data-i18n="step_3_desc">根據您的定位顯示附近的美食文章。喜歡的店可以收藏，下次直接導航去吃。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="guide-note">
+                <p><i class="fa-solid fa-circle-info"></i> <span
+                        data-i18n="guide_note">目前版本為剛上線，若無貼文屬正常現象，歡迎成為第一位分享者！</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipping -->
+    <section class="tipping-section">
+        <div class="container">
+            <div class="tipping-inner">
+                <div class="tipping-icon-wrap" data-animate>
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div class="tipping-text">
+                    <h2 data-animate data-i18n="tipping_title">贊助開發者</h2>
+                    <p data-animate data-animate-delay="100" data-i18n="tipping_desc">吃吃帖是由獨立開發者用心打造的免費 App。如果你喜歡這款 App，歡迎請開發者喝杯咖啡，讓我們繼續為你帶來更好的美食探索體驗！</p>
+                    <a href="https://buymeacoffee.com/minikao" target="_blank" rel="noopener"
+                        class="bmc-btn" data-animate data-animate-delay="200">
+                        ☕ <span data-i18n="bmc_btn">請我喝杯咖啡</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 data-animate data-i18n="faq_title">常見問題</h2>
+            <div class="faq-list">
+                <div class="faq-item" data-animate data-animate-delay="0">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq_q1">這個 App 免費嗎？</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a1">完全免費下載使用，部分進階功能需要兌換點數。</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animate data-animate-delay="60">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq_q2">支援哪些地區？</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a2">目前以台灣為主，同時歡迎來自世界各地的美食貼文！吃吃帖正朝國際化發展，無論你在哪個城市，都能分享當地的美食體驗。</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animate data-animate-delay="120">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq_q3">iOS 和 Android 都有嗎？</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a3">是的，App Store 與 Google Play 均已正式上架，免費下載。</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animate data-animate-delay="180">
+                    <button class="faq-question" aria-expanded="false">
+                        <span data-i18n="faq_q5">如何刪除帳號？</span>
+                        <i class="fa-solid fa-chevron-down faq-chevron"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq_a5">進入「設定 → 帳號管理 → 刪除帳號」即可操作，資料將在 30 天內完全移除。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-inner">
+                <h3 data-i18n="newsletter_title">訂閱最新消息</h3>
+                <p data-i18n="newsletter_desc">第一手獲取新功能上線、活動消息，不錯過任何美食情報！</p>
+                <form class="newsletter-form" id="newsletterForm" novalidate>
+                    <input type="email" class="newsletter-input" placeholder="your@email.com" required>
+                    <button type="submit" class="newsletter-btn" data-i18n="newsletter_btn">訂閱</button>
+                </form>
+                <p class="newsletter-success" id="newsletterSuccess" hidden data-i18n="newsletter_success">感謝訂閱！我們會盡快與您聯繫。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download CTA -->
+    <section class="download-section" id="download">
+        <div class="container">
+            <h2 data-i18n="download_title">準備好開始美食之旅了嗎？</h2>
+            <p data-i18n="download_subtitle">Android 與 iOS 雙平台正式上架！</p>
+            <div class="cta-buttons centered">
+                <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443"
+                    class="badge-link" target="_blank">
+                    <img src="assets/badge_appstore.svg" alt="Download on the App Store" class="store-badge">
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.antigravity.foodie_map"
+                    class="badge-link" target="_blank">
+                    <img src="assets/badge_googleplay.png" alt="Get it on Google Play" class="store-badge googleplay">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 data-i18n="contact_title">聯絡我們 / 下載 App</h2>
+            <div class="contact-content">
+                <div class="contact-card">
+                    <i class="fa-brands fa-google"></i>
+                    <h3 data-i18n="contact_beta_title">Android 正式上架</h3>
+                    <p data-i18n="contact_beta_desc">Android 正式版已在 Google Play 上線。</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.antigravity.foodie_map" target="_blank"
+                        class="email-link" data-i18n="contact_beta_btn2">前往 Google Play</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fa-brands fa-apple"></i>
+                    <h3 data-i18n="contact_ios_title">iOS App Store</h3>
+                    <p data-i18n="contact_ios_desc1">iOS 版本已在 App Store 上架。</p>
+                    <p data-i18n="contact_ios_desc2">點擊下方按鈕立即下載：</p>
+                    <a href="https://apps.apple.com/tw/app/%E5%90%83%E5%90%83%E5%B8%96/id6758126443" target="_blank"
+                        class="email-link" data-i18n="contact_ios_btn">前往 App Store</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fa-solid fa-comments"></i>
+                    <h3 data-i18n="contact_social_title">社群媒體</h3>
+                    <p data-i18n="contact_social_desc">追蹤我們，獲取最新美食資訊、活動消息！</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/1ALY3mQfWJ/?mibextid=wwXIfr" target="_blank"
+                            class="social-btn fb" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/chichitie_eaten?igsh=MWRkMGxhcWMxMHA1ZA==" target="_blank"
+                            class="social-btn ig" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://lin.ee/IIb78N8" target="_blank" class="social-btn line" aria-label="LINE">
+                            <i class="fa-brands fa-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">吃吃帖</div>
+                <div class="footer-links">
+                    <a href="#" data-i18n="footer_about">關於我們</a>
+                    <a href="https://www.notion.so/Privacy-Policy-2eb14fd96c0080e8a5c9ebf2d7349608?source=copy_link"
+                        target="_blank" data-i18n="footer_privacy">隱私權政策</a>
+                    <a href="mailto:kao273173@gmail.com" data-i18n="footer_contact">聯絡我們</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2026 ChiChiTie. All rights reserved.
+                </div>
+                <div class="footer-version" data-i18n="footer_version">目前版本 v1.0.14</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── i18n ──────────────────────────────────────────────
+        const translations = {
+            zh: {
+                page_title: "吃吃帖  - 你的美食地圖",
+                app_name: "吃吃帖 ChiChiTie",
+                nav_features: "功能介紹",
+                nav_guide: "使用教學",
+                nav_download: "立即下載",
+                hero_title: "探索城市中的<br><span class=\"highlight\">隱藏美食</span>",
+                hero_subtitle: "不再煩惱吃什麼！「吃吃帖」為你精選每日美食，探索附近好店，記錄你的美食足跡。",
+                features_title: "為什麼選擇吃吃帖？",
+                feature_1_title: "今日精選",
+                feature_1_desc: "每日推薦 5 家精選美食，左滑跳過、右滑收藏，輕鬆決定下一餐。",
+                feature_2_title: "附近美食",
+                feature_2_desc: "依據您的所在位置，即時推薦周邊的熱門美食貼文與隱藏好店。",
+                feature_3_title: "社群分享",
+                feature_3_desc: "分享你的美食心得，還可以一鍵生成精美分享圖，邀請朋友一起去吃！",
+                feature_4_title: "專屬清單",
+                feature_4_desc: "建立你的口袋名單，再也不怕忘記好吃的店在哪裡。",
+                badges_title: "美食成就系統",
+                badges_subtitle: "達成指定目標（如發貼文、獲得讚賞）即可解鎖專屬徽章，記錄你的美食里程碑！",
+                badge_seed_title: "萌芽美食家",
+                badge_seed_desc: "剛開始探索美食世界的你，分享第一篇貼文即可獲得。",
+                badge_explorer_title: "探索美食家",
+                badge_explorer_desc: "積極探索城市各個角落，累積 10 篇貼文與 50 個讚。",
+                badge_legendary_title: "傳奇美食家",
+                badge_legendary_desc: "你的品味引領潮流！累積 100 篇貼文與被 500 人收藏。",
+                guide_title: "如何開始",
+                step_1_title: "下載並註冊",
+                step_1_desc: "安裝 App 後，使用 Google 或 Apple 帳號快速登入，只需幾秒鐘即可開始。",
+                step_2_title: "發布第一篇美食",
+                step_2_desc: "點擊「+」按鈕，上傳照片、選擇餐廳，並寫下你的真實評價。第一篇貼文還能獲得額外獎勵！",
+                step_3_title: "探索附近美食",
+                step_3_desc: "根據您的定位顯示附近的美食文章。喜歡的店可以收藏，下次直接導航去吃。",
+                guide_note: "目前版本為剛上線，若無貼文屬正常現象，歡迎成為第一位分享者！",
+                download_title: "準備好開始美食之旅了嗎？",
+                download_subtitle: "Android 與 iOS 雙平台正式上架！",
+                contact_title: "聯絡我們 / 下載 App",
+                contact_beta_title: "Android 正式上架",
+                contact_beta_desc: "Android 正式版已在 Google Play 上線。",
+                contact_beta_btn2: "前往 Google Play",
+                contact_ios_title: "iOS App Store",
+                contact_ios_desc1: "iOS 版本已在 App Store 上架。",
+                contact_ios_desc2: "點擊下方按鈕立即下載：",
+                contact_ios_btn: "前往 App Store",
+                contact_social_title: "社群媒體",
+                contact_social_desc: "追蹤我們，獲取最新美食資訊、活動消息！",
+                footer_about: "關於我們",
+                footer_privacy: "隱私權政策",
+                footer_contact: "聯絡我們",
+                statsUsers: "活躍用戶",
+                statsPosts: "美食貼文",
+                statsCities: "縣市覆蓋",
+                statsRating: "平均評分",
+                nav_faq: "常見問題",
+                faq_title: "常見問題",
+                faq_q1: "這個 App 免費嗎？",
+                faq_a1: "完全免費下載使用。",
+                faq_q2: "支援哪些地區？",
+                faq_a2: "目前以台灣為主，同時歡迎來自世界各地的美食貼文！吃吃帖正朝國際化發展，無論你在哪個城市，都能分享當地的美食體驗。",
+                faq_q3: "iOS 和 Android 都有嗎？",
+                faq_a3: "是的，App Store 與 Google Play 均已正式上架，免費下載。",
+                faq_q4: "如何累積點數？",
+                faq_a4: "發貼文、留言、收藏及觀看廣告均可獲得點數，每日任務也有額外獎勵。",
+                faq_q5: "如何刪除帳號？",
+                faq_a5: "進入「設定 → 帳號管理 → 刪除帳號」即可操作，資料將在 30 天內完全移除。",
+                tipping_title: "贊助開發者",
+                tipping_desc: "吃吃帖是由獨立開發者用心打造的免費 App。如果你喜歡這款 App，歡迎請開發者喝杯咖啡，讓我們繼續為你帶來更好的美食探索體驗！",
+                bmc_btn: "請我喝杯咖啡",
+                newsletter_title: "訂閱最新消息",
+                newsletter_desc: "第一手獲取新功能上線、活動消息，不錯過任何美食情報！",
+                newsletter_btn: "訂閱",
+                newsletter_success: "感謝訂閱！我們會盡快與您聯繫。",
+                footer_version: "目前版本 v1.0.14"
+            },
+            en: {
+                page_title: "ChiChiTie - Your Foodie Map",
+                app_name: "ChiChiTie",
+                nav_features: "Features",
+                nav_guide: "Guide",
+                nav_download: "Download",
+                hero_title: "Discover Hidden<br><span class=\"highlight\">Gems Nearby</span>",
+                hero_subtitle: "Never worry about what to eat again! ChiChiTie curates daily picks, explores nearby spots, and records your food journey.",
+                features_title: "Why ChiChiTie?",
+                feature_1_title: "Daily Picks",
+                feature_1_desc: "Get 5 curated daily recommendations. Swipe left to skip, right to save. Deciding your next meal is easy!",
+                feature_2_title: "Nearby Gems",
+                feature_2_desc: "Discover popular food posts and hidden spots around your current location instantly.",
+                feature_3_title: "Social Share",
+                feature_3_desc: "Share your food reviews and generate beautiful shareable images to invite friends!",
+                feature_4_title: "Custom Lists",
+                feature_4_desc: "Build your own foodie bucket list and never forget where that amazing restaurant is.",
+                badges_title: "Foodie Achievement System",
+                badges_subtitle: "Complete specific goals (like posting reviews, getting likes) to unlock exclusive badges and track your foodie milestones!",
+                badge_seed_title: "Seed Foodie",
+                badge_seed_desc: "Just starting your journey. Awarded after your first post.",
+                badge_explorer_title: "Explorer Foodie",
+                badge_explorer_desc: "Actively exploring the city. Awarded after 10 posts and 50 likes.",
+                badge_legendary_title: "Legendary Foodie",
+                badge_legendary_desc: "A tastemaker! Awarded after 100 posts and 500 saves.",
+                guide_title: "How to Start",
+                step_1_title: "Download & Sign Up",
+                step_1_desc: "Install the app and sign in quickly with Google or Apple. It only takes a few seconds.",
+                step_2_title: "Post Your First Review",
+                step_2_desc: "Tap the \"+\" button, upload photos, select the restaurant, and write your review. Earn rewards for your first post!",
+                step_3_title: "Explore Nearby",
+                step_3_desc: "See food posts based on your location. Save spots you like and navigate there directly next time.",
+                guide_note: "The app is newly launched. If you don't see posts yet, be the first to share!",
+                download_title: "Ready for your Foodie Journey?",
+                download_subtitle: "Android is live on Google Play. iOS is live on the App Store.",
+                contact_title: "Contact / Download",
+                contact_beta_title: "Android Now Live",
+                contact_beta_desc: "The Android release is now live on Google Play.",
+                contact_beta_btn2: "Open Google Play",
+                contact_ios_title: "iOS App Store",
+                contact_ios_desc1: "iOS version is now available on the App Store.",
+                contact_ios_desc2: "Click below to download:",
+                contact_ios_btn: "Open App Store",
+                contact_social_title: "Social Media",
+                contact_social_desc: "Follow us for the latest food news and events!",
+                footer_about: "About Us",
+                footer_privacy: "Privacy Policy",
+                footer_contact: "Contact Us",
+                statsUsers: "Active Users",
+                statsPosts: "Food Posts",
+                statsCities: "Cities",
+                statsRating: "Avg. Rating",
+                nav_faq: "FAQ",
+                faq_title: "FAQ",
+                faq_q1: "Is this app free?",
+                faq_a1: "Completely free to download and use.",
+                faq_q2: "Which regions are supported?",
+                faq_a2: "ChiChiTie is based in Taiwan and open to food posts from anywhere in the world! We're going global — no matter which city you're in, you're welcome to share your local food experiences.",
+                faq_q3: "Is it available on iOS and Android?",
+                faq_a3: "Yes! Available on both the App Store and Google Play, completely free.",
+                faq_q4: "How do I earn points?",
+                faq_a4: "Post reviews, leave comments, save spots, or watch optional ads. Daily tasks give bonus points too.",
+                faq_q5: "How do I delete my account?",
+                faq_a5: "Go to Settings → Account → Delete Account. Your data will be fully removed within 30 days.",
+                tipping_title: "Support the Developer",
+                tipping_desc: "ChiChiTie is a free app crafted with care by an indie developer. If you enjoy it, consider buying me a coffee — it helps keep the app growing and improving!",
+                bmc_btn: "Buy me a coffee",
+                newsletter_title: "Stay Updated",
+                newsletter_desc: "Be the first to know about new features, events, and foodie news!",
+                newsletter_btn: "Subscribe",
+                newsletter_success: "Thanks for subscribing! We'll be in touch soon.",
+                footer_version: "Version v1.0.14"
+            }
+        };
+
+        let currentLang = localStorage.getItem('eaten_lang') || 'zh';
+
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+            document.querySelectorAll('[data-lang-toggle]').forEach(btn => {
+                btn.textContent = currentLang === 'zh' ? 'EN / 中' : '中文 / EN';
+            });
+            document.documentElement.lang = currentLang === 'zh' ? 'zh-Hant' : 'en';
+        }
+
+        document.querySelectorAll('[data-lang-toggle]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentLang = currentLang === 'zh' ? 'en' : 'zh';
+                localStorage.setItem('eaten_lang', currentLang);
+                updateContent();
+            });
+        });
+
+        updateContent();
+
+        // ── Newsletter Form ───────────────────────────────────
+        (function () {
+            const form = document.getElementById('newsletterForm');
+            const success = document.getElementById('newsletterSuccess');
+            if (!form) return;
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                const input = form.querySelector('input[type="email"]');
+                if (!input.value || !input.validity.valid) {
+                    input.focus();
+                    return;
+                }
+                form.style.display = 'none';
+                success.hidden = false;
+            });
+        })();
+
+        // ── Hamburger Menu ────────────────────────────────────
+        (function () {
+            const hamburger = document.getElementById('hamburger');
+            const mobileNav = document.getElementById('mobileNav');
+            if (!hamburger || !mobileNav) return;
+
+            function closeMenu() {
+                mobileNav.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                mobileNav.setAttribute('aria-hidden', 'true');
+                hamburger.querySelector('i').className = 'fa-solid fa-bars';
+            }
+
+            hamburger.addEventListener('click', e => {
+                e.stopPropagation();
+                const isOpen = mobileNav.classList.contains('open');
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    mobileNav.classList.add('open');
+                    hamburger.setAttribute('aria-expanded', 'true');
+                    mobileNav.setAttribute('aria-hidden', 'false');
+                    hamburger.querySelector('i').className = 'fa-solid fa-xmark';
+                }
+            });
+
+            mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('click', e => {
+                if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+        })();
+
+        // ── FAQ Accordion ─────────────────────────────────────
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item.open').forEach(el => {
+                    el.classList.remove('open');
+                    el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // ── Dark Mode ─────────────────────────────────────────
+        (function () {
+            const icons = [
+                document.querySelector('#themeToggle i'),
+                document.querySelector('#themeToggleMobile i')
+            ];
+
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                const isDark = theme === 'dark';
+                icons.forEach(ic => {
+                    if (ic) ic.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+                });
+                localStorage.setItem('eaten_theme', theme);
+            }
+
+            let theme = localStorage.getItem('eaten_theme') || 'light';
+            applyTheme(theme);
+
+            function onToggle() {
+                theme = theme === 'light' ? 'dark' : 'light';
+                applyTheme(theme);
+            }
+
+            ['themeToggle', 'themeToggleMobile'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.addEventListener('click', onToggle);
+            });
+        })();
+
+        // ── Counter Animation ─────────────────────────────────
+        function animateCounter(el) {
+            if (el.dataset.counted) return;
+            el.dataset.counted = '1';
+            const target = parseFloat(el.dataset.target);
+            const decimals = parseInt(el.dataset.decimals || '0');
+            const duration = 1800;
+            const startTime = performance.now();
+
+            function step(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // easeOutQuad
+                const eased = 1 - (1 - progress) * (1 - progress);
+                const current = target * eased;
+                el.textContent = decimals > 0
+                    ? current.toFixed(decimals)
+                    : Math.floor(current);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = decimals > 0 ? target.toFixed(decimals) : target;
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        // ── Scroll Animation (Intersection Observer) ──────────
+        const animObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const delay = e.target.dataset.animateDelay || 0;
+                    e.target.style.transitionDelay = delay + 'ms';
+                    e.target.classList.add('is-visible');
+                    // Trigger counters inside stat items
+                    e.target.querySelectorAll('.stat-number[data-target]').forEach(animateCounter);
+                    animObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('[data-animate]').forEach(el => animObserver.observe(el));
+
+        // ── Screenshot Carousel ───────────────────────────────
+        (function () {
+            const track = document.getElementById('carouselTrack');
+            const dotsContainer = document.getElementById('carouselDots');
+            const phoneFrame = document.getElementById('phoneFrame');
+            if (!track) return;
+
+            const slides = track.querySelectorAll('.carousel-slide');
+            const dots = dotsContainer ? dotsContainer.querySelectorAll('.dot') : [];
+            let current = 0;
+            let autoTimer;
+            let touchStartX = 0;
+
+            function goTo(index) {
+                current = (index + slides.length) % slides.length;
+                slides.forEach((s, i) => s.classList.toggle('active', i === current));
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+            }
+
+            function startAuto() {
+                autoTimer = setInterval(() => goTo(current + 1), 3000);
+            }
+
+            function stopAuto() {
+                clearInterval(autoTimer);
+            }
+
+            // Dot clicks
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    stopAuto();
+                    goTo(parseInt(dot.dataset.index));
+                    startAuto();
+                });
+            });
+
+            // Hover pause
+            if (phoneFrame) {
+                phoneFrame.addEventListener('mouseenter', stopAuto);
+                phoneFrame.addEventListener('mouseleave', startAuto);
+
+                // Touch swipe
+                phoneFrame.addEventListener('touchstart', e => {
+                    touchStartX = e.touches[0].clientX;
+                    stopAuto();
+                }, { passive: true });
+
+                phoneFrame.addEventListener('touchend', e => {
+                    const diff = touchStartX - e.changedTouches[0].clientX;
+                    if (Math.abs(diff) > 30) {
+                        goTo(diff > 0 ? current + 1 : current - 1);
+                    }
+                    startAuto();
+                });
+            }
+
+            startAuto();
+        })();
+    </script>
+</body>
+
+</html>
