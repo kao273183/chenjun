@@ -1,612 +1,207 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Rovia Airport — 車隊專屬機場接送 SaaS。乘客 LINE 預約、司機即時搶單、車隊後台全掌控。月費制零抽成。">
   <title>Rovia Airport — 機場接送平台 | 宸鈞數位</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0A0F1E;
-      --bg2: #0F1628;
-      --bg3: #0C1220;
-      --gold: #E6B84A;
-      --gold2: #F5D07A;
-      --golddim: rgba(230, 184, 74, 0.12);
-      --goldborder: rgba(230, 184, 74, 0.25);
-      --text: #EDE8DC;
-      --dim: rgba(237, 232, 220, 0.45);
-      --faint: rgba(237, 232, 220, 0.18);
-      --border: rgba(237, 232, 220, 0.07);
-      --serif: 'Noto Serif TC', serif;
-      --sans: 'DM Sans', sans-serif;
-      --mono: 'DM Mono', monospace;
+      --bg:     #0A0F1E;
+      --bg2:    #0F1628;
+      --bg3:    #0C1220;
+      --gold:   #E6B84A;
+      --gold2:  #F5D07A;
+      --golddim: rgba(230,184,74,0.12);
+      --goldborder: rgba(230,184,74,0.25);
+      --text:   #EDE8DC;
+      --dim:    rgba(237,232,220,0.45);
+      --faint:  rgba(237,232,220,0.18);
+      --border: rgba(237,232,220,0.07);
+      --serif:  'Noto Serif TC', serif;
+      --sans:   'DM Sans', sans-serif;
+      --mono:   'DM Mono', monospace;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      overflow-x: hidden;
-      cursor: none;
-    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; cursor: none; }
 
     /* cursor */
-    #cur {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      width: 8px;
-      height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: transform .1s;
-    }
-
-    #cur-r {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9998;
-      width: 32px;
-      height: 32px;
-      border: 1px solid rgba(230, 184, 74, 0.3);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: transform .2s, width .2s, height .2s;
-    }
+    #cur { position:fixed;top:0;left:0;pointer-events:none;z-index:9999;width:8px;height:8px;background:var(--gold);border-radius:50%;transform:translate(-50%,-50%);transition:transform .1s; }
+    #cur-r { position:fixed;top:0;left:0;pointer-events:none;z-index:9998;width:32px;height:32px;border:1px solid rgba(230,184,74,0.3);border-radius:50%;transform:translate(-50%,-50%);transition:transform .2s,width .2s,height .2s; }
 
     /* nav */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 18px 48px;
-      background: rgba(10, 15, 30, 0.88);
-      backdrop-filter: blur(14px);
+      background: rgba(10,15,30,0.88); backdrop-filter: blur(14px);
       border-bottom: 0.5px solid var(--border);
     }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .nav-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-
-    .nav-name {
-      font-family: var(--serif);
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: .06em;
-    }
-
-    .nav-sub {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--dim);
-      letter-spacing: .1em;
-    }
-
-    .nav-back {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--dim);
-      text-decoration: none;
-      letter-spacing: .08em;
-      transition: color .2s;
-    }
-
-    .nav-back:hover {
-      color: var(--gold);
-    }
+    .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-dot { width:7px;height:7px;border-radius:50%;background:var(--gold); }
+    .nav-name { font-family:var(--serif);font-size:14px;font-weight:700;color:var(--text);letter-spacing:.06em; }
+    .nav-sub { font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.1em; }
+    .nav-back { font-family:var(--mono);font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:.08em;transition:color .2s; }
+    .nav-back:hover { color:var(--gold); }
 
     /* hero */
     .hero {
-      /* 1. 限制高度：在大螢幕上不超過 800px，在小螢幕上至少 500px */
-      min-height: 500px;
-      height: 75vh;
+      height: 100vh;
       max-height: 800px;
-
-      display: flex;
-      flex-direction: column;
-
-      /* 2. 關鍵修正：改為置中，解決頂部過長問題 */
+      display: flex; flex-direction: column;
       justify-content: center;
-
-      /* 3. 調整內距：確保跟 nav 有呼吸空間，下方也不會太擠 */
-      padding: 80px 48px 40px;
-
-      position: relative;
-      overflow: hidden;
+      padding: 0 48px;
+      position: relative; overflow: hidden;
     }
-
     .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
+      position: absolute; inset: 0; z-index: 0;
       background: var(--bg);
     }
-
     .hero-glow {
-      position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(circle, rgba(230, 184, 74, 0.07) 0%, transparent 70%);
+      position: absolute; top: -20%; right: -10%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(230,184,74,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
-
     .hero-grid-lines {
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(230, 184, 74, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(230, 184, 74, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(230,184,74,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230,184,74,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
     }
-
-    .hero>* {
-      position: relative;
-      z-index: 1;
-    }
+    .hero > * { position: relative; z-index: 1; }
 
     .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .16em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-top: 0;
-      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 28px;
     }
-
-    .hero-eyebrow::before {
-      content: '';
-      width: 24px;
-      height: 1px;
-      background: var(--gold);
-    }
+    .hero-eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
 
     .hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(52px, 7.5vw, 88px);
-      font-weight: 900;
-      line-height: 1.02;
-      letter-spacing: -.02em;
-      color: var(--text);
-      margin-bottom: 32px;
-      max-width: 800px;
+      font-family: var(--serif); font-size: clamp(52px, 7.5vw, 88px);
+      font-weight: 900; line-height: 1.02; letter-spacing: -.02em;
+      color: var(--text); margin-bottom: 32px; max-width: 800px;
     }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold);
-    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
 
     .hero-desc {
-      font-size: 17px;
-      color: var(--dim);
-      line-height: 1.75;
-      max-width: 480px;
-      margin-bottom: 48px;
+      font-size: 17px; color: var(--dim); line-height: 1.75;
+      max-width: 480px; margin-bottom: 48px;
     }
 
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
+    .hero-cta { display:flex; gap:16px; align-items:center; }
     .btn-gold {
-      background: var(--gold);
-      color: #0A0F1E;
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: .06em;
-      padding: 13px 28px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: opacity .2s;
+      background: var(--gold); color: #0A0F1E;
+      font-family: var(--mono); font-size: 13px; font-weight: 500;
+      letter-spacing: .06em; padding: 13px 28px; border-radius: 6px;
+      text-decoration: none; transition: opacity .2s;
     }
-
-    .btn-gold:hover {
-      opacity: .88;
-    }
-
+    .btn-gold:hover { opacity: .88; }
     .btn-line {
-      font-family: var(--mono);
-      font-size: 13px;
-      letter-spacing: .06em;
-      color: var(--dim);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: color .2s;
+      font-family: var(--mono); font-size: 13px; letter-spacing: .06em;
+      color: var(--dim); text-decoration: none;
+      display: flex; align-items: center; gap: 8px; transition: color .2s;
     }
-
-    .btn-line:hover {
-      color: var(--text);
-    }
+    .btn-line:hover { color: var(--text); }
 
     .hero-stats {
-      margin-top: 40px;
-      padding-top: 24px;
+      display: flex; gap: 48px; margin-top: 80px;
+      padding-top: 40px; border-top: 0.5px solid var(--border);
     }
-
-    .hstat-num {
-      font-family: var(--serif);
-      font-size: 36px;
-      font-weight: 900;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .hstat-label {
-      font-size: 12px;
-      color: var(--faint);
-      margin-top: 6px;
-      letter-spacing: .04em;
-    }
+    .hstat-num { font-family:var(--serif);font-size:36px;font-weight:900;color:var(--gold);line-height:1; }
+    .hstat-label { font-size:12px;color:var(--faint);margin-top:6px;letter-spacing:.04em; }
 
     /* sections */
-    .sec {
-      padding: 80px 48px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
+    .sec { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
     .sec-tag {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .16em;
-      color: var(--faint);
-      text-transform: uppercase;
-      margin-bottom: 40px;
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+      color: var(--faint); text-transform: uppercase; margin-bottom: 40px;
     }
-
-    .sec-tag::after {
-      content: '';
-      flex: 1;
-      height: .5px;
-      background: var(--border);
-    }
-
+    .sec-tag::after { content:''; flex:1; height:.5px; background:var(--border); }
     .sec h2 {
-      font-family: var(--serif);
-      font-size: clamp(28px, 3.5vw, 42px);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 16px;
+      font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 900; line-height: 1.15; margin-bottom: 16px;
     }
-
-    .sec h2 em {
-      font-style: normal;
-      color: var(--gold);
-    }
-
-    .sec-desc {
-      font-size: 15px;
-      color: var(--dim);
-      line-height: 1.75;
-      max-width: 540px;
-      margin-bottom: 52px;
-    }
+    .sec h2 em { font-style:normal; color:var(--gold); }
+    .sec-desc { font-size:15px; color:var(--dim); line-height:1.75; max-width:540px; margin-bottom:52px; }
 
     /* feature cards */
-    .feat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
+    .feat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
     .fcard {
-      background: var(--bg2);
-      border: .5px solid var(--border);
-      border-radius: 14px;
-      padding: 28px;
+      background: var(--bg2); border: .5px solid var(--border);
+      border-radius: 14px; padding: 28px;
       transition: border-color .25s, background .25s;
     }
-
-    .fcard:hover {
-      border-color: var(--goldborder);
-      background: var(--bg3);
-    }
-
+    .fcard:hover { border-color: var(--goldborder); background: var(--bg3); }
     .fcard-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--golddim);
-      border: .5px solid var(--goldborder);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--golddim); border: .5px solid var(--goldborder);
+      display: flex; align-items: center; justify-content: center;
       margin-bottom: 20px;
     }
-
-    .fcard-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--gold);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .fcard h4 {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    .fcard p {
-      font-size: 13px;
-      color: var(--dim);
-      line-height: 1.65;
-    }
+    .fcard-icon svg { width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round; }
+    .fcard h4 { font-size:15px;font-weight:500;color:var(--text);margin-bottom:10px; }
+    .fcard p { font-size:13px;color:var(--dim);line-height:1.65; }
 
     /* how it works */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0;
-      border: .5px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .step {
-      padding: 28px 22px;
-      border-right: .5px solid var(--border);
-      transition: background .2s;
-    }
-
-    .step:last-child {
-      border-right: none;
-    }
-
-    .step:hover {
-      background: rgba(237, 232, 220, 0.025);
-    }
-
-    .step-n {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--gold);
-      letter-spacing: .1em;
-      margin-bottom: 16px;
-    }
-
-    .step h4 {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .step p {
-      font-size: 12px;
-      color: var(--dim);
-      line-height: 1.6;
-    }
+    .steps { display:grid; grid-template-columns:repeat(5,1fr); gap:0; border:.5px solid var(--border); border-radius:14px; overflow:hidden; }
+    .step { padding:28px 22px; border-right:.5px solid var(--border); transition:background .2s; }
+    .step:last-child { border-right:none; }
+    .step:hover { background:rgba(237,232,220,0.025); }
+    .step-n { font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.1em;margin-bottom:16px; }
+    .step h4 { font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px; }
+    .step p { font-size:12px;color:var(--dim);line-height:1.6; }
 
     /* plans */
-    .plans {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
+    .plans { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
     .pcard {
-      background: var(--bg2);
-      border: .5px solid var(--border);
-      border-radius: 14px;
-      padding: 28px 24px;
-      position: relative;
+      background: var(--bg2); border: .5px solid var(--border);
+      border-radius:14px; padding:28px 24px; position:relative;
       transition: border-color .25s;
     }
-
-    .pcard:hover {
-      border-color: var(--goldborder);
-    }
-
-    .pcard.featured {
-      border-color: var(--gold);
-    }
-
+    .pcard:hover { border-color: var(--goldborder); }
+    .pcard.featured { border-color: var(--gold); }
     .pcard.featured::before {
-      content: '推薦';
-      position: absolute;
-      top: -1px;
-      right: 16px;
-      background: var(--gold);
-      color: #0A0F1E;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      padding: 4px 10px;
-      border-radius: 0 0 6px 6px;
+      content: '推薦'; position:absolute; top:-1px; right:16px;
+      background: var(--gold); color: #0A0F1E;
+      font-family: var(--mono); font-size: 10px; letter-spacing:.08em;
+      padding: 4px 10px; border-radius: 0 0 6px 6px;
     }
-
-    .plan-name {
-      font-family: var(--serif);
-      font-size: 16px;
-      font-weight: 900;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .plan-price {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .plan-note {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--faint);
-      letter-spacing: .06em;
-      margin-bottom: 24px;
-    }
-
-    .plan-feats {
-      list-style: none;
-      margin-bottom: 28px;
-    }
-
-    .plan-feats li {
-      font-size: 12px;
-      color: var(--dim);
-      padding: 7px 0;
-      border-bottom: .5px solid var(--border);
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .plan-feats li::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-
-    .plan-feats li.off {
-      color: var(--faint);
-    }
-
-    .plan-feats li.off::before {
-      background: var(--faint);
-    }
-
+    .plan-name { font-family:var(--serif);font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px; }
+    .plan-price { font-size:28px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px; }
+    .plan-note { font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em;margin-bottom:24px; }
+    .plan-feats { list-style:none; margin-bottom:28px; }
+    .plan-feats li { font-size:12px;color:var(--dim);padding:7px 0;border-bottom:.5px solid var(--border);display:flex;gap:8px;align-items:flex-start; }
+    .plan-feats li::before { content:''; width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px; }
+    .plan-feats li.off { color:var(--faint); }
+    .plan-feats li.off::before { background:var(--faint); }
     .plan-btn {
-      display: block;
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 7px;
-      transition: all .2s;
+      display:block; text-align:center; font-family:var(--mono);
+      font-size:12px; letter-spacing:.06em; text-decoration:none;
+      padding:10px; border-radius:7px; transition:all .2s;
     }
-
-    .plan-btn-fill {
-      background: var(--gold);
-      color: #0A0F1E;
-    }
-
-    .plan-btn-fill:hover {
-      opacity: .88;
-    }
-
-    .plan-btn-out {
-      border: .5px solid var(--goldborder);
-      color: var(--gold);
-    }
-
-    .plan-btn-out:hover {
-      background: var(--golddim);
-    }
+    .plan-btn-fill { background:var(--gold);color:#0A0F1E; }
+    .plan-btn-fill:hover { opacity:.88; }
+    .plan-btn-out { border:.5px solid var(--goldborder);color:var(--gold); }
+    .plan-btn-out:hover { background:var(--golddim); }
 
     /* compare */
-    .cmp {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      margin-top: 40px;
-    }
-
-    .cmp th {
-      background: rgba(230, 184, 74, 0.1);
-      color: var(--gold);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      padding: 12px 14px;
-      text-align: center;
-      border-bottom: .5px solid var(--goldborder);
-    }
-
-    .cmp th:first-child {
-      text-align: left;
-    }
-
-    .cmp td {
-      padding: 11px 14px;
-      border-bottom: .5px solid var(--border);
-      text-align: center;
-      color: var(--dim);
-    }
-
-    .cmp td:first-child {
-      text-align: left;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .cmp tr:hover td {
-      background: rgba(237, 232, 220, 0.02);
-    }
-
-    .yes {
-      color: var(--gold);
-      font-weight: 500;
-    }
-
-    .no {
-      color: var(--faint);
-    }
+    .cmp { width:100%;border-collapse:collapse;font-size:13px;margin-top:40px; }
+    .cmp th { background:rgba(230,184,74,0.1);color:var(--gold);font-family:var(--mono);font-size:10px;letter-spacing:.12em;padding:12px 14px;text-align:center;border-bottom:.5px solid var(--goldborder); }
+    .cmp th:first-child { text-align:left; }
+    .cmp td { padding:11px 14px;border-bottom:.5px solid var(--border);text-align:center;color:var(--dim); }
+    .cmp td:first-child { text-align:left;color:var(--text);font-weight:500; }
+    .cmp tr:hover td { background:rgba(237,232,220,0.02); }
+    .yes { color:var(--gold);font-weight:500; }
+    .no  { color:var(--faint); }
 
     /* dark strip */
     .strip {
@@ -615,533 +210,305 @@
       border-bottom: .5px solid var(--border);
       padding: 80px 48px;
     }
-
-    .strip-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .notify-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-    }
-
+    .strip-inner { max-width:1100px; margin:0 auto; }
+    .notify-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:40px; }
     .ncard {
-      background: rgba(237, 232, 220, 0.03);
-      border: .5px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
+      background: rgba(237,232,220,0.03); border:.5px solid var(--border);
+      border-radius:12px; padding:24px;
     }
-
-    .ncard-role {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .14em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .nlist {
-      list-style: none;
-    }
-
-    .nlist li {
-      font-size: 13px;
-      color: var(--dim);
-      padding: 8px 0;
-      border-bottom: .5px solid var(--border);
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .nlist li::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
+    .ncard-role { font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:16px; }
+    .nlist { list-style:none; }
+    .nlist li { font-size:13px;color:var(--dim);padding:8px 0;border-bottom:.5px solid var(--border);display:flex;gap:8px;align-items:center; }
+    .nlist li::before { content:''; width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0; }
 
     /* cta */
     .cta-wrap {
-      text-align: center;
-      padding: 100px 48px;
+      text-align:center; padding:100px 48px;
     }
-
-    .cta-wrap h2 {
-      font-family: var(--serif);
-      font-size: clamp(28px, 4vw, 52px);
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
-
-    .cta-wrap h2 em {
-      font-style: normal;
-      color: var(--gold);
-    }
-
-    .cta-wrap p {
-      font-size: 15px;
-      color: var(--dim);
-      max-width: 480px;
-      margin: 0 auto 40px;
-      line-height: 1.75;
-    }
-
-    .cta-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-    }
+    .cta-wrap h2 { font-family:var(--serif);font-size:clamp(28px,4vw,52px);font-weight:900;margin-bottom:20px; }
+    .cta-wrap h2 em { font-style:normal;color:var(--gold); }
+    .cta-wrap p { font-size:15px;color:var(--dim);max-width:480px;margin:0 auto 40px;line-height:1.75; }
+    .cta-btns { display:flex;gap:16px;justify-content:center; }
 
     /* footer */
-    footer {
-      padding: 28px 48px;
-      border-top: .5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ft-l {
-      font-family: var(--serif);
-      font-size: 13px;
-      color: var(--faint);
-    }
-
-    .ft-r {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--faint);
-    }
-
-    .ft-r a {
-      color: var(--gold);
-      text-decoration: none;
-    }
+    footer { padding:28px 48px;border-top:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center; }
+    .ft-l { font-family:var(--serif);font-size:13px;color:var(--faint); }
+    .ft-r { font-family:var(--mono);font-size:11px;color:var(--faint); }
+    .ft-r a { color:var(--gold);text-decoration:none; }
 
     /* reveal */
-    .rv {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .65s, transform .65s;
-    }
-
-    .rv.in {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .rv { opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s; }
+    .rv.in { opacity:1;transform:translateY(0); }
 
     /* rwd */
-    @media(max-width:900px) {
-
-      nav,
-      footer {
-        padding: 16px 24px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 100px 24px 40px;
-        justify-content: flex-start;
-      }
-
-      .sec {
-        padding: 60px 24px;
-      }
-
-      .feat-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .step {
-        border-right: .5px solid var(--border);
-      }
-
-      .step:nth-child(2n) {
-        border-right: none;
-      }
-
-      .plans {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .notify-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-wrap {
-        padding: 60px 24px;
-      }
-
-      .strip {
-        padding: 60px 24px;
-      }
-
-      .hero-stats {
-        gap: 28px;
-      }
-
-      body {
-        cursor: auto;
-      }
-
-      #cur,
-      #cur-r {
-        display: none;
-      }
+    @media(max-width:900px){
+      nav,footer { padding:16px 24px; }
+      .hero { padding:0 24px 60px;min-height:auto;padding-top:80px; }
+      .sec { padding:60px 24px; }
+      .feat-grid { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr 1fr; }
+      .step { border-right:.5px solid var(--border); }
+      .step:nth-child(2n) { border-right:none; }
+      .plans { grid-template-columns:1fr 1fr; }
+      .notify-grid { grid-template-columns:1fr; }
+      .cta-wrap { padding:60px 24px; }
+      .strip { padding:60px 24px; }
+      .hero-stats { gap:28px; }
+      body { cursor:auto; }
+      #cur,#cur-r { display:none; }
     }
-
-    @media(max-width:520px) {
-      .plans {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-      }
+    @media(max-width:520px){
+      .plans { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr; }
     }
   </style>
 </head>
-
 <body>
 
-  <div id="cur"></div>
-  <div id="cur-r"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
 
-  <!-- Nav -->
-  <nav>
-    <a href="index.html" class="nav-brand">
-      <div class="nav-dot"></div>
-      <span class="nav-name">宸鈞數位</span>
-    </a>
-    <span class="nav-sub">Rovia Airport</span>
-    <a href="index.html" class="nav-back">← 返回首頁</a>
-  </nav>
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-dot"></div>
+    <span class="nav-name">宸鈞數位</span>
+  </a>
+  <span class="nav-sub">Rovia Airport</span>
+  <a href="index.html" class="nav-back">← 返回首頁</a>
+</nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-grid-lines"></div>
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-grid-lines"></div>
 
-    <div class="hero-eyebrow">Rovia Airport — Machine Transfer Platform</div>
-    <h1>讓車隊擁有<br><em>自己的接送系統</em></h1>
-    <p class="hero-desc">車隊專屬機場接送管理平台。乘客 LINE 預約、司機即時搶單、車隊後台全掌控。零下載、零抽成、數據全歸你。</p>
-    <div class="hero-cta">
-      <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 諮詢" class="btn-gold">免費諮詢</a>
-      <a href="#plans" class="btn-line">查看方案 <span style="font-size:16px">↓</span></a>
+  <div class="hero-eyebrow">Rovia Airport — Machine Transfer Platform</div>
+  <h1>讓車隊擁有<br><em>自己的接送系統</em></h1>
+  <p class="hero-desc">車隊專屬機場接送管理平台。乘客 LINE 預約、司機即時搶單、車隊後台全掌控。零下載、零抽成、數據全歸你。</p>
+  <div class="hero-cta">
+    <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 諮詢" class="btn-gold">免費諮詢</a>
+    <a href="#plans" class="btn-line">查看方案 <span style="font-size:16px">↓</span></a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hstat-num">0%</div>
+      <div class="hstat-label">抽成</div>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="hstat-num">0%</div>
-        <div class="hstat-label">抽成</div>
-      </div>
-      <div>
-        <div class="hstat-num">4</div>
-        <div class="hstat-label">方案選擇</div>
-      </div>
-      <div>
-        <div class="hstat-num">LINE</div>
-        <div class="hstat-label">零下載即用</div>
-      </div>
+    <div>
+      <div class="hstat-num">4</div>
+      <div class="hstat-label">方案選擇</div>
     </div>
-  </section>
-
-  <!-- Why -->
-  <div class="sec rv">
-    <div class="sec-tag">01 · 為什麼選擇</div>
-    <h2>大平台等級的體驗<br><em>品牌和數據都是你的</em></h2>
-    <p class="sec-desc">相比電話叫車或讓客人用大平台，Rovia Airport 讓你的車隊擁有完整的數位接送體驗，但一切歸你所有。</p>
-    <div class="feat-grid">
-      <div class="fcard rv">
-        <div class="fcard-icon"><svg viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg></div>
-        <h4>零下載，LINE 即用</h4>
-        <p>乘客和司機都在 LINE LIFF 內操作，無需安裝任何 App，分享連結即可開始。</p>
-      </div>
-      <div class="fcard rv">
-        <div class="fcard-icon"><svg viewBox="0 0 24 24">
-            <line x1="12" y1="1" x2="12" y2="23" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg></div>
-        <h4>月費制，零抽成</h4>
-        <p>固定月費，不抽每趟佣金。接越多單越划算，利潤 100% 歸車隊。</p>
-      </div>
-      <div class="fcard rv">
-        <div class="fcard-icon"><svg viewBox="0 0 24 24">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-          </svg></div>
-        <h4>LINE 全程推播</h4>
-        <p>下單、配對、出發、抵達、完成，每個環節自動推送 LINE Flex 小卡通知。</p>
-      </div>
-      <div class="fcard rv">
-        <div class="fcard-icon"><svg viewBox="0 0 24 24">
-            <line x1="18" y1="20" x2="18" y2="10" />
-            <line x1="12" y1="20" x2="12" y2="4" />
-            <line x1="6" y1="20" x2="6" y2="14" />
-          </svg></div>
-        <h4>數據完整掌握</h4>
-        <p>營業額、司機績效、時段分析、報表匯出。你的數據，你說了算。</p>
-      </div>
-      <div class="fcard rv">
-        <div class="fcard-icon"><svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-            <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
-          </svg></div>
-        <h4>彈性派單系統</h4>
-        <p>搶單、自動派、客服派三種模式自由切換，可依時段排程，預約單到期自動處理。</p>
-      </div>
-      <div class="fcard rv">
-        <div class="fcard-icon"><svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 8v4l3 3" />
-          </svg></div>
-        <h4>品牌客製化</h4>
-        <p>自訂配色、Logo、歡迎語。企業版完全白標，乘客只認識你的品牌。</p>
-      </div>
+    <div>
+      <div class="hstat-num">LINE</div>
+      <div class="hstat-label">零下載即用</div>
     </div>
   </div>
+</section>
 
-  <!-- How it works -->
-  <div style="padding:0 48px 80px;max-width:1100px;margin:0 auto" class="rv">
-    <div class="sec-tag">02 · 開通流程</div>
-    <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:40px">五分鐘開始營運</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-n">01</div>
-        <h4>洽談方案</h4>
-        <p>選擇適合你車隊規模的方案</p>
-      </div>
-      <div class="step">
-        <div class="step-n">02</div>
-        <h4>基本設定</h4>
-        <p>費率、車型、功能開關</p>
-      </div>
-      <div class="step">
-        <div class="step-n">03</div>
-        <h4>司機加入</h4>
-        <p>分享車隊碼，LINE 掃碼即入</p>
-      </div>
-      <div class="step">
-        <div class="step-n">04</div>
-        <h4>開始營運</h4>
-        <p>分享 LIFF 連結，訂單進來</p>
-      </div>
-      <div class="step">
-        <div class="step-n">05</div>
-        <h4>持續優化</h4>
-        <p>看數據調費率，用優惠留客</p>
-      </div>
+<!-- Why -->
+<div class="sec rv">
+  <div class="sec-tag">01 · 為什麼選擇</div>
+  <h2>大平台等級的體驗<br><em>品牌和數據都是你的</em></h2>
+  <p class="sec-desc">相比電話叫車或讓客人用大平台，Rovia Airport 讓你的車隊擁有完整的數位接送體驗，但一切歸你所有。</p>
+  <div class="feat-grid">
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <h4>零下載，LINE 即用</h4>
+      <p>乘客和司機都在 LINE LIFF 內操作，無需安裝任何 App，分享連結即可開始。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h4>月費制，零抽成</h4>
+      <p>固定月費，不抽每趟佣金。接越多單越划算，利潤 100% 歸車隊。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <h4>LINE 全程推播</h4>
+      <p>下單、配對、出發、抵達、完成，每個環節自動推送 LINE Flex 小卡通知。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <h4>數據完整掌握</h4>
+      <p>營業額、司機績效、時段分析、報表匯出。你的數據，你說了算。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+      <h4>彈性派單系統</h4>
+      <p>搶單、自動派、客服派三種模式自由切換，可依時段排程，預約單到期自動處理。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <h4>品牌客製化</h4>
+      <p>自訂配色、Logo、歡迎語。企業版完全白標，乘客只認識你的品牌。</p>
     </div>
   </div>
+</div>
 
-  <!-- LINE Notify strip -->
-  <div class="strip">
-    <div class="strip-inner rv">
-      <div class="sec-tag">03 · LINE 推播</div>
-      <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:16px">每個環節<em>自動通知</em></h2>
-      <p style="font-size:15px;color:var(--dim);max-width:480px;line-height:1.75">精美的 LINE Flex 小卡，乘客和司機不再漏接任何訊息。</p>
-      <div class="notify-grid">
-        <div class="ncard">
-          <div class="ncard-role">乘客 Passenger</div>
-          <ul class="nlist">
-            <li>下單成功 — 等待配對中</li>
-            <li>司機已接單 — 姓名、車牌、車型</li>
-            <li>司機已出發 — 前往接您</li>
-            <li>司機已抵達 — 請前往上車點</li>
-            <li>行程完成 — 費用明細</li>
-            <li>訂單取消 — 通知 + 返回首頁</li>
-          </ul>
-        </div>
-        <div class="ncard">
-          <div class="ncard-role">司機 Driver</div>
-          <ul class="nlist">
-            <li>新訂單 — 路線、車資、「立即搶單」</li>
-            <li>被指派訂單 — 系統自動分配通知</li>
-            <li>乘客取消 — 訂單已取消通知</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+<!-- How it works -->
+<div style="padding:0 48px 80px;max-width:1100px;margin:0 auto" class="rv">
+  <div class="sec-tag">02 · 開通流程</div>
+  <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:40px">五分鐘開始營運</h2>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><h4>洽談方案</h4><p>選擇適合你車隊規模的方案</p></div>
+    <div class="step"><div class="step-n">02</div><h4>基本設定</h4><p>費率、車型、功能開關</p></div>
+    <div class="step"><div class="step-n">03</div><h4>司機加入</h4><p>分享車隊碼，LINE 掃碼即入</p></div>
+    <div class="step"><div class="step-n">04</div><h4>開始營運</h4><p>分享 LIFF 連結，訂單進來</p></div>
+    <div class="step"><div class="step-n">05</div><h4>持續優化</h4><p>看數據調費率，用優惠留客</p></div>
   </div>
+</div>
 
-  <!-- Plans -->
-  <div class="sec rv" id="plans">
-    <div class="sec-tag">04 · 方案選擇</div>
-    <h2>找到適合<em>你的規模</em></h2>
-    <p class="sec-desc">從小型車行到大型車隊，隨時可升級，不中斷服務。</p>
-    <div class="plans">
-      <div class="pcard rv">
-        <div class="plan-name">入門版</div>
-        <div class="plan-price">洽詢</div>
-        <div class="plan-note">適合小型車行</div>
-        <ul class="plan-feats">
-          <li>10 位司機</li>
-          <li>500 單 / 月</li>
-          <li>即時 / 預約叫車</li>
-          <li>司機搶單</li>
-          <li class="off">自動派單</li>
-          <li class="off">LINE 推播</li>
-          <li class="off">報表匯出</li>
+<!-- LINE Notify strip -->
+<div class="strip">
+  <div class="strip-inner rv">
+    <div class="sec-tag">03 · LINE 推播</div>
+    <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:16px">每個環節<em>自動通知</em></h2>
+    <p style="font-size:15px;color:var(--dim);max-width:480px;line-height:1.75">精美的 LINE Flex 小卡，乘客和司機不再漏接任何訊息。</p>
+    <div class="notify-grid">
+      <div class="ncard">
+        <div class="ncard-role">乘客 Passenger</div>
+        <ul class="nlist">
+          <li>下單成功 — 等待配對中</li>
+          <li>司機已接單 — 姓名、車牌、車型</li>
+          <li>司機已出發 — 前往接您</li>
+          <li>司機已抵達 — 請前往上車點</li>
+          <li>行程完成 — 費用明細</li>
+          <li>訂單取消 — 通知 + 返回首頁</li>
         </ul>
-        <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 入門版" class="plan-btn plan-btn-out">立即諮詢</a>
       </div>
-      <div class="pcard rv">
-        <div class="plan-name">標準版</div>
-        <div class="plan-price">洽詢</div>
-        <div class="plan-note">適合成長中車隊</div>
-        <ul class="plan-feats">
-          <li>30 位司機</li>
-          <li>2,000 單 / 月</li>
-          <li>搶單 + 自動 / 手動派</li>
-          <li>LINE 推播通知</li>
-          <li>數據報表</li>
-          <li>時段 / 假日加成</li>
-          <li class="off">Excel 匯出</li>
+      <div class="ncard">
+        <div class="ncard-role">司機 Driver</div>
+        <ul class="nlist">
+          <li>新訂單 — 路線、車資、「立即搶單」</li>
+          <li>被指派訂單 — 系統自動分配通知</li>
+          <li>乘客取消 — 訂單已取消通知</li>
         </ul>
-        <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 標準版" class="plan-btn plan-btn-out">立即諮詢</a>
-      </div>
-      <div class="pcard featured rv">
-        <div class="plan-name">專業版</div>
-        <div class="plan-price">洽詢</div>
-        <div class="plan-note">最多人選擇</div>
-        <ul class="plan-feats">
-          <li>80 位司機</li>
-          <li>5,000 單 / 月</li>
-          <li>全部派單模式 + 批次</li>
-          <li>LINE 推播 + 自訂範本</li>
-          <li>積點 + 優惠券</li>
-          <li>報表匯出 Excel</li>
-          <li>品牌配色 / Logo</li>
-        </ul>
-        <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 專業版" class="plan-btn plan-btn-fill">立即諮詢</a>
-      </div>
-      <div class="pcard rv">
-        <div class="plan-name">企業版</div>
-        <div class="plan-price">面議</div>
-        <div class="plan-note">無上限一切</div>
-        <ul class="plan-feats">
-          <li>無上限司機</li>
-          <li>無上限訂單</li>
-          <li>全部功能</li>
-          <li>完全白標</li>
-          <li>多語系（中 / 英）</li>
-          <li>專屬客服</li>
-          <li>SLA 保證</li>
-        </ul>
-        <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 企業版" class="plan-btn plan-btn-out">立即諮詢</a>
       </div>
     </div>
-    <p
-      style="font-family:var(--mono);font-size:11px;color:var(--faint);text-align:center;margin-top:20px;letter-spacing:.04em">
-      * LINE 推播費用由車隊自行負擔，不含在月費內
-    </p>
   </div>
+</div>
 
-  <!-- Compare -->
-  <div class="sec rv">
-    <div class="sec-tag">05 · 競品比較</div>
-    <h2>Rovia Airport vs <em>其他方式</em></h2>
-    <table class="cmp">
-      <thead>
-        <tr>
-          <th>比較項目</th>
-          <th>電話叫車</th>
-          <th>Uber / 大平台</th>
-          <th>Rovia Airport</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>乘客體驗</td>
-          <td>打電話等</td>
-          <td>下載 App</td>
-          <td class="yes">LINE 內完成</td>
-        </tr>
-        <tr>
-          <td>費率控制</td>
-          <td>車隊自訂</td>
-          <td>平台定價</td>
-          <td class="yes">車隊完全自訂</td>
-        </tr>
-        <tr>
-          <td>抽成</td>
-          <td>無</td>
-          <td>20~30%</td>
-          <td class="yes">SaaS 月費</td>
-        </tr>
-        <tr>
-          <td>品牌</td>
-          <td>車隊</td>
-          <td>平台品牌</td>
-          <td class="yes">車隊品牌</td>
-        </tr>
-        <tr>
-          <td>客戶數據</td>
-          <td class="no">無</td>
-          <td>歸平台</td>
-          <td class="yes">完整掌握</td>
-        </tr>
-        <tr>
-          <td>即時通知</td>
-          <td class="no">無</td>
-          <td>App 推播</td>
-          <td class="yes">LINE Flex 小卡</td>
-        </tr>
-        <tr>
-          <td>上線時間</td>
-          <td>立即</td>
-          <td>審核期</td>
-          <td class="yes">1~3 天</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- CTA -->
-  <div class="cta-wrap rv">
-    <h2>開始你的<br><em>數位接送升級</em></h2>
-    <p>免費諮詢，一個工作天內回覆。讓你的車隊擁有大平台等級的體驗。</p>
-    <div class="cta-btns">
-      <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 合作諮詢" class="btn-gold">免費諮詢</a>
-      <a href="rovia-fleet.html" class="btn-line"
-        style="border:.5px solid var(--goldborder);padding:13px 24px;border-radius:6px;">看看 Rovia Fleet →</a>
+<!-- Plans -->
+<div class="sec rv" id="plans">
+  <div class="sec-tag">04 · 方案選擇</div>
+  <h2>找到適合<em>你的規模</em></h2>
+  <p class="sec-desc">從小型車行到大型車隊，隨時可升級，不中斷服務。</p>
+  <div class="plans">
+    <div class="pcard rv">
+      <div class="plan-name">入門版</div>
+      <div class="plan-price">洽詢</div>
+      <div class="plan-note">適合小型車行</div>
+      <ul class="plan-feats">
+        <li>10 位司機</li>
+        <li>500 單 / 月</li>
+        <li>即時 / 預約叫車</li>
+        <li>司機搶單</li>
+        <li class="off">自動派單</li>
+        <li class="off">LINE 推播</li>
+        <li class="off">報表匯出</li>
+      </ul>
+      <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 入門版" class="plan-btn plan-btn-out">立即諮詢</a>
+    </div>
+    <div class="pcard rv">
+      <div class="plan-name">標準版</div>
+      <div class="plan-price">洽詢</div>
+      <div class="plan-note">適合成長中車隊</div>
+      <ul class="plan-feats">
+        <li>30 位司機</li>
+        <li>2,000 單 / 月</li>
+        <li>搶單 + 自動 / 手動派</li>
+        <li>LINE 推播通知</li>
+        <li>數據報表</li>
+        <li>時段 / 假日加成</li>
+        <li class="off">Excel 匯出</li>
+      </ul>
+      <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 標準版" class="plan-btn plan-btn-out">立即諮詢</a>
+    </div>
+    <div class="pcard featured rv">
+      <div class="plan-name">專業版</div>
+      <div class="plan-price">洽詢</div>
+      <div class="plan-note">最多人選擇</div>
+      <ul class="plan-feats">
+        <li>80 位司機</li>
+        <li>5,000 單 / 月</li>
+        <li>全部派單模式 + 批次</li>
+        <li>LINE 推播 + 自訂範本</li>
+        <li>積點 + 優惠券</li>
+        <li>報表匯出 Excel</li>
+        <li>品牌配色 / Logo</li>
+      </ul>
+      <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 專業版" class="plan-btn plan-btn-fill">立即諮詢</a>
+    </div>
+    <div class="pcard rv">
+      <div class="plan-name">企業版</div>
+      <div class="plan-price">面議</div>
+      <div class="plan-note">無上限一切</div>
+      <ul class="plan-feats">
+        <li>無上限司機</li>
+        <li>無上限訂單</li>
+        <li>全部功能</li>
+        <li>完全白標</li>
+        <li>多語系（中 / 英）</li>
+        <li>專屬客服</li>
+        <li>SLA 保證</li>
+      </ul>
+      <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 企業版" class="plan-btn plan-btn-out">立即諮詢</a>
     </div>
   </div>
+  <p style="font-family:var(--mono);font-size:11px;color:var(--faint);text-align:center;margin-top:20px;letter-spacing:.04em">
+    * LINE 推播費用由車隊自行負擔，不含在月費內
+  </p>
+</div>
 
-  <!-- Footer -->
-  <footer>
-    <span class="ft-l">Rovia Airport — 宸鈞數位出品</span>
-    <span class="ft-r"><a href="index.html">返回宸鈞數位官網</a> · kao273183@gmail.com</span>
-  </footer>
+<!-- Compare -->
+<div class="sec rv">
+  <div class="sec-tag">05 · 競品比較</div>
+  <h2>Rovia Airport vs <em>其他方式</em></h2>
+  <table class="cmp">
+    <thead>
+      <tr><th>比較項目</th><th>電話叫車</th><th>Uber / 大平台</th><th>Rovia Airport</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>乘客體驗</td><td>打電話等</td><td>下載 App</td><td class="yes">LINE 內完成</td></tr>
+      <tr><td>費率控制</td><td>車隊自訂</td><td>平台定價</td><td class="yes">車隊完全自訂</td></tr>
+      <tr><td>抽成</td><td>無</td><td>20~30%</td><td class="yes">SaaS 月費</td></tr>
+      <tr><td>品牌</td><td>車隊</td><td>平台品牌</td><td class="yes">車隊品牌</td></tr>
+      <tr><td>客戶數據</td><td class="no">無</td><td>歸平台</td><td class="yes">完整掌握</td></tr>
+      <tr><td>即時通知</td><td class="no">無</td><td>App 推播</td><td class="yes">LINE Flex 小卡</td></tr>
+      <tr><td>上線時間</td><td>立即</td><td>審核期</td><td class="yes">1~3 天</td></tr>
+    </tbody>
+  </table>
+</div>
 
-  <script>
-    const cur = document.getElementById('cur');
-    const ring = document.getElementById('cur-r');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
-    (function animRing() { rx += (mx - rx) * .1; ry += (my - ry) * .1; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); })();
-    document.querySelectorAll('a,button').forEach(el => {
-      el.addEventListener('mouseenter', () => { cur.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.width = '48px'; ring.style.height = '48px'; });
-      el.addEventListener('mouseleave', () => { cur.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.width = '32px'; ring.style.height = '32px'; });
-    });
-    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .1 });
-    document.querySelectorAll('.rv').forEach(el => obs.observe(el));
-  </script>
+<!-- CTA -->
+<div class="cta-wrap rv">
+  <h2>開始你的<br><em>數位接送升級</em></h2>
+  <p>免費諮詢，一個工作天內回覆。讓你的車隊擁有大平台等級的體驗。</p>
+  <div class="cta-btns">
+    <a href="mailto:kao273183@gmail.com?subject=Rovia Airport 合作諮詢" class="btn-gold">免費諮詢</a>
+    <a href="rovia-fleet.html" class="btn-line" style="border:.5px solid var(--goldborder);padding:13px 24px;border-radius:6px;">看看 Rovia Fleet →</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span class="ft-l">Rovia Airport — 宸鈞數位出品</span>
+  <span class="ft-r"><a href="index.html">返回宸鈞數位官網</a> · kao273183@gmail.com</span>
+</footer>
+
+<script>
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('cur-r');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
+  (function animRing(){ rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing); })();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='48px';ring.style.height='48px'; });
+    el.addEventListener('mouseleave',()=>{ cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='32px';ring.style.height='32px'; });
+  });
+  const obs = new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting)e.target.classList.add('in'); }),{threshold:.1});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
 </body>
-
 </html>
