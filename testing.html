@@ -221,6 +221,117 @@
 
     /* deliverables */
     .deliv-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:10px; }
+
+    /* OSS ecosystem — 3 cards */
+    .oss-intro {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+      border: .5px solid var(--accborder);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .oss-intro::before {
+      content: ''; position:absolute; top:0; right:0;
+      width:280px; height:280px;
+      background: radial-gradient(circle, rgba(124,111,205,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .oss-intro > * { position: relative; }
+    .oss-tag {
+      display:inline-flex; align-items:center; gap:8px;
+      background: var(--accdim); border:.5px solid var(--accborder);
+      color: var(--acc2);
+      font-family: var(--mono); font-size:11px; letter-spacing:.12em;
+      padding: 5px 12px; border-radius: 20px;
+      margin-bottom: 18px; text-transform: uppercase;
+    }
+    .oss-tag::before {
+      content:''; width:6px; height:6px; border-radius:50%;
+      background: var(--acc); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; }
+      50% { opacity:.4; }
+    }
+    .oss-intro h3 {
+      font-family: var(--serif); font-size: 22px; font-weight: 900;
+      color: var(--text); line-height: 1.3; margin-bottom: 10px;
+    }
+    .oss-intro h3 em { font-style:normal; color: var(--acc2); }
+    .oss-intro p {
+      font-size: 14px; color: var(--dim); line-height: 1.75;
+      max-width: 780px;
+    }
+
+    .oss-ecosystem {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .oss-repo {
+      background: var(--bg2);
+      border: .5px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 24px;
+      display: flex; flex-direction: column;
+      transition: border-color .25s, transform .25s;
+      position: relative;
+    }
+    .oss-repo:hover { border-color: var(--accborder); transform: translateY(-2px); }
+    .oss-repo.primary { border-color: var(--accborder); }
+    .oss-repo.primary::before {
+      content: '主角';
+      position: absolute; top: -1px; right: 16px;
+      background: var(--acc); color: #fff;
+      font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+      padding: 4px 10px; border-radius: 0 0 6px 6px;
+    }
+    .oss-repo-role {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+      color: var(--acc2); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .oss-repo-name {
+      font-family: var(--mono); font-size: 15px; font-weight: 500;
+      color: var(--text); margin-bottom: 8px; word-break: break-all;
+    }
+    .oss-repo-title {
+      font-family: var(--serif); font-size: 17px; font-weight: 900;
+      color: var(--text); line-height: 1.35; margin-bottom: 14px;
+    }
+    .oss-repo-desc {
+      font-size: 12px; color: var(--dim); line-height: 1.7;
+      margin-bottom: 18px; flex: 1;
+    }
+    .oss-repo-feats {
+      list-style: none; margin-bottom: 20px;
+      padding-top: 14px; border-top: .5px solid var(--border);
+    }
+    .oss-repo-feats li {
+      font-size: 11px; color: var(--dim); padding: 5px 0;
+      display: flex; gap: 8px; align-items: flex-start;
+      line-height: 1.55;
+    }
+    .oss-repo-feats li::before {
+      content:''; width:3px; height:3px; border-radius:50%;
+      background: var(--acc2); flex-shrink:0; margin-top:6px;
+    }
+    .oss-repo-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .05em;
+      color: var(--acc2); text-decoration: none;
+      padding-top: 14px; border-top: .5px solid var(--border);
+      transition: color .2s;
+    }
+    .oss-repo-link:hover { color: var(--acc); }
+    .oss-repo-link svg { flex-shrink: 0; }
+
+    .oss-footer-note {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--faint); letter-spacing: .04em;
+      text-align: center; margin-top: 20px;
+    }
+    .oss-footer-note strong { color: var(--acc2); font-weight: 500; }
+
     .dcard {
       background:var(--bg2);border:.5px solid var(--border);
       border-radius:12px;padding:24px;text-align:center;
@@ -262,6 +373,9 @@
       .strip { padding:60px 24px; }
       .cta-wrap { padding:60px 24px; }
       .hero-stats { gap:28px; }
+      .oss-intro { padding:24px 22px; }
+      .oss-intro h3 { font-size:19px; }
+      .oss-ecosystem { grid-template-columns:1fr; }
       body { cursor:auto; }
       #cur,#cur-r { display:none; }
     }
@@ -301,9 +415,81 @@
   </div>
 </section>
 
+<!-- pytest-api-kit: 自研開源生態系 -->
+<div class="sec rv">
+  <div class="sec-tag">01 · 自研開源工具</div>
+  <h2>不只提供服務<em>我們也是工具的作者</em></h2>
+  <p class="sec-desc">從測試框架到雲端部署再到觸發儀表板，我們開發並實際使用中的完整 API 測試生態系，三個 repo 組成一條龍解決方案。全部 MIT 授權。</p>
+
+  <div class="oss-intro">
+    <div class="oss-tag">Open Source · Production-ready</div>
+    <h3>一套完整的<em>API 測試生態系</em></h3>
+    <p>API 測試工具常兩極化：一邊是「Plugin 地獄」堆十個套件設定一週；另一邊是裸 <code style="background:var(--accdim);padding:2px 6px;border-radius:4px;color:var(--acc2);font-family:var(--mono);font-size:12px;">assert resp.status_code == 200</code> 抓不到靜默 bug。我們從框架、雲端部署到觸發面板，做成三個獨立 repo，按需採用。宸鈞數位內部 UAT 系統已持續使用 6+ 個月。</p>
+  </div>
+
+  <div class="oss-ecosystem">
+
+    <a href="https://github.com/kao273183/pytest-api-kit" target="_blank" rel="noopener" class="oss-repo primary" style="text-decoration:none;cursor:none">
+      <div class="oss-repo-role">Layer 1 · Core Framework</div>
+      <div class="oss-repo-name">pytest-api-kit</div>
+      <div class="oss-repo-title">API Smoke & Regression 腳手架</div>
+      <div class="oss-repo-desc">Pytest + Requests + 一層薄薄的共用核心。Payload shape logging、snapshot drift、HTML 多欄位報告。5 分鐘跑起第一個測試。</div>
+      <ul class="oss-repo-feats">
+        <li>零依賴 Schema DSL</li>
+        <li>Snapshot drift 分類失敗原因</li>
+        <li>空陣列自動 ⚠ 警告</li>
+        <li>Bearer / OAuth / OTP adapter</li>
+      </ul>
+      <div class="oss-repo-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        查看 Repo →
+      </div>
+    </a>
+
+    <a href="https://github.com/kao273183/pytest-api-kit-aws" target="_blank" rel="noopener" class="oss-repo" style="text-decoration:none;cursor:none">
+      <div class="oss-repo-role">Layer 2 · Cloud Deploy</div>
+      <div class="oss-repo-name">pytest-api-kit-aws</div>
+      <div class="oss-repo-title">AWS Fargate 部署模板</div>
+      <div class="oss-repo-desc">CloudFormation 一鍵建起 ECR + S3 + CloudFront + IAM。每日 cron 自動跑 smoke，HTML 報告上 CloudFront，失敗發 Slack。月成本 &lt; $3 USD。</div>
+      <ul class="oss-repo-feats">
+        <li>CloudFormation 一次部署</li>
+        <li>Docker + ECS Fargate</li>
+        <li>GitHub Actions OIDC 觸發</li>
+        <li>S3 / CloudFront dashboard</li>
+      </ul>
+      <div class="oss-repo-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        查看 Repo →
+      </div>
+    </a>
+
+    <a href="https://github.com/kao273183/pytest-api-kit-dashboard" target="_blank" rel="noopener" class="oss-repo" style="text-decoration:none;cursor:none">
+      <div class="oss-repo-role">Layer 3 · Self-Service Panel</div>
+      <div class="oss-repo-name">pytest-api-kit-dashboard</div>
+      <div class="oss-repo-title">Cognito 自助觸發面板</div>
+      <div class="oss-repo-desc">非工程人員用 SSO 登入網頁，按鈕觸發測試、看即時 log、看報告。Cognito + Lambda + 單檔 HTML，45 分鐘部署完成。</div>
+      <ul class="oss-repo-feats">
+        <li>Cognito SSO + 三級角色</li>
+        <li>JWT authorizer 零自訂 auth</li>
+        <li>觸發 + 管理使用者一頁完成</li>
+        <li>Slack 新用戶通知</li>
+      </ul>
+      <div class="oss-repo-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        查看 Repo →
+      </div>
+    </a>
+
+  </div>
+
+  <div class="oss-footer-note">
+    Used in production by <strong>宸鈞數位</strong> · <strong>MIT License</strong> · 歡迎 Fork 使用於任何商業或個人專案
+  </div>
+</div>
+
 <!-- 為什麼需要 -->
 <div class="sec rv">
-  <div class="sec-tag">01 · 為什麼需要</div>
+  <div class="sec-tag">02 · 為什麼需要</div>
   <h2>開發者自測<em>有盲點</em></h2>
   <p class="sec-desc">寫程式的人測試自己的程式，容易跳過邊界情況、用「正確的方式」操作而忽略真實用戶的行為。專業 QA 用不同視角找問題。</p>
   <div class="feat-grid">
@@ -342,7 +528,7 @@
 
 <!-- 測試類型 -->
 <div class="sec rv">
-  <div class="sec-tag">02 · 測試類型</div>
+  <div class="sec-tag">03 · 測試類型</div>
   <h2>手動 + 自動化<em>雙管齊下</em></h2>
   <p class="sec-desc">兩種測試各有其價值，搭配使用才能最大化覆蓋率。</p>
   <div class="type-grid">
@@ -377,7 +563,7 @@
 
 <!-- 流程 -->
 <div style="padding:0 48px 80px;max-width:1100px;margin:0 auto" class="rv">
-  <div class="sec-tag">03 · 服務流程</div>
+  <div class="sec-tag">04 · 服務流程</div>
   <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:40px">五步驟完成測試專案</h2>
   <div class="steps">
     <div class="step"><div class="step-n">01</div><h4>需求確認</h4><p>了解產品類型、測試範圍、目標平台與時程</p></div>
@@ -391,7 +577,7 @@
 <!-- 交付物 -->
 <div class="strip">
   <div class="strip-inner rv">
-    <div class="sec-tag">04 · 交付內容</div>
+    <div class="sec-tag">05 · 交付內容</div>
     <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:40px">每個專案都會拿到什麼</h2>
     <div class="deliv-grid">
       <div class="dcard">
@@ -420,7 +606,7 @@
 
 <!-- 方案 -->
 <div class="sec rv" id="plans">
-  <div class="sec-tag">05 · 收費方案</div>
+  <div class="sec-tag">06 · 收費方案</div>
   <h2>按需求<em>選擇方案</em></h2>
   <p class="sec-desc">一次性專案或長期合作都有對應方案，規模不限，歡迎諮詢。</p>
   <div class="plans">
