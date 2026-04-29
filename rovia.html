@@ -5,21 +5,21 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rovia Airport — 機場接送平台 | 宸鈞數位</title>
-  <meta name="description" content="Rovia Airport 是車隊專屬機場接送 SaaS。乘客 LINE 預約零下載、司機即時搶單、月費制零抽成。宸鈞數位出品。">
-  <meta name="keywords" content="機場接送系統, 車隊管理, LINE叫車, SaaS, 月費制, 零抽成, Rovia Airport, 宸鈞數位">
+  <meta name="description" content="Rovia Airport — 車隊專屬機場接送 SaaS。LINE 零下載預約、4 種計費模式、積點優惠券、Telegram 推播省成本，月費制零抽成。宸鈞數位出品。">
+  <meta name="keywords" content="機場接送系統, 車隊管理, LINE叫車, LIFF, SaaS, 月費制, 零抽成, 階梯跳表, 分段費率, 行政區定價, 積點優惠券, Telegram 推播, 多機場, 多點下車, Rovia Airport, 宸鈞數位">
   <link rel="canonical" href="https://chenjundigital.com/rovia.html">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://chenjundigital.com/rovia.html">
   <meta property="og:title" content="Rovia Airport — 機場接送平台 | 宸鈞數位">
-  <meta property="og:description" content="車隊專屬機場接送 SaaS。LINE 預約零下載、月費制零抽成、數據完整掌握。">
+  <meta property="og:description" content="車隊專屬機場接送 SaaS。LINE 零下載、4 種計費模式、積點優惠券、Telegram 推播省成本、月費制零抽成。">
   <meta property="og:image" content="https://chenjundigital.com/og-image.png">
   <meta property="og:locale" content="zh_TW">
   <meta property="og:site_name" content="宸鈞數位">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rovia Airport — 機場接送平台 | 宸鈞數位">
-  <meta name="twitter:description" content="車隊專屬機場接送 SaaS。LINE 預約零下載、月費制零抽成。">
+  <meta name="twitter:description" content="車隊專屬機場接送 SaaS。LINE 零下載、4 種計費模式、積點優惠券、Telegram 推播省成本、月費制零抽成。">
   <meta name="twitter:image" content="https://chenjundigital.com/og-image.png">
 
   <script type="application/ld+json">
@@ -29,10 +29,25 @@
     "name": "Rovia Airport",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web, iOS, Android",
-    "description": "車隊專屬機場接送管理平台。乘客 LINE 預約、司機即時搶單、月費制零抽成。",
+    "description": "車隊專屬機場接送管理平台。LINE 零下載預約、4 種計費模式（公里/行政區/階梯/分段）、積點優惠券、Telegram 推播省成本、5 大機場據點、月費制零抽成。",
     "url": "https://chenjundigital.com/rovia.html",
     "author": { "@type": "Organization", "name": "宸鈞數位有限公司" },
     "offers": { "@type": "Offer", "priceCurrency": "TWD", "price": "0", "description": "洽詢報價" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"我們車隊原本有用大平台，改用 Rovia Airport 會被封嗎？","acceptedAnswer":{"@type":"Answer","text":"不會。Rovia Airport 是車隊自有的 LINE 預約系統，與大平台是兩個獨立通路，可同時經營。"}},
+      {"@type":"Question","name":"司機需要技術背景嗎？多久能上手？","acceptedAnswer":{"@type":"Answer","text":"不需要。司機端在 LINE LIFF 內運作，掃車隊碼即綁定，5–10 分鐘上手。"}},
+      {"@type":"Question","name":"計費可以多複雜？","acceptedAnswer":{"@type":"Answer","text":"支援 4 種模式：公里計費、行政區固定價、階梯跳表、分段費率，並含車型倍率、時段假日加成、緊急加值費、多點下車。"}},
+      {"@type":"Question","name":"推播訊息要花錢嗎？","acceptedAnswer":{"@type":"Answer","text":"LINE 官方推播超額需付費，Rovia 提供 Telegram 雙通道作為司機端通知選項，完全免費且不限量。"}},
+      {"@type":"Question","name":"資料安全嗎？放在哪？","acceptedAnswer":{"@type":"Answer","text":"資料儲存於 Google Firebase asia-east1 台灣機房，透過 Firestore Rules 嚴格控管讀寫權限。"}},
+      {"@type":"Question","name":"多久能開通？","acceptedAnswer":{"@type":"Answer","text":"1–3 個工作天可上線，月繳制無綁約，可隨時升降方案。"}},
+      {"@type":"Question","name":"支援多機場嗎？","acceptedAnswer":{"@type":"Answer","text":"支援桃園 TPE、松山 TSA、台中 RMQ、高雄 KHH、基隆 KEL 共 5 個據點，車隊可自由勾選啟用。"}}
+    ]
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -233,6 +248,54 @@
     .yes { color:var(--gold);font-weight:500; }
     .no  { color:var(--faint); }
 
+    /* faq */
+    .faq-list { display:flex;flex-direction:column;gap:10px; }
+    .faq-item {
+      background: var(--bg2); border: .5px solid var(--border);
+      border-radius:12px; padding: 22px 26px;
+      transition: border-color .25s;
+    }
+    .faq-item:hover { border-color: var(--goldborder); }
+    .faq-item summary {
+      cursor: pointer; list-style: none;
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+      font-size:15px; color:var(--text); font-weight:500;
+    }
+    .faq-item summary::-webkit-details-marker { display:none; }
+    .faq-item summary::after {
+      content:'+'; font-family:var(--mono); font-size:20px;
+      color:var(--gold); flex-shrink:0; transition:transform .2s;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item .faq-body {
+      margin-top: 16px; padding-top: 16px;
+      border-top: .5px solid var(--border);
+      font-size: 13.5px; color: var(--dim); line-height: 1.8;
+    }
+
+    /* trust strip */
+    .trust-strip {
+      background: var(--bg3);
+      border-top: .5px solid var(--border);
+      border-bottom: .5px solid var(--border);
+      padding: 60px 48px;
+    }
+    .trust-inner { max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:32px; }
+    .trust-item { text-align:center; }
+    .trust-icon {
+      width:44px;height:44px;border-radius:10px;
+      background:var(--golddim);border:.5px solid var(--goldborder);
+      display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+    }
+    .trust-icon svg { width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round; }
+    .trust-title { font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px; }
+    .trust-desc { font-size:11.5px;color:var(--faint);line-height:1.6;letter-spacing:.02em; }
+
+    @media(max-width:900px){
+      .trust-inner { grid-template-columns:1fr 1fr;gap:24px; }
+      .trust-strip { padding:40px 24px; }
+    }
+
     /* dark strip */
     .strip {
       background: var(--bg3);
@@ -314,7 +377,7 @@
   <div class="hero-glow"></div>
   <div class="hero-grid-lines"></div>
 
-  <div class="hero-eyebrow">Rovia Airport — Machine Transfer Platform</div>
+  <div class="hero-eyebrow">Rovia Airport — Airport Transfer Platform</div>
   <h1>讓車隊擁有<br><em>自己的接送系統</em></h1>
   <p class="hero-desc">車隊專屬機場接送管理平台。乘客 LINE 預約、司機即時搶單、車隊後台全掌控。零下載、零抽成、數據全歸你。</p>
   <div class="hero-cta">
@@ -324,11 +387,15 @@
   <div class="hero-stats">
     <div>
       <div class="hstat-num">0%</div>
-      <div class="hstat-label">抽成</div>
+      <div class="hstat-label">每單抽成</div>
     </div>
     <div>
       <div class="hstat-num">4</div>
-      <div class="hstat-label">方案選擇</div>
+      <div class="hstat-label">計費模式</div>
+    </div>
+    <div>
+      <div class="hstat-num">5</div>
+      <div class="hstat-label">機場據點</div>
     </div>
     <div>
       <div class="hstat-num">LINE</div>
@@ -354,9 +421,24 @@
       <p>固定月費，不抽每趟佣金。接越多單越划算，利潤 100% 歸車隊。</p>
     </div>
     <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+      <h4>4 種智慧計費模式</h4>
+      <p>公里計費、行政區固定價、階梯跳表、分段費率（多階每公里），長短途差異化定價，車隊自由切換。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <h4>多機場 + 多點下車</h4>
+      <p>5 大機場據點（TPE/TSA/RMQ/KHH/KEL）可勾選啟用，支援多點下車（含階段倍率）、緊急接送加值費、車型分類等級分流。</p>
+    </div>
+    <div class="fcard rv">
+      <div class="fcard-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div>
+      <h4>積點 + 優惠券</h4>
+      <p>積點累積與 FIFO 扣抵、有效期管理、邀請好友送點、優惠券模板批次贈送，一站打造會員忠誠機制。</p>
+    </div>
+    <div class="fcard rv">
       <div class="fcard-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-      <h4>LINE 全程推播</h4>
-      <p>下單、配對、出發、抵達、完成，每個環節自動推送 LINE Flex 小卡通知。</p>
+      <h4>LINE + Telegram 雙通道推播</h4>
+      <p>乘客走 LINE Flex 小卡，司機可選 LINE 或 Telegram（<strong style="color:var(--gold)">Telegram 推播完全免費</strong>）。每個環節自動通知，省下大量推播成本。</p>
     </div>
     <div class="fcard rv">
       <div class="fcard-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
@@ -366,7 +448,7 @@
     <div class="fcard rv">
       <div class="fcard-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
       <h4>彈性派單系統</h4>
-      <p>搶單、自動派、客服派三種模式自由切換，可依時段排程，預約單到期自動處理。</p>
+      <p>搶單、自動派、客服派三種模式自由切換，車型等級分流（小/中/大/特大型），預約單自動處理。</p>
     </div>
     <div class="fcard rv">
       <div class="fcard-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
@@ -389,15 +471,15 @@
   </div>
 </div>
 
-<!-- LINE Notify strip -->
+<!-- Notify strip -->
 <div class="strip">
   <div class="strip-inner rv">
-    <div class="sec-tag">03 · LINE 推播</div>
+    <div class="sec-tag">03 · 即時通知</div>
     <h2 style="font-family:var(--serif);font-size:32px;font-weight:900;margin-bottom:16px">每個環節<em>自動通知</em></h2>
-    <p style="font-size:15px;color:var(--dim);max-width:480px;line-height:1.75">精美的 LINE Flex 小卡，乘客和司機不再漏接任何訊息。</p>
+    <p style="font-size:15px;color:var(--dim);max-width:560px;line-height:1.75">乘客走 LINE Flex 小卡，司機可選 LINE 或 <strong style="color:var(--gold)">Telegram（完全免費）</strong>，省下大量推播成本。所有通知範本（標題/副標題/按鈕文字）皆可自訂並支援預覽。</p>
     <div class="notify-grid">
       <div class="ncard">
-        <div class="ncard-role">乘客 Passenger</div>
+        <div class="ncard-role">乘客 Passenger（LINE Flex）</div>
         <ul class="nlist">
           <li>下單成功 — 等待配對中</li>
           <li>司機已接單 — 姓名、車牌、車型</li>
@@ -408,11 +490,13 @@
         </ul>
       </div>
       <div class="ncard">
-        <div class="ncard-role">司機 Driver</div>
+        <div class="ncard-role">司機 Driver（LINE / Telegram）</div>
         <ul class="nlist">
           <li>新訂單 — 路線、車資、「立即搶單」</li>
           <li>被指派訂單 — 系統自動分配通知</li>
           <li>乘客取消 — 訂單已取消通知</li>
+          <li>Telegram 走 LIFF deep link，一鍵開啟 LINE app</li>
+          <li>車隊後台可解綁 / 手動綁定</li>
         </ul>
       </div>
     </div>
@@ -448,9 +532,10 @@
         <li>30 位司機</li>
         <li>2,000 單 / 月</li>
         <li>搶單 + 自動 / 手動派</li>
-        <li>LINE 推播通知</li>
+        <li>LINE + Telegram 推播</li>
         <li>數據報表</li>
         <li>時段 / 假日加成</li>
+        <li>4 種計費模式</li>
         <li class="off">Excel 匯出</li>
       </ul>
       <a href="mailto:kao273183@chenjundigital.com?subject=Rovia Airport 標準版" class="plan-btn plan-btn-out">立即諮詢</a>
@@ -463,8 +548,9 @@
         <li>80 位司機</li>
         <li>5,000 單 / 月</li>
         <li>全部派單模式 + 批次</li>
-        <li>LINE 推播 + 自訂範本</li>
-        <li>積點 + 優惠券</li>
+        <li>LINE + Telegram + 自訂範本</li>
+        <li>積點 + 優惠券 + 邀請</li>
+        <li>多點下車 + 緊急加值</li>
         <li>報表匯出 Excel</li>
         <li>品牌配色 / Logo</li>
       </ul>
@@ -487,7 +573,7 @@
     </div>
   </div>
   <p style="font-family:var(--mono);font-size:11px;color:var(--faint);text-align:center;margin-top:20px;letter-spacing:.04em">
-    * LINE 推播費用由車隊自行負擔，不含在月費內
+    * LINE 官方推播超額部分由車隊自行負擔，可改用 Telegram 完全免費替代
   </p>
 </div>
 
@@ -497,18 +583,77 @@
   <h2>Rovia Airport vs <em>其他方式</em></h2>
   <table class="cmp">
     <thead>
-      <tr><th>比較項目</th><th>電話叫車</th><th>Uber / 大平台</th><th>Rovia Airport</th></tr>
+      <tr><th>比較項目</th><th>電話叫車</th><th>Uber / 大平台</th><th>找外包自開發</th><th>Rovia Airport</th></tr>
     </thead>
     <tbody>
-      <tr><td>乘客體驗</td><td>打電話等</td><td>下載 App</td><td class="yes">LINE 內完成</td></tr>
-      <tr><td>費率控制</td><td>車隊自訂</td><td>平台定價</td><td class="yes">車隊完全自訂</td></tr>
-      <tr><td>抽成</td><td>無</td><td>20~30%</td><td class="yes">SaaS 月費</td></tr>
-      <tr><td>品牌</td><td>車隊</td><td>平台品牌</td><td class="yes">車隊品牌</td></tr>
-      <tr><td>客戶數據</td><td class="no">無</td><td>歸平台</td><td class="yes">完整掌握</td></tr>
-      <tr><td>即時通知</td><td class="no">無</td><td>App 推播</td><td class="yes">LINE Flex 小卡</td></tr>
-      <tr><td>上線時間</td><td>立即</td><td>審核期</td><td class="yes">1~3 天</td></tr>
+      <tr><td>乘客體驗</td><td>打電話等</td><td>下載 App</td><td>視團隊</td><td class="yes">LINE 內完成</td></tr>
+      <tr><td>費率控制</td><td>車隊自訂</td><td>平台定價</td><td>車隊自訂</td><td class="yes">4 種模式自由切換</td></tr>
+      <tr><td>抽成</td><td>無</td><td>20~30%</td><td>無</td><td class="yes">SaaS 月費</td></tr>
+      <tr><td>品牌</td><td>車隊</td><td>平台品牌</td><td>車隊</td><td class="yes">車隊品牌（可白標）</td></tr>
+      <tr><td>客戶數據</td><td class="no">無</td><td>歸平台</td><td>歸車隊</td><td class="yes">完整掌握</td></tr>
+      <tr><td>即時通知</td><td class="no">無</td><td>App 推播</td><td class="no">須自寫</td><td class="yes">LINE Flex + Telegram</td></tr>
+      <tr><td>上線時間</td><td>立即</td><td>審核期</td><td>3~12 個月</td><td class="yes">1~3 天</td></tr>
+      <tr><td>初期投入</td><td>低</td><td>低</td><td class="no">數十萬起</td><td class="yes">月費低門檻</td></tr>
+      <tr><td>後續維護</td><td>—</td><td>—</td><td class="no">需專屬工程師</td><td class="yes">原廠持續更新</td></tr>
     </tbody>
   </table>
+</div>
+
+<!-- FAQ -->
+<div class="sec rv">
+  <div class="sec-tag">06 · 常見問題</div>
+  <h2>還在猶豫？<br><em>這些問題你可能也想問</em></h2>
+  <div class="faq-list" style="margin-top:40px">
+    <details class="faq-item">
+      <summary>我們車隊原本有用大平台（Uber/Lalamove），改用 Rovia Airport 會被封嗎？</summary>
+      <div class="faq-body">不會。Rovia Airport 是車隊「自有的」LINE 預約系統，乘客和司機關係建立在你的車隊與 LINE 官方帳號上，與大平台是兩個獨立通路。你可以同時經營，把熟客導入自有通路，逐步降低對抽成平台的依賴。</div>
+    </details>
+    <details class="faq-item">
+      <summary>司機需要技術背景嗎？多久能上手？</summary>
+      <div class="faq-body">不需要。司機端在 LINE LIFF 內運作，分享一條車隊碼或 QR Code，司機掃碼即綁定。介面只有 4 個 Tab：接單 / 未完成 / 紀錄 / 設定，操作邏輯類似計程車跳錶。一般司機 5–10 分鐘可熟悉，搭配新訂單 LINE/Telegram 推播，不會漏單。</div>
+    </details>
+    <details class="faq-item">
+      <summary>計費可以多複雜？我們車隊有長短途差異化定價</summary>
+      <div class="faq-body">支援 4 種模式：(1) 公里計費；(2) 行政區固定價（每個機場可獨立設不同行政區價，支援 Excel 批次匯入）；(3) 階梯跳表（類似計程車跳錶）；(4) 分段費率（多階每公里，例如 1–15km 每 km $50、16–40km 每 km $25、41+ km 每 km $15）。同時支援車型倍率、時段加成、假日加成、緊急接送加值費、多點下車加成。</div>
+    </details>
+    <details class="faq-item">
+      <summary>推播訊息要花錢嗎？</summary>
+      <div class="faq-body">LINE 官方推播有免費額度，超額需付費。Rovia Airport 提供 Telegram 雙通道作為司機端通知選項，<strong style="color:var(--gold)">Telegram 推播完全免費且不限量</strong>，可大幅降低推播成本。乘客端維持 LINE Flex 小卡（提供最佳預約體驗）。</div>
+    </details>
+    <details class="faq-item">
+      <summary>我的乘客資料和訂單資料安全嗎？放在哪？</summary>
+      <div class="faq-body">所有資料儲存於 Google Firebase 雲端（asia-east1 台灣機房），透過 Firestore Rules 嚴格控管讀寫權限：乘客只能看自己的資料、車隊只能看自家訂單、敏感欄位（如電話）支援負面權限禁止匯出/查看。Storage 限制頭像、品牌資源僅本人或管理員可上傳。所有 onCall 函式經身份驗證才能執行。</div>
+    </details>
+    <details class="faq-item">
+      <summary>多久能開通？需要簽長約嗎？</summary>
+      <div class="faq-body">標準流程 1–3 個工作天：第 1 天確認方案與基本設定（費率、車型、機場據點），第 2 天司機綁定 + 內部試跑，第 3 天正式對外營運。月繳制，可隨時升降方案，無綁約。企業版另約。</div>
+    </details>
+    <details class="faq-item">
+      <summary>支援多機場嗎？我們有跑松山、高雄、桃園</summary>
+      <div class="faq-body">支援 5 大機場據點：桃園 TPE、松山 TSA、台中 RMQ、高雄 KHH、基隆 KEL（碼頭）。車隊可自由勾選啟用，每個機場可獨立設定不同的行政區固定價。</div>
+    </details>
+  </div>
+</div>
+
+<!-- Trust strip -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item rv">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="trust-title">Firestore Rules 嚴控</div>
+      <div class="trust-desc">資料讀寫白名單規則 / 負面權限機制 / 敏感欄位脫敏</div>
+    </div>
+    <div class="trust-item rv">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20z"/></svg></div>
+      <div class="trust-title">asia-east1 台灣機房</div>
+      <div class="trust-desc">Google Firebase 雲端 / 低延遲 / 99.95% SLA</div>
+    </div>
+    <div class="trust-item rv">
+      <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 2v6"/><path d="M12 22v-6"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 14.83l4.24 4.24"/><path d="M2 12h6"/><path d="M16 12h6"/><path d="M4.93 19.07l4.24-4.24"/><path d="M14.83 9.17l4.24-4.24"/></svg></div>
+      <div class="trust-title">原廠持續更新</div>
+      <div class="trust-desc">每月 OTA / 新功能持續推送 / 不另收升級費</div>
+    </div>
+  </div>
 </div>
 
 <!-- CTA -->
