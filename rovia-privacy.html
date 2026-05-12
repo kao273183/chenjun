@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隱私政策 — Rovia Airport | 宸鈞數位</title>
+  <meta name="description" content="Rovia Airport 機場接送平台隱私政策。詳述本平台所蒐集之個人資料項目、目的、利用範圍、儲存保護、第三方分享、用戶權利與聯絡方式。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://chenjundigital.com/rovia-privacy.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0A0F1E;
+      --bg2:    #0F1628;
+      --bg3:    #0C1220;
+      --gold:   #E6B84A;
+      --gold2:  #F5D07A;
+      --golddim: rgba(230,184,74,0.12);
+      --goldborder: rgba(230,184,74,0.25);
+      --text:   #EDE8DC;
+      --dim:    rgba(237,232,220,0.65);
+      --faint:  rgba(237,232,220,0.32);
+      --border: rgba(237,232,220,0.07);
+      --serif:  'Noto Serif TC', serif;
+      --sans:   'DM Sans', sans-serif;
+      --mono:   'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: rgba(10,15,30,0.88); backdrop-filter: blur(14px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-dot { width:7px;height:7px;border-radius:50%;background:var(--gold); }
+    .nav-name { font-family:var(--serif);font-size:14px;font-weight:700;color:var(--text);letter-spacing:.06em; }
+    .nav-sub { font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em; }
+    .nav-back { font-family:var(--mono);font-size:11px;color:var(--faint);text-decoration:none;letter-spacing:.08em;transition:color .2s; }
+    .nav-back:hover { color:var(--gold); }
+
+    .doc-hero {
+      padding: 56px 48px 32px;
+      max-width: 980px; margin: 0 auto;
+      border-bottom: .5px solid var(--border);
+    }
+    .doc-eyebrow {
+      display:flex; align-items:center; gap:12px;
+      font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+      color:var(--gold); text-transform:uppercase; margin-bottom:24px;
+    }
+    .doc-eyebrow::before { content:''; width:24px;height:1px;background:var(--gold); }
+    .doc-hero h1 {
+      font-family:var(--serif); font-size:clamp(36px,5vw,56px);
+      font-weight:900; line-height:1.1; letter-spacing:-.02em;
+      color:var(--text); margin-bottom:20px;
+    }
+    .doc-hero h1 em { font-style:normal; color:var(--gold); }
+    .doc-meta {
+      display:flex; gap:32px; flex-wrap:wrap;
+      font-family:var(--mono); font-size:12px; color:var(--faint);
+      letter-spacing:.06em; margin-top:12px;
+    }
+    .doc-meta strong { color:var(--gold); font-weight:500; margin-right:8px; }
+    .doc-intro {
+      font-size:15px; color:var(--dim); line-height:1.85;
+      margin-top:32px; max-width:760px;
+    }
+
+    .toc {
+      max-width: 980px; margin: 0 auto;
+      padding: 24px 48px 28px;
+      border-bottom: .5px solid var(--border);
+    }
+    .toc-title {
+      font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+      color:var(--faint); text-transform:uppercase; margin-bottom:14px;
+    }
+    .toc-list {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 4px 20px;
+    }
+    .toc-list a {
+      display:flex; gap:8px; align-items:baseline;
+      font-size:12.5px; color:var(--dim); text-decoration:none;
+      padding: 3px 0; transition:color .2s;
+    }
+    .toc-list a:hover { color:var(--gold); }
+    .toc-list a span {
+      font-family:var(--mono); font-size:11px; color:var(--faint); flex-shrink:0;
+    }
+
+    .doc-body {
+      max-width: 980px; margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+    .doc-body section {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+    }
+    .doc-body h2 {
+      font-family:var(--serif); font-size:24px; font-weight:900;
+      color:var(--text); margin-bottom:24px;
+      padding-bottom:12px; border-bottom:.5px solid var(--goldborder);
+      display:flex; align-items:baseline; gap:14px;
+    }
+    .doc-body h2::before {
+      content: attr(data-n);
+      font-family:var(--mono); font-size:12px; color:var(--gold);
+      letter-spacing:.06em; flex-shrink:0;
+    }
+    .doc-body h3 {
+      font-size:15px; font-weight:500; color:var(--gold2);
+      margin: 24px 0 12px;
+    }
+    .doc-body p {
+      font-size:14.5px; color:var(--dim); line-height:1.85;
+      margin-bottom: 14px;
+    }
+    .doc-body ul, .doc-body ol {
+      margin: 14px 0 14px 8px; padding-left:20px;
+    }
+    .doc-body li {
+      font-size:14.5px; color:var(--dim); line-height:1.85;
+      margin-bottom: 6px;
+    }
+    .doc-body li::marker { color: var(--gold); }
+    .doc-body strong { color: var(--text); font-weight:500; }
+    .doc-body em { font-style: normal; color: var(--gold); }
+    .doc-body code {
+      font-family:var(--mono); font-size:12.5px;
+      background: var(--bg2); padding: 2px 8px; border-radius:4px;
+      color:var(--gold);
+    }
+    .doc-body a {
+      color: var(--gold); text-decoration: underline;
+      text-decoration-color: var(--goldborder);
+      text-underline-offset: 3px;
+    }
+
+    .callout {
+      background: var(--bg2); border: .5px solid var(--goldborder);
+      border-left: 2px solid var(--gold);
+      border-radius: 8px; padding: 18px 22px;
+      margin: 18px 0;
+    }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout-tag {
+      font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+      color:var(--gold); text-transform:uppercase; margin-bottom:8px;
+    }
+
+    /* data table */
+    .data-table {
+      width:100%; border-collapse:collapse; font-size:13.5px;
+      margin: 16px 0;
+      border:.5px solid var(--border); border-radius:10px; overflow:hidden;
+    }
+    .data-table th {
+      background: var(--golddim); color: var(--gold);
+      font-family:var(--mono); font-size:10.5px; letter-spacing:.12em;
+      padding:11px 14px; text-align:left;
+      border-bottom:.5px solid var(--goldborder);
+    }
+    .data-table td {
+      padding:11px 14px; color: var(--dim); line-height:1.7;
+      border-bottom:.5px solid var(--border); vertical-align: top;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td:first-child { color: var(--text); font-weight:500; min-width:140px; }
+    .data-table tr:hover td { background: rgba(237,232,220,0.02); }
+
+    .contact-card {
+      background: var(--bg3); border: .5px solid var(--border);
+      border-radius: 12px; padding: 28px;
+      margin-top: 24px;
+    }
+    .contact-card dl { display:grid; gap:10px; }
+    .contact-card div {
+      display:flex; gap:16px; padding-bottom:10px;
+      border-bottom:.5px solid var(--border);
+    }
+    .contact-card div:last-child { border-bottom:none; padding-bottom:0; }
+    .contact-card dt {
+      font-family:var(--mono); font-size:11px; color:var(--faint);
+      letter-spacing:.08em; min-width:96px; flex-shrink:0;
+    }
+    .contact-card dd { font-size:14px; color:var(--text); }
+    .contact-card dd a { color: var(--gold); text-decoration: none; }
+
+    footer {
+      padding: 32px 48px; border-top: .5px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+    }
+    .ft-l { font-family:var(--serif); font-size:13px; color:var(--faint); }
+    .ft-r { font-family:var(--mono); font-size:11px; color:var(--faint); }
+    .ft-r a { color:var(--gold); text-decoration:none; }
+
+    @media(max-width:980px){
+      .toc-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:760px){
+      nav, footer { padding: 16px 22px; }
+      .doc-hero, .toc, .doc-body { padding-left: 22px; padding-right: 22px; }
+      .toc-list { grid-template-columns: 1fr; }
+      .doc-meta { gap: 18px; }
+      .contact-card div { flex-direction: column; gap:4px; }
+      .data-table { font-size: 12.5px; }
+      .data-table td:first-child { min-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="rovia.html" class="nav-brand">
+    <div class="nav-dot"></div>
+    <span class="nav-name">宸鈞數位</span>
+  </a>
+  <span class="nav-sub">Rovia Airport · Privacy</span>
+  <a href="rovia.html" class="nav-back">← 返回產品頁</a>
+</nav>
+
+<header class="doc-hero">
+  <div class="doc-eyebrow">Privacy Policy · 隱私政策</div>
+  <h1>Rovia Airport<br><em>隱私政策</em></h1>
+  <div class="doc-meta">
+    <span><strong>生效日期</strong>2026 年 4 月 29 日</span>
+    <span><strong>最後更新</strong>2026 年 4 月 29 日</span>
+    <span><strong>版本</strong>v1.0</span>
+  </div>
+  <p class="doc-intro">
+    <strong style="color:var(--text)">宸鈞數位有限公司</strong>（統一編號：62201354，下稱「我們」）尊重並保護所有使用 Rovia Airport 機場接送預約平台（下稱「本平台」）之車隊、司機與乘客之個人資料。本隱私政策（下稱「本政策」）說明我們依《<strong style="color:var(--text)">個人資料保護法</strong>》及相關法令規定蒐集、處理、利用您個人資料之原則與範圍。請於使用本平台前詳細閱讀本政策。
+  </p>
+</header>
+
+<nav class="toc" aria-label="目錄">
+  <div class="toc-title">目錄 · Contents</div>
+  <div class="toc-list">
+    <a href="#s1"><span>01</span>適用範圍</a>
+    <a href="#s2"><span>02</span>蒐集之資料項目</a>
+    <a href="#s3"><span>03</span>蒐集目的</a>
+    <a href="#s4"><span>04</span>利用範圍</a>
+    <a href="#s5"><span>05</span>第三方服務與分享</a>
+    <a href="#s6"><span>06</span>資料儲存與保護</a>
+    <a href="#s7"><span>07</span>資料保留期限</a>
+    <a href="#s8"><span>08</span>您的權利</a>
+    <a href="#s9"><span>09</span>Cookie 與追蹤</a>
+    <a href="#s10"><span>10</span>未成年人隱私</a>
+    <a href="#s11"><span>11</span>國際資料傳輸</a>
+    <a href="#s12"><span>12</span>政策變更</a>
+    <a href="#s13"><span>13</span>聯絡我們</a>
+  </div>
+</nav>
+
+<main class="doc-body">
+
+  <section id="s1">
+    <h2 data-n="01">適用範圍</h2>
+    <p>本政策適用於您使用 Rovia Airport 系列服務時所產生之個人資料處理行為，包含但不限於：</p>
+    <ul>
+      <li><strong>乘客 LIFF</strong>（透過 LINE 預約叫車之介面）；</li>
+      <li><strong>司機 LIFF</strong>（司機接單與管理介面）；</li>
+      <li><strong>車隊後台</strong>（車隊管理員之 Web 後台）；</li>
+      <li><strong>Hub 後台</strong>（平台方管理介面）；</li>
+      <li><strong>Telegram Bot</strong>（司機推播選用通道）。</li>
+    </ul>
+    <p>本政策不適用於與本平台連結之第三方網站、App 或服務（如 LINE、Telegram、Google Maps），其各自之隱私政策由該服務提供者自行訂定。</p>
+  </section>
+
+  <section id="s2">
+    <h2 data-n="02">蒐集之資料項目</h2>
+    <p>視您於本平台之角色與使用情境，我們可能蒐集以下類別之個人資料：</p>
+
+    <h3>2.1 直接由您提供</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>類別</th><th>欄位</th><th>取得時機</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LINE Profile</td>
+          <td>顯示名稱、頭像、LINE userId</td>
+          <td>登入或綁定 LIFF 時</td>
+        </tr>
+        <tr>
+          <td>聯絡資料</td>
+          <td>手機號碼、電子郵件（車隊管理員）</td>
+          <td>首次叫車或註冊車隊時</td>
+        </tr>
+        <tr>
+          <td>司機資料</td>
+          <td>姓名、車牌、車型、車隊內部司機編號</td>
+          <td>司機加入車隊時</td>
+        </tr>
+        <tr>
+          <td>車隊資料</td>
+          <td>車隊名稱、負責人、聯絡方式、Logo、計費設定</td>
+          <td>車隊註冊時</td>
+        </tr>
+        <tr>
+          <td>訂單資料</td>
+          <td>上下車地點、時間、車型、乘客數、行李數、備註、航班號</td>
+          <td>下單時</td>
+        </tr>
+        <tr>
+          <td>互動內容</td>
+          <td>聊天訊息、訂單評價與評論</td>
+          <td>使用過程中</td>
+        </tr>
+        <tr>
+          <td>Telegram 綁定</td>
+          <td>Telegram chat_id（僅司機選擇此通道時）</td>
+          <td>司機綁定 Telegram Bot 時</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2.2 自動蒐集</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>類別</th><th>欄位</th><th>說明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>位置資訊</td>
+          <td>上下車地理座標、行政區判定</td>
+          <td>叫車當下由您主動授權地圖選點</td>
+        </tr>
+        <tr>
+          <td>裝置資訊</td>
+          <td>裝置類型、作業系統、瀏覽器版本</td>
+          <td>透過 HTTP Headers 取得</td>
+        </tr>
+        <tr>
+          <td>使用紀錄</td>
+          <td>登入時間、訂單建立時間、操作日誌、IP 位址</td>
+          <td>系統運作所需</td>
+        </tr>
+        <tr>
+          <td>推播紀錄</td>
+          <td>LINE / Telegram 訊息發送與讀取狀態</td>
+          <td>用以排除推播失敗</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="s3">
+    <h2 data-n="03">蒐集目的</h2>
+    <p>我們蒐集您的個人資料，係基於下列特定目的：</p>
+    <ul>
+      <li>提供叫車媒合、訂單管理、派單通知等核心服務；</li>
+      <li>進行身分驗證、帳號維護與防止冒用；</li>
+      <li>於配對成立後，使乘客與司機得以聯繫完成運送；</li>
+      <li>計費、結算、產生報表（車隊後台）；</li>
+      <li>客戶服務、爭議處理、客訴回應；</li>
+      <li>系統維運、效能優化、防範濫用與資安事件；</li>
+      <li>履行法律義務（如稅務申報、配合主管機關調查）；</li>
+      <li>於取得您個別同意後，發送行銷與優惠資訊。</li>
+    </ul>
+  </section>
+
+  <section id="s4">
+    <h2 data-n="04">利用範圍</h2>
+    <p>個人資料之利用，限於上述蒐集目的之必要範圍內，並依下列原則處理：</p>
+    <ul>
+      <li><strong>地區</strong>：以中華民國境內之伺服器（Google Firebase asia-east1，台灣機房）為主；</li>
+      <li><strong>對象</strong>：我們的工程與營運人員、所屬車隊、配對成立之司機、必要之第三方服務提供者；</li>
+      <li><strong>期間</strong>：自您加入本平台起至帳號刪除後依法令保留期間屆滿止；</li>
+      <li><strong>方式</strong>：以加密、機房控管、權限管理、日誌稽核等技術措施保護。</li>
+    </ul>
+  </section>
+
+  <section id="s5">
+    <h2 data-n="05">第三方服務與分享</h2>
+    <p>為提供本服務功能，您的部分資料可能在<strong>必要範圍內</strong>分享或經由下列第三方處理：</p>
+
+    <h3>5.1 平台內部角色</h3>
+    <ul>
+      <li><strong>車隊</strong>：可於後台檢視自家車隊之訂單紀錄、乘客必要資訊（如顯示名稱、手機）、司機接單表現；</li>
+      <li><strong>司機</strong>：訂單配對成立後，可看到該筆訂單之乘客姓名與聯絡電話（行程完成後依車隊設定可能隱藏）；</li>
+      <li><strong>平台方</strong>：宸鈞數位之系統管理員為維運必要，得在權限控管下查閱資料。</li>
+    </ul>
+
+    <h3>5.2 第三方服務</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>服務商</th><th>用途</th><th>傳遞資料</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LINE Platform</td>
+          <td>LIFF 登入、Flex 推播</td>
+          <td>LINE userId、推播訊息內容</td>
+        </tr>
+        <tr>
+          <td>Telegram</td>
+          <td>司機端推播（選用）</td>
+          <td>chat_id、推播訊息內容</td>
+        </tr>
+        <tr>
+          <td>Google Maps</td>
+          <td>地圖顯示、地址解析、距離計算</td>
+          <td>查詢之地理座標與地址字串</td>
+        </tr>
+        <tr>
+          <td>Google Firebase</td>
+          <td>資料儲存（Firestore）、檔案儲存（Storage）、雲端函式（Functions）</td>
+          <td>所有平台資料</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-tag">不會發生</div>
+      <p>除法律規定或主管機關依法要求外，我們<strong>不會將您的個人資料販售、出租、出借、交換</strong>給上述以外之第三方。</p>
+    </div>
+  </section>
+
+  <section id="s6">
+    <h2 data-n="06">資料儲存與保護</h2>
+    <h3>6.1 儲存位置</h3>
+    <p>所有資料均儲存於 <strong>Google Firebase asia-east1（台灣機房）</strong>，符合資料境內處理原則。我們未將個人資料移轉至我國境外或大陸地區。</p>
+
+    <h3>6.2 技術措施</h3>
+    <ul>
+      <li><strong>傳輸加密</strong>：所有 API 通訊強制使用 HTTPS / TLS 1.2 以上；</li>
+      <li><strong>儲存加密</strong>：Firebase 預設於靜態加密儲存資料；</li>
+      <li><strong>存取控管</strong>：透過 Firestore Security Rules 嚴格限制讀寫權限，乘客僅能讀寫自己的資料、車隊僅能讀寫自家資料；</li>
+      <li><strong>負面權限</strong>：車隊後台支援針對特定子帳號禁止匯出、禁止查看電話等敏感欄位；</li>
+      <li><strong>金鑰管理</strong>：API Key 與第三方憑證使用環境變數與限制原則（如 Google Maps Key 限制 HTTP Referrer）；</li>
+      <li><strong>日誌稽核</strong>：登入、敏感操作均留有可追溯紀錄。</li>
+    </ul>
+
+    <h3>6.3 管理措施</h3>
+    <ul>
+      <li>員工依 Need-to-know 原則取得最小必要權限；</li>
+      <li>新功能上線前進行資安審查；</li>
+      <li>重大事件發生時依法通知您與主管機關。</li>
+    </ul>
+  </section>
+
+  <section id="s7">
+    <h2 data-n="07">資料保留期限</h2>
+    <p>個人資料之保留期限依資料性質與法律要求而異：</p>
+    <ul>
+      <li><strong>帳號基本資料</strong>：自註冊起至您主動刪除帳號後，因法令、會計或舉證需要，仍保留適當期間（通常 5 年）；</li>
+      <li><strong>訂單與付款紀錄</strong>：依稅捐稽徵法規定保留至少 5 年；</li>
+      <li><strong>聊天訊息</strong>：與訂單關聯保留同期，獨立刪除帳號可申請另行刪除；</li>
+      <li><strong>系統日誌</strong>：依資安實務保留 90～180 天；</li>
+      <li><strong>已踢出車隊之司機帳號</strong>：採用軟刪除（標記 isKicked=true），保留紀錄以利後續舉證，但不再有實際存取權。</li>
+    </ul>
+    <p>保留期限屆滿後，我們將依《個人資料保護法》規定刪除或匿名化處理。</p>
+  </section>
+
+  <section id="s8">
+    <h2 data-n="08">您的權利</h2>
+    <p>依《個人資料保護法》第 3 條，您就我們持有之個人資料，得行使下列權利：</p>
+    <ul>
+      <li><strong>查閱</strong>：請求查看您個人資料的內容；</li>
+      <li><strong>製給複本</strong>：請求提供個人資料之副本；</li>
+      <li><strong>補充或更正</strong>：對不正確或過時的資料請求修正；</li>
+      <li><strong>停止蒐集、處理或利用</strong>：請求終止後續處理；</li>
+      <li><strong>刪除</strong>：請求刪除您的個人資料。</li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-tag">如何行使</div>
+      <p>請以電子郵件聯絡 <a href="mailto:kao273183@chenjundigital.com">kao273183@chenjundigital.com</a>，並提供：(1) 您的身分驗證資料（如 LINE 顯示名稱、註冊手機末 4 碼）；(2) 欲行使之具體權利。我們將於收到請求後 <strong>15 個工作天內</strong>處理或回覆。</p>
+      <p>請注意：部分資料因法令保留義務（如稅務）或正當利益（如已成立訂單之爭議解決）無法立即刪除，我們將於回覆中說明。</p>
+    </div>
+  </section>
+
+  <section id="s9">
+    <h2 data-n="09">Cookie 與追蹤技術</h2>
+    <p>本平台使用 Cookie、LocalStorage 等技術以提升使用體驗，包括但不限於：</p>
+    <ul>
+      <li>記錄登入狀態（避免重複登入）；</li>
+      <li>儲存車隊偏好設定（如語系、面板狀態）；</li>
+      <li>儲存 LIFF SDK 必要參數（如 fleetId、liffId）。</li>
+    </ul>
+    <p>我們<strong>不使用</strong>第三方廣告 Cookie，亦未進行跨站行為追蹤或廣告再行銷（remarketing）。您可隨時於瀏覽器設定中清除 Cookie，惟可能影響部分功能。</p>
+  </section>
+
+  <section id="s10">
+    <h2 data-n="10">未成年人隱私</h2>
+    <p>本平台主要服務對象為 18 歲以上之成年人。若您未滿 18 歲，請於法定代理人陪同並同意之情況下使用本服務。我們不會主動向未成年人蒐集個人資料；如發現未經法定代理人同意之未成年人資料，將依法盡速刪除。</p>
+  </section>
+
+  <section id="s11">
+    <h2 data-n="11">國際資料傳輸</h2>
+    <p>我們所有的核心資料儲存均位於台灣機房（Google Firebase asia-east1），未進行境外傳輸。然而，下列情境可能涉及第三方服務商之國際處理：</p>
+    <ul>
+      <li>LINE Platform（總公司位於日本）處理推播訊息；</li>
+      <li>Telegram（如使用）位於境外伺服器；</li>
+      <li>Google Maps API 之地理查詢可能跨區處理。</li>
+    </ul>
+    <p>上述第三方服務商均為國際大型雲端服務商，依其各自隱私政策遵守 GDPR、APPI 等國際資料保護規範。</p>
+  </section>
+
+  <section id="s12">
+    <h2 data-n="12">政策變更</h2>
+    <p>我們可能因法令變動、業務調整、技術改進等原因修訂本政策。修訂時將於本平台公告或以電子郵件通知，並更新本頁「最後更新日期」。重大變更（如新增蒐集目的、新增分享對象）將取得您的明示同意。</p>
+    <p>建議您定期檢視本頁面以掌握最新政策。</p>
+  </section>
+
+  <section id="s13">
+    <h2 data-n="13">聯絡我們</h2>
+    <p>如您對本政策有任何疑問、希望行使個人資料相關權利，或欲提出隱私申訴，請透過以下方式聯絡我們：</p>
+    <div class="contact-card">
+      <dl>
+        <div><dt>公司全名</dt><dd>宸鈞數位有限公司</dd></div>
+        <div><dt>統一編號</dt><dd>62201354</dd></div>
+        <div><dt>個資聯絡人</dt><dd>客服信箱（同下）</dd></div>
+        <div><dt>客服信箱</dt><dd><a href="mailto:kao273183@chenjundigital.com">kao273183@chenjundigital.com</a></dd></div>
+        <div><dt>產品官網</dt><dd><a href="rovia.html">https://chenjundigital.com/rovia.html</a></dd></div>
+        <div><dt>服務條款</dt><dd><a href="rovia-terms.html">查看服務條款 →</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="ft-l">Rovia Airport — 宸鈞數位出品</span>
+  <span class="ft-r">
+    <a href="rovia.html">產品頁</a> ·
+    <a href="rovia-terms.html">服務條款</a> ·
+    kao273183@chenjundigital.com
+  </span>
+</footer>
+
+</body>
+</html>

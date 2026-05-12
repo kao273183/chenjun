@@ -88,11 +88,14 @@
       border-bottom: 0.5px solid var(--border);
     }
     .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
-    .nav-dot { width:7px;height:7px;border-radius:50%;background:var(--gold); }
+    .nav-mark { width:28px;height:28px;border-radius:50%;object-fit:cover; }
     .nav-name { font-family:var(--serif);font-size:14px;font-weight:700;color:var(--text);letter-spacing:.06em; }
     .nav-sub { font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.1em; }
+    .nav-right { display:flex; align-items:center; gap:18px; }
     .nav-back { font-family:var(--mono);font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:.08em;transition:color .2s; }
     .nav-back:hover { color:var(--gold); }
+    .nav-cta { font-family:var(--sans);font-size:12px;font-weight:500;color:var(--gold);border:.5px solid var(--goldborder);padding:7px 16px;border-radius:7px;text-decoration:none;letter-spacing:.04em;transition:background .2s; }
+    .nav-cta:hover { background: var(--golddim); }
 
     /* hero */
     .hero {
@@ -364,11 +367,14 @@
 <!-- Nav -->
 <nav>
   <a href="index.html" class="nav-brand">
-    <div class="nav-dot"></div>
+    <img class="nav-mark" src="chenjun-logo.png" alt="宸鈞數位 logo">
     <span class="nav-name">宸鈞數位</span>
   </a>
   <span class="nav-sub">Rovia Airport</span>
-  <a href="index.html" class="nav-back">← 返回首頁</a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">← 返回首頁</a>
+    <a href="mailto:kao273183@chenjundigital.com" class="nav-cta">聯絡我們</a>
+  </div>
 </nav>
 
 <!-- Hero -->
@@ -669,7 +675,13 @@
 <!-- Footer -->
 <footer>
   <span class="ft-l">Rovia Airport — 宸鈞數位出品</span>
-  <span class="ft-r"><a href="index.html">返回宸鈞數位官網</a> · kao273183@chenjundigital.com</span>
+  <span class="ft-r">
+    <a href="rovia-terms.html">服務條款</a> ·
+    <a href="rovia-privacy.html">隱私政策</a> ·
+    <a href="index.html">宸鈞數位官網</a> ·
+    kao273183@chenjundigital.com ·
+    統編 62201354
+  </span>
 </footer>
 
 <script>

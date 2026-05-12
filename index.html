@@ -133,7 +133,8 @@
       text-decoration: none; letter-spacing: 0.05em;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
 
     .nav-cta {
       font-size: 13px; font-weight: 500;
@@ -418,11 +419,11 @@
       <span class="logo-name">宸鈞數位</span>
     </a>
     <ul class="nav-links">
+      <li><a href="#" class="active">首頁</a></li>
       <li><a href="#services">服務</a></li>
       <li><a href="#products">產品</a></li>
       <li><a href="#process">流程</a></li>
       <li><a href="founder.html">創辦人</a></li>
-      <li><a href="https://testbridge.chenjundigital.com" style="color:var(--gold)">TestBridge 社群 ✨</a></li>
     </ul>
     <a href="mailto:kao273183@chenjundigital.com" class="nav-cta">聯絡我們</a>
   </nav>
@@ -434,24 +435,8 @@
       我們來<span class="accent">實現它</span>
     </h1>
     <p class="hero-sub">
-      從 App 到 SaaS 系統，宸鈞數位協助你把想法轉化為可以上線的軟體產品。最新力作 — <a href="https://testbridge.chenjundigital.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid var(--border-gold)">TestBridge</a>，AI 驅動的 QA 社群平台，現已開放。
+      宸鈞數位 — 從 App 到 SaaS，陪你把想法做成可以上線的產品。
     </p>
-    <div class="hero-actions">
-      <a href="https://testbridge.chenjundigital.com" class="btn-primary">逛 TestBridge 社群</a>
-      <a href="#products" class="btn-ghost">
-        所有產品
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-    <a href="https://testbridge.chenjundigital.com" style="display:flex;align-items:center;gap:16px;margin-top:40px;padding:16px 24px;border-radius:12px;border:0.5px solid var(--border-gold);background:var(--gold-dim);text-decoration:none;transition:background 0.2s;cursor:none" onmouseover="this.style.background='rgba(212,168,67,0.25)'" onmouseout="this.style.background='var(--gold-dim)'">
-      <div style="width:44px;height:44px;border-radius:10px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#0B1628;flex-shrink:0">TB</div>
-      <div style="flex:1">
-        <div style="font-size:14px;font-weight:600;color:var(--text)">TestBridge — QA 社群現已開放 ✨</div>
-        <div style="font-size:12px;color:var(--text-dim);margin-top:2px">討論區、AI Skill 市集、測試模板 — 免費瀏覽，不用註冊</div>
-      </div>
-      <div style="font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:0.08em;flex-shrink:0">逛逛 →</div>
-    </a>
   </section>
 
   <div class="bento" id="products">
@@ -550,7 +535,8 @@
     <div class="section-header">
       <span class="tag">服務項目</span>
     </div>
-    <div class="services-grid services-grid-wide">
+    <div class="services-grid">
+
       <a href="https://testbridge.chenjundigital.com" class="scard" style="text-decoration:none;cursor:none;border-color:var(--border-gold);background:rgba(212,168,67,0.03)">
         <div class="scard-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -558,6 +544,14 @@
         <h4>TestBridge 平台 ✨</h4>
         <p>AI 驅動 QA 社群。討論區、AI Skill、模板市集 — 免費使用，測試管理即將推出。</p>
         <div style="margin-top:16px;font-size:12px;color:var(--gold);font-family:var(--mono);letter-spacing:.08em">免費逛逛 →</div>
+      </a>
+      <a href="https://mcp.chenjundigital.com" class="scard" style="text-decoration:none;cursor:none;border-color:var(--border-gold);background:rgba(212,168,67,0.03)">
+        <div class="scard-icon">
+          <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        </div>
+        <h4>mcp-test-runner ⌘</h4>
+        <p>我們開源的 MCP server — 讓 AI client 跑測試、從 URL 寫測試、並當你的 QA 優化顧問。</p>
+        <div style="margin-top:16px;font-size:12px;color:var(--gold);font-family:var(--mono);letter-spacing:.08em">了解更多 →</div>
       </a>
       <div class="scard">
         <div class="scard-icon">
@@ -596,7 +590,7 @@
       <img class="logo-mark" src="chenjun-logo.png" alt="宸鈞數位 logo" style="width:56px;height:32px">
       <span>宸鈞數位有限公司</span>
     </a>
-    <div class="footer-right">kao273183@chenjundigital.com · 台北市</div>
+    <div class="footer-right">kao273183@chenjundigital.com · 台北市 · 統編 62201354</div>
   </footer>
 
   <script>

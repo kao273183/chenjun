@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服務條款 — Rovia Airport | 宸鈞數位</title>
+  <meta name="description" content="Rovia Airport 機場接送平台服務條款。明訂平台、車隊、司機、乘客之權利義務、訂單規則、行為規範、責任邊界與爭議處理機制。">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://chenjundigital.com/rovia-terms.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0A0F1E;
+      --bg2:    #0F1628;
+      --bg3:    #0C1220;
+      --gold:   #E6B84A;
+      --gold2:  #F5D07A;
+      --golddim: rgba(230,184,74,0.12);
+      --goldborder: rgba(230,184,74,0.25);
+      --text:   #EDE8DC;
+      --dim:    rgba(237,232,220,0.65);
+      --faint:  rgba(237,232,220,0.32);
+      --border: rgba(237,232,220,0.07);
+      --serif:  'Noto Serif TC', serif;
+      --sans:   'DM Sans', sans-serif;
+      --mono:   'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 48px;
+      background: rgba(10,15,30,0.88); backdrop-filter: blur(14px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-dot { width:7px;height:7px;border-radius:50%;background:var(--gold); }
+    .nav-name { font-family:var(--serif);font-size:14px;font-weight:700;color:var(--text);letter-spacing:.06em; }
+    .nav-sub { font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em; }
+    .nav-back { font-family:var(--mono);font-size:11px;color:var(--faint);text-decoration:none;letter-spacing:.08em;transition:color .2s; }
+    .nav-back:hover { color:var(--gold); }
+
+    /* doc layout */
+    .doc-hero {
+      padding: 56px 48px 32px;
+      max-width: 980px; margin: 0 auto;
+      border-bottom: .5px solid var(--border);
+    }
+    .doc-eyebrow {
+      display:flex; align-items:center; gap:12px;
+      font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+      color:var(--gold); text-transform:uppercase; margin-bottom:24px;
+    }
+    .doc-eyebrow::before { content:''; width:24px;height:1px;background:var(--gold); }
+    .doc-hero h1 {
+      font-family:var(--serif); font-size:clamp(36px,5vw,56px);
+      font-weight:900; line-height:1.1; letter-spacing:-.02em;
+      color:var(--text); margin-bottom:20px;
+    }
+    .doc-hero h1 em { font-style:normal; color:var(--gold); }
+    .doc-meta {
+      display:flex; gap:32px; flex-wrap:wrap;
+      font-family:var(--mono); font-size:12px; color:var(--faint);
+      letter-spacing:.06em; margin-top:12px;
+    }
+    .doc-meta strong { color:var(--gold); font-weight:500; margin-right:8px; }
+
+    .doc-intro {
+      font-size:15px; color:var(--dim); line-height:1.85;
+      margin-top:32px; max-width:760px;
+    }
+
+    /* TOC */
+    .toc {
+      max-width: 980px; margin: 0 auto;
+      padding: 24px 48px 28px;
+      border-bottom: .5px solid var(--border);
+    }
+    .toc-title {
+      font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+      color:var(--faint); text-transform:uppercase; margin-bottom:14px;
+    }
+    .toc-list {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 4px 20px;
+    }
+    .toc-list a {
+      display:flex; gap:8px; align-items:baseline;
+      font-size:12.5px; color:var(--dim); text-decoration:none;
+      padding: 3px 0; transition:color .2s;
+    }
+    .toc-list a:hover { color:var(--gold); }
+    .toc-list a span {
+      font-family:var(--mono); font-size:11px; color:var(--faint); flex-shrink:0;
+    }
+
+    /* main content */
+    .doc-body {
+      max-width: 980px; margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+    .doc-body section {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+    }
+    .doc-body h2 {
+      font-family:var(--serif); font-size:24px; font-weight:900;
+      color:var(--text); margin-bottom:24px;
+      padding-bottom:12px; border-bottom:.5px solid var(--goldborder);
+      display:flex; align-items:baseline; gap:14px;
+    }
+    .doc-body h2::before {
+      content: attr(data-n);
+      font-family:var(--mono); font-size:12px; color:var(--gold);
+      letter-spacing:.06em; flex-shrink:0;
+    }
+    .doc-body h3 {
+      font-size:15px; font-weight:500; color:var(--gold2);
+      margin: 24px 0 12px;
+    }
+    .doc-body p {
+      font-size:14.5px; color:var(--dim); line-height:1.85;
+      margin-bottom: 14px;
+    }
+    .doc-body ul, .doc-body ol {
+      margin: 14px 0 14px 8px; padding-left:20px;
+    }
+    .doc-body li {
+      font-size:14.5px; color:var(--dim); line-height:1.85;
+      margin-bottom: 6px;
+    }
+    .doc-body li::marker { color: var(--gold); }
+    .doc-body strong { color: var(--text); font-weight:500; }
+    .doc-body em { font-style: normal; color: var(--gold); }
+    .doc-body code {
+      font-family:var(--mono); font-size:12.5px;
+      background: var(--bg2); padding: 2px 8px; border-radius:4px;
+      color:var(--gold);
+    }
+    .doc-body a {
+      color: var(--gold); text-decoration: underline;
+      text-decoration-color: var(--goldborder);
+      text-underline-offset: 3px;
+    }
+    .doc-body a:hover { text-decoration-color: var(--gold); }
+
+    .callout {
+      background: var(--bg2); border: .5px solid var(--goldborder);
+      border-left: 2px solid var(--gold);
+      border-radius: 8px; padding: 18px 22px;
+      margin: 18px 0;
+    }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout-tag {
+      font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+      color:var(--gold); text-transform:uppercase; margin-bottom:8px;
+    }
+
+    /* contact card */
+    .contact-card {
+      background: var(--bg3); border: .5px solid var(--border);
+      border-radius: 12px; padding: 28px;
+      margin-top: 24px;
+    }
+    .contact-card dl { display:grid; gap:10px; }
+    .contact-card div {
+      display:flex; gap:16px; padding-bottom:10px;
+      border-bottom:.5px solid var(--border);
+    }
+    .contact-card div:last-child { border-bottom:none; padding-bottom:0; }
+    .contact-card dt {
+      font-family:var(--mono); font-size:11px; color:var(--faint);
+      letter-spacing:.08em; min-width:96px; flex-shrink:0;
+    }
+    .contact-card dd { font-size:14px; color:var(--text); }
+    .contact-card dd a { color: var(--gold); text-decoration: none; }
+
+    footer {
+      padding: 32px 48px; border-top: .5px solid var(--border);
+      display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+    }
+    .ft-l { font-family:var(--serif); font-size:13px; color:var(--faint); }
+    .ft-r { font-family:var(--mono); font-size:11px; color:var(--faint); }
+    .ft-r a { color:var(--gold); text-decoration:none; }
+
+    @media(max-width:980px){
+      .toc-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:760px){
+      nav, footer { padding: 16px 22px; }
+      .doc-hero, .toc, .doc-body { padding-left: 22px; padding-right: 22px; }
+      .toc-list { grid-template-columns: 1fr; }
+      .doc-meta { gap: 18px; }
+      .contact-card div { flex-direction: column; gap:4px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="rovia.html" class="nav-brand">
+    <div class="nav-dot"></div>
+    <span class="nav-name">宸鈞數位</span>
+  </a>
+  <span class="nav-sub">Rovia Airport · Terms</span>
+  <a href="rovia.html" class="nav-back">← 返回產品頁</a>
+</nav>
+
+<header class="doc-hero">
+  <div class="doc-eyebrow">Terms of Service · 服務條款</div>
+  <h1>Rovia Airport<br><em>服務條款</em></h1>
+  <div class="doc-meta">
+    <span><strong>生效日期</strong>2026 年 4 月 29 日</span>
+    <span><strong>最後更新</strong>2026 年 4 月 29 日</span>
+    <span><strong>版本</strong>v1.1</span>
+  </div>
+  <p class="doc-intro">
+    歡迎使用 Rovia Airport 機場接送預約平台（下稱「本平台」或「本服務」）。本服務條款（下稱「本條款」）由<strong style="color:var(--text)">宸鈞數位有限公司</strong>（統一編號：62201354，下稱「我們」）制定，規範您與本平台之間的權利義務關係。當您註冊、登入或使用本服務，即視為您已閱讀、瞭解並同意接受本條款全部內容。如不同意，請立即停止使用。
+  </p>
+</header>
+
+<nav class="toc" aria-label="目錄">
+  <div class="toc-title">目錄 · Contents</div>
+  <div class="toc-list">
+    <a href="#s1"><span>01</span>定義</a>
+    <a href="#s2"><span>02</span>服務說明</a>
+    <a href="#s3"><span>03</span>帳號註冊與管理</a>
+    <a href="#s4"><span>04</span>平台角色與責任邊界</a>
+    <a href="#s5"><span>05</span>訂單規則</a>
+    <a href="#s6"><span>06</span>計費與付款</a>
+    <a href="#s7"><span>07</span>取消與退款</a>
+    <a href="#s8"><span>08</span>司機行為規範</a>
+    <a href="#s9"><span>09</span>乘客行為規範</a>
+    <a href="#s10"><span>10</span>違規處理</a>
+    <a href="#s11"><span>11</span>智慧財產權</a>
+    <a href="#s12"><span>12</span>免責聲明</a>
+    <a href="#s13"><span>13</span>條款修訂</a>
+    <a href="#s14"><span>14</span>法律適用與管轄</a>
+    <a href="#s15"><span>15</span>聯絡我們</a>
+  </div>
+</nav>
+
+<main class="doc-body">
+
+  <section id="s1">
+    <h2 data-n="01">定義</h2>
+    <p>為使本條款各條文意義明確，特定義如下：</p>
+    <ul>
+      <li><strong>本平台 / 本服務</strong>：指 Rovia Airport 機場接送預約系統，含管理後台（Hub）、車隊後台、乘客 LINE LIFF、司機 LINE LIFF 等子應用。</li>
+      <li><strong>車隊</strong>：指與我們簽訂 SaaS 服務契約、取得車隊後台使用權、實際提供機場接送運送服務之合法營業計程車隊或運輸業者。</li>
+      <li><strong>司機</strong>：指經車隊招募、透過車隊碼加入車隊、實際駕駛車輛提供運送服務之自然人。</li>
+      <li><strong>乘客</strong>：指透過本平台向車隊預約機場接送服務之終端使用者。</li>
+      <li><strong>訂單</strong>：指乘客透過本平台預約並由車隊或司機接受之單次運送服務契約。</li>
+      <li><strong>車隊碼</strong>：指車隊用以邀請司機加入之專屬識別碼。</li>
+      <li><strong>LIFF</strong>：指 LINE Front-end Framework，本平台之乘客端與司機端介面均建構於此技術上。</li>
+    </ul>
+  </section>
+
+  <section id="s2">
+    <h2 data-n="02">服務說明</h2>
+    <p>本平台為車隊提供下列功能之軟體即服務（SaaS）：</p>
+    <ol>
+      <li>乘客預約叫車介面（LINE LIFF，無需另行下載 App）；</li>
+      <li>車隊後台（含計費設定、車型管理、訂單管理、報表、推播通知範本等）；</li>
+      <li>司機端介面（接單、未完成訂單、紀錄、設定）；</li>
+      <li>派單系統（搶單、自動派、手動派三種模式）；</li>
+      <li>LINE Flex 與 Telegram 雙通道訊息推播；</li>
+      <li>多種計費模式（公里計費、行政區固定價、階梯跳表、分段費率）；</li>
+      <li>積點與優惠券系統；</li>
+      <li>多機場據點管理（桃園 TPE、松山 TSA、台中 RMQ、高雄 KHH、基隆 KEL）。</li>
+    </ol>
+    <div class="callout">
+      <div class="callout-tag">重要說明</div>
+      <p>本平台<strong>僅為車隊與乘客之間提供資訊媒合與管理工具</strong>，<em>實際運送服務由車隊獨立提供</em>。我們不擁有車輛、不僱用司機、不直接從事運輸業。</p>
+    </div>
+  </section>
+
+  <section id="s3">
+    <h2 data-n="03">帳號註冊與管理</h2>
+    <h3>3.1 車隊帳號</h3>
+    <p>車隊註冊本服務須具備合法營業登記與運輸相關許可。註冊時應提供正確、完整之公司資料，並指定負責人為帳號管理者。</p>
+    <h3>3.2 司機帳號</h3>
+    <p>司機透過車隊提供之車隊碼或邀請連結加入車隊，登入採 LINE LIFF 驗證。司機應確保所提供之證照、身分資料真實有效，並符合車隊之招募條件。</p>
+    <h3>3.3 乘客帳號</h3>
+    <p>乘客透過 LINE 帳號登入即可使用本平台。首次叫車時須提供有效手機號碼以利車隊聯繫。</p>
+    <div class="callout">
+      <div class="callout-tag">個人資料蒐集告知（個資法 §8）</div>
+      <p>於乘客首次使用本平台或首次下單前，依《個人資料保護法》第 8 條第 1 項規定告知如下：</p>
+      <ul>
+        <li><strong>蒐集機關</strong>：宸鈞數位有限公司（統一編號 62201354）</li>
+        <li><strong>蒐集目的</strong>：機場接送服務之提供、訂單媒合、客戶服務、爭議處理、行銷（須個別同意）</li>
+        <li><strong>個人資料類別</strong>：LINE Profile（顯示名稱、頭像、userId）、聯絡資訊（手機）、訂單資料（位置、時間、車型）、使用紀錄</li>
+        <li><strong>利用期間</strong>：自您加入本平台起至刪除帳號後依法令保留期間屆滿（最長 5 年）</li>
+        <li><strong>利用對象</strong>：本公司、所屬車隊、配對之司機、必要之第三方服務商（LINE、Google、Firebase 等）</li>
+        <li><strong>利用地區</strong>：以中華民國境內伺服器為主（Google Firebase asia-east1 機房）</li>
+        <li><strong>您的權利</strong>：得依個資法第 3 條請求查閱、製給複本、補充更正、停止蒐集處理利用、刪除等</li>
+        <li><strong>不提供之影響</strong>：手機號碼、位置等資料為叫車服務之必要欄位，未提供將無法完成下單；瀏覽功能不受影響</li>
+      </ul>
+      <p>更詳細之個資處理原則請參閱《<a href="rovia-privacy.html">隱私政策</a>》。</p>
+    </div>
+    <h3>3.4 帳號安全</h3>
+    <ul>
+      <li>您應妥善保管 LINE 帳號、車隊後台密碼及車隊碼，不得轉讓、出借或共用；</li>
+      <li>因您未善盡保管義務所生之損害，由您自行承擔；</li>
+      <li>若發現帳號遭未經授權使用，應立即通知我們。</li>
+    </ul>
+  </section>
+
+  <section id="s4">
+    <h2 data-n="04">平台角色與責任邊界</h2>
+    <p>本平台為「<strong>車隊內部營運管理工具</strong>」與「<strong>車隊提供之乘客介面</strong>」之軟體即服務（SaaS）。各方關係如下：</p>
+
+    <h3>4.1 我們與車隊（B2B SaaS）</h3>
+    <p>為 SaaS 服務契約關係。<strong>車隊應為合法登記之計程車運輸業、汽車運輸業或其他依法得提供運送服務之事業</strong>，使用本平台進行接單、派單、客戶管理、計費等內部管理。我們對於派單模式（搶單、自動派、手動派）僅提供可由車隊自行設定之技術工具，演算法參數（如輪派順序、車型分流、時段加成）由車隊自行設定並擔負最終派單決策權。</p>
+
+    <h3>4.2 車隊與乘客（運送契約）</h3>
+    <p>運送行為、車輛、保險、駕駛責任、客戶服務、車資請求權等均由車隊獨立提供與承擔。乘客所支付之車資直接歸屬車隊；退費、爭議與運送補償依車隊之運輸服務條款辦理。</p>
+
+    <h3>4.3 我們與乘客（資訊技術服務）</h3>
+    <p>我們不從事運輸業、不擁有車輛、不僱用司機、不收取車資、不直接受理運送投訴。乘客因運送服務本身所生之爭議，應向實際提供運送服務之車隊主張權利。我們僅就<em>平台之資訊技術服務</em>（如帳號、推播、訂單建立介面）負責，相關責任以本條款第 12 條之規範為準。</p>
+
+    <h3>4.4 法律遵循</h3>
+    <p>車隊應確保其運輸服務符合《<strong>公路法</strong>》、《<strong>汽車運輸業管理規則</strong>》、《<strong>計程車運輸合作社管理辦法</strong>》及其他相關運輸法規之要求；本平台不取代車隊之合法營業登記、不為車隊之違法行為負責。如車隊於使用本平台期間遭主管機關認定有違反運輸法規之情事，車隊應自負責任，並對因此造成本平台之損害負損害賠償責任。</p>
+
+    <div class="callout">
+      <div class="callout-tag">責任邊界</div>
+      <p>因駕駛行為、車輛狀況、交通事故、物品遺失、人身安全等所生之爭議、損害賠償，應由<strong>實際提供運送服務之車隊與司機負責</strong>，本平台不承擔運輸業者之法律責任，亦不對車隊或司機是否取得運輸業相關許可為任何擔保（該事項由車隊自行確認）。</p>
+    </div>
+  </section>
+
+  <section id="s5">
+    <h2 data-n="05">訂單規則</h2>
+    <h3>5.1 訂單類型</h3>
+    <ul>
+      <li><strong>即時叫車</strong>：乘客當下提交訂單，車隊立即處理；</li>
+      <li><strong>預約叫車</strong>：乘客指定未來日期與時間，由系統依車隊設定時間自動或手動派單。</li>
+    </ul>
+    <h3>5.2 派單模式</h3>
+    <p>各車隊可自由設定派單模式：搶單（司機自由接）、自動派（系統輪派）、手動派（車隊客服指派）。乘客送出訂單後，視車隊設定進入對應流程。</p>
+    <h3>5.3 訂單成立</h3>
+    <p>訂單於司機接受並由系統發出「司機已接單」通知時成立。在此之前訂單視為「等待配對中」，乘客或車隊可隨時取消。</p>
+    <h3>5.4 多點下車與緊急加值</h3>
+    <p>若車隊有開放，乘客可選擇加入多個下車點或選擇緊急接送，相關費用以車隊預先設定為準，並於下單時顯示於費用明細。</p>
+  </section>
+
+  <section id="s6">
+    <h2 data-n="06">計費與付款</h2>
+    <h3>6.1 訂單車資</h3>
+    <p>訂單車資由車隊依其於本平台後台所設定之計費模式自動計算。費用包含但不限於：基本費、距離費、車型加成、時段加成、假日加成、加值服務、多點下車費等。乘客於下單時可預覽預估金額。</p>
+    <h3>6.2 計費模式</h3>
+    <ul>
+      <li><strong>公里計費</strong>：基本費 + 每公里費率 × 距離；</li>
+      <li><strong>行政區固定價</strong>：機場到指定行政區之固定金額；</li>
+      <li><strong>階梯跳表</strong>：類似計程車跳錶，每段固定加金額；</li>
+      <li><strong>分段費率</strong>：多階段每公里費率，超過末段以末段費率延伸。</li>
+    </ul>
+    <h3>6.3 SaaS 月費</h3>
+    <p>車隊使用本平台須依其選擇之方案，按月或依約定週期支付月費予我們。月費不含 LINE 官方推播費用、Google Maps API 費用、第三方支付手續費等其他費用，相關規則於車隊合作合約中另行訂定。</p>
+    <h3>6.4 訂單金流歸屬</h3>
+    <p>訂單車資直接屬於提供運送服務之車隊，本平台不經手乘客付給車隊之車資、不從中抽成。</p>
+  </section>
+
+  <section id="s7">
+    <h2 data-n="07">取消與退款</h2>
+    <h3>7.1 乘客取消</h3>
+    <p>乘客可在訂單尚未配對到司機前自由取消。司機已接單後之取消，可能依車隊設定收取取消費用，相關規則於下單時或車隊條款中揭露。</p>
+    <h3>7.2 車隊或司機取消</h3>
+    <p>因車隊或司機因素導致訂單取消，乘客不負擔任何費用；若已預付，車隊應全額退還。</p>
+    <h3>7.3 系統異常</h3>
+    <p>若因本平台系統異常致訂單無法執行，我們將協助車隊與乘客處理，但相關運送補償義務仍由車隊與乘客依運送契約處理。</p>
+  </section>
+
+  <section id="s8">
+    <h2 data-n="08">司機行為規範</h2>
+    <p>司機加入車隊使用本服務時，應遵守下列規範：</p>
+    <ul>
+      <li>持有合法駕駛執照及營業用車輛相關許可；</li>
+      <li>車輛已投保強制險與第三人責任險；</li>
+      <li>遵守道路交通安全規則與運輸業相關法規；</li>
+      <li>對乘客之服務態度、車輛清潔、安全駕駛負責；</li>
+      <li>不得繞路、勒索、騷擾、歧視乘客；</li>
+      <li>不得對外洩漏乘客個人資料（包括但不限於姓名、電話、地址）；</li>
+      <li>接單後應準時到達指定地點，無正當理由不得拒載。</li>
+    </ul>
+    <p>司機違反上述規範者，車隊有權立即停止其使用本服務之權限（含「踢出車隊」軟刪除機制），並依車隊內部規範處理。</p>
+
+    <h3>8.1 司機與車隊之法律關係</h3>
+    <p>司機與所屬車隊之法律關係（包括但不限於：雇傭、僱傭、承攬、委任、加盟、靠行或其他形式）<strong>由司機與車隊之合作合約定之，與本平台無涉</strong>。本平台之派單系統屬車隊得自行設定參數之技術工具，<em>不構成本平台對司機之指揮、監督或管理</em>：</p>
+    <ul>
+      <li>派單演算法之參數（搶單、自動派、手動派之輪派順序、車型分流等）由車隊後台自行設定與調整；</li>
+      <li>司機之上線時段、停接、休假、是否接受派單均由司機自主決定，並依其與車隊之合約處理；</li>
+      <li>司機之保險、勞健保、職業災害保護、薪酬計算等，由車隊或司機依合約與相關法令自行處理；</li>
+      <li>本平台對司機所獲報酬之計算、稅務申報、社會保險不負任何責任。</li>
+    </ul>
+    <p><strong>本平台之提供不創設我們與司機之間之雇傭、勞動契約、人力派遣、承攬或其他類似關係</strong>。司機就其勞動條件之爭議，應向所屬車隊主張。</p>
+  </section>
+
+  <section id="s9">
+    <h2 data-n="09">乘客行為規範</h2>
+    <p>乘客使用本服務時，應遵守下列規範：</p>
+    <ul>
+      <li>提供真實、有效之手機號碼與聯絡資訊；</li>
+      <li>不得惡意下單、虛假叫車、冒名訂車；</li>
+      <li>不得對司機進行騷擾、辱罵、暴力行為；</li>
+      <li>須愛護車輛，不得污損內裝或攜帶違禁物品；</li>
+      <li>準時出現於上車地點，遲到逾車隊規定時間視為取消；</li>
+      <li>應依約支付車資，不得拒付或逃單。</li>
+    </ul>
+
+    <h3>9.1 黑名單機制與申訴</h3>
+    <p>對於違反本規範情節重大之乘客，車隊得將其列入黑名單，惟應遵守下列程序保障：</p>
+    <ul>
+      <li><strong>事前通知</strong>：除緊急或重大情事外，列入黑名單前車隊應透過 LINE 或簡訊通知乘客，載明事由與依據；</li>
+      <li><strong>申訴期間</strong>：乘客收到通知後 <strong>14 日內</strong>得以電子郵件向車隊或本平台（<a href="mailto:kao273183@chenjundigital.com">kao273183@chenjundigital.com</a>）提出申訴，車隊應於 30 日內書面回覆；</li>
+      <li><strong>保留期限</strong>：黑名單紀錄之保留以「事件性質決定」為原則，<strong>輕微違規最長保留 1 年、重大違規最長保留 5 年</strong>，期滿後應自動移除；</li>
+      <li><strong>效力範圍</strong>：黑名單僅效力於該車隊，不及於本平台其他車隊；</li>
+      <li><strong>個資權利</strong>：乘客就黑名單紀錄仍享有個資法第 3 條所定之查閱、更正、刪除等權利；</li>
+      <li><strong>外部救濟</strong>：對黑名單處置不服者，得向消保官、地方消保團體申訴或循民事訴訟途徑救濟。</li>
+    </ul>
+  </section>
+
+  <section id="s10">
+    <h2 data-n="10">違規處理</h2>
+    <h3>10.1 警示與限制</h3>
+    <p>對於違反本條款之行為，我們或車隊得視情節輕重採取下列措施之一：</p>
+    <ul>
+      <li>口頭或書面警告；</li>
+      <li>暫停部分功能（如下單、接單）；</li>
+      <li>暫停帳號使用；</li>
+      <li>永久終止帳號；</li>
+      <li>加入黑名單拒絕服務（適用於乘客、司機）。</li>
+    </ul>
+    <h3>10.2 資料保留</h3>
+    <p>帳號終止或被踢出車隊後，相關訂單、聊天、推播紀錄為保護車隊權益與符合法規（如稅務、舉證），仍依法保留適當期間，詳見《<a href="rovia-privacy.html">隱私政策</a>》。</p>
+  </section>
+
+  <section id="s11">
+    <h2 data-n="11">智慧財產權</h2>
+    <p>本平台之軟體、原始碼、UI 設計、商標（含 Rovia Airport、宸鈞數位）、文案、圖示、Logo 等，均為我們或授權人所有，受著作權法、商標法及其他相關法律保護。未經事前書面同意，您不得：</p>
+    <ul>
+      <li>複製、修改、衍生、散布、出售、出租本平台或其任何部分；</li>
+      <li>反向工程、解編、嘗試取得原始碼；</li>
+      <li>移除或變更任何權利聲明、商標或著作權標示；</li>
+      <li>以任何方式偽造、模仿本平台之外觀、品牌識別。</li>
+    </ul>
+    <p>車隊購買 SaaS 服務取得之權利為「使用權」，不發生智慧財產權之轉讓。</p>
+  </section>
+
+  <section id="s12">
+    <h2 data-n="12">免責聲明</h2>
+
+    <h3>12.1 對乘客（消費者）</h3>
+    <p>本平台依《消費者保護法》第 12 條提供公平合理之服務承諾。我們將：</p>
+    <ul>
+      <li>盡善良管理人之注意義務維護平台正常運作；</li>
+      <li>於系統異常時及時公告並協助處理；</li>
+      <li>不因平台技術原因致乘客合理權益受損而免除應負之責任。</li>
+    </ul>
+    <p>惟下列情況不可歸責於本平台時，我們不負損害賠償責任：</p>
+    <ul>
+      <li>因車隊或司機之運送行為（駕駛、車輛狀況、服務態度）所生之事故、糾紛或損失，<strong>運送相關責任由車隊及其依法應投保之強制險與第三人責任險承擔</strong>；</li>
+      <li>因您違反本條款、運送條款或法令所致之損害；</li>
+      <li>因您自行洩漏帳號或未善盡保管義務所生之損害；</li>
+      <li>不可抗力事件（天災、戰爭、政府命令、流行病、大規模網路或電信異常等）導致服務中斷。</li>
+    </ul>
+    <p>因平台不可歸責於使用者之故障致您直接損失時，我們將依個案實際情形協助補償；對於可預見性低且非直接因果之間接損失（如商業利益、機會成本、預期收益等）則不負責任。</p>
+
+    <h3>12.2 對車隊（事業）</h3>
+    <p>於法律所允許之最大範圍內，我們對車隊提供之 SaaS 服務以「現狀（as-is）」基礎交付，下列情況不負損害賠償責任：</p>
+    <ul>
+      <li>不可抗力導致服務中斷；</li>
+      <li>第三方服務（包含但不限於 LINE、Telegram、Google Maps、Firebase）異常、收費調整或變更政策所生之影響；</li>
+      <li>車隊或其司機自身違規或不當行為所致之損失；</li>
+      <li>車隊未依本條款使用本服務或未及時更新設定（如費率、推播範本）所生之結果。</li>
+    </ul>
+    <p>本平台對車隊之適用性、不中斷、無錯誤等不為超出 SLA 約定之擔保；雙方就 SLA 賠償標準另以服務合約定之。</p>
+  </section>
+
+  <section id="s13">
+    <h2 data-n="13">條款修訂</h2>
+    <p>我們得依法令變動、產品功能調整或營運需要修訂本條款。修訂後將於本平台公告並更新本頁「最後更新日期」，依修訂內容之性質採取下列通知方式：</p>
+    <h3>13.1 一般性修訂</h3>
+    <p>對於釐清文字、補充說明、相對輕微之調整，將於公告 14 日後生效，您得於該期間內表示異議；逾期未提出異議者，僅推定您已知悉該等修訂內容，不影響您依《消費者保護法》主張權利。</p>
+    <h3>13.2 重大修訂</h3>
+    <p>修訂內容如涉及您之重要權益（包括但不限於：服務內容重大變更、收費方式或金額變更、新增蒐集之個人資料項目或目的、新增第三方分享對象、變更管轄法院或法律適用、增加您應履行之義務或責任等），<strong>除法令另有規定外，應經您於下次登入或下單時以積極作為（如點擊「我同意」按鈕）明示同意後，方對您發生效力</strong>。</p>
+    <p>如您不同意重大修訂內容，您得：(1) 繼續以既有條款使用本服務直至原契約期間屆滿；或 (2) 通知我們刪除帳號終止服務。我們不會以「繼續使用視為同意」之方式擬制重大條款變更之同意。</p>
+  </section>
+
+  <section id="s14">
+    <h2 data-n="14">法律適用與管轄</h2>
+    <p>本條款之解釋、效力及履行均適用<strong>中華民國法律</strong>。因本條款或使用本服務所生之爭議，雙方應本於誠信原則先行協商解決；協商不成時，依下列規定處理：</p>
+    <h3>14.1 對乘客（消費者）</h3>
+    <p>因您使用本服務所生之爭議涉訴時，依《<strong>消費者保護法</strong>》第 47 條規定，由您（消費者）所在地之地方法院為第一審管轄法院。如該等規定不適用或您未居住於我國境內，雙方合意以臺灣臺北地方法院為第一審管轄法院；上述合意不排除其他法定專屬管轄與消費者保護法之強制規定。</p>
+    <h3>14.2 對車隊（事業）</h3>
+    <p>車隊與我們間因 SaaS 服務契約所生之爭議，雙方合意以臺灣臺北地方法院為第一審管轄法院。</p>
+  </section>
+
+  <section id="s15">
+    <h2 data-n="15">聯絡我們</h2>
+    <p>如您對本條款有任何疑問、建議，或需要行使您的權利，請透過以下方式聯絡我們：</p>
+    <div class="contact-card">
+      <dl>
+        <div><dt>公司全名</dt><dd>宸鈞數位有限公司</dd></div>
+        <div><dt>統一編號</dt><dd>62201354</dd></div>
+        <div><dt>客服信箱</dt><dd><a href="mailto:kao273183@chenjundigital.com">kao273183@chenjundigital.com</a></dd></div>
+        <div><dt>產品官網</dt><dd><a href="rovia.html">https://chenjundigital.com/rovia.html</a></dd></div>
+        <div><dt>隱私政策</dt><dd><a href="rovia-privacy.html">查看隱私政策 →</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="ft-l">Rovia Airport — 宸鈞數位出品</span>
+  <span class="ft-r">
+    <a href="rovia.html">產品頁</a> ·
+    <a href="rovia-privacy.html">隱私政策</a> ·
+    kao273183@chenjundigital.com
+  </span>
+</footer>
+
+</body>
+</html>
