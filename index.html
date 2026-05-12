@@ -319,6 +319,9 @@
     .services-grid {
       display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
     }
+    .services-grid-wide {
+      grid-template-columns: repeat(5,1fr);
+    }
     .scard {
       border: 0.5px solid var(--border); border-radius: 14px;
       padding: 28px 28px 32px;
@@ -350,18 +353,57 @@
     }
 
     @media (max-width: 900px) {
-      nav { padding: 18px 24px; }
-      .nav-links { display: none; }
-      .hero { padding: 72px 24px 60px; }
-      .bento { padding: 0 24px 60px; grid-template-columns: 1fr; }
+      nav {
+        padding: 18px 20px;
+        flex-wrap: wrap;
+        gap: 14px 18px;
+      }
+      .logo { gap: 10px; }
+      .logo-mark {
+        width: 62px;
+        height: 34px;
+      }
+      .logo-name { font-size: 14px; }
+      .nav-links {
+        display: flex;
+        order: 3;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        padding-top: 8px;
+      }
+      .nav-links a { font-size: 12px; }
+      .nav-cta {
+        margin-left: auto;
+        padding: 8px 16px;
+      }
+      .hero {
+        padding: 64px 20px 56px;
+        max-width: none;
+      }
+      .hero-sub {
+        max-width: none;
+        margin-bottom: 32px;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
+      .bento { padding: 0 20px 56px; grid-template-columns: 1fr; }
       .bc1,.bc2,.bc3,.bc4,.bc4b,.bc5 { grid-column: span 1; }
-      .process-section,.services-section { padding: 48px 24px; }
-      .process-grid { grid-template-columns: 1fr 1fr; }
+      .process-section,.services-section { padding: 44px 20px; }
+      .process-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr; }
-      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+      .services-grid-wide { grid-template-columns: 1fr; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 12px; text-align: center; }
       body { cursor: auto; }
       #cursor, #cursor-ring { display: none; }
-      .rule { margin: 0 24px; }
+      .rule { margin: 0 20px; }
     }
   </style>
 </head>
@@ -508,7 +550,7 @@
     <div class="section-header">
       <span class="tag">服務項目</span>
     </div>
-    <div class="services-grid" style="grid-template-columns:repeat(5,1fr)">
+    <div class="services-grid services-grid-wide">
       <a href="https://testbridge.chenjundigital.com" class="scard" style="text-decoration:none;cursor:none;border-color:var(--border-gold);background:rgba(212,168,67,0.03)">
         <div class="scard-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
