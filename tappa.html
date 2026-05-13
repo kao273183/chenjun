@@ -138,6 +138,33 @@
   .btn-ghost:hover { color: var(--ink); }
   .btn-lg { padding: 14px 24px; font-size: 16px; border-radius: 12px; }
 
+  /* ── hamburger (mobile only) ─────────────────────────── */
+  .nav-burger {
+    display: none;
+    background: transparent;
+    border: 0; padding: 0;
+    width: 36px; height: 36px;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-left: 4px;
+    border-radius: 8px;
+    transition: background .15s;
+  }
+  .nav-burger:hover { background: rgba(0,0,0,0.05); }
+  .nav-burger span {
+    display: block;
+    width: 20px; height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform .25s cubic-bezier(.2,.7,.3,1), opacity .15s;
+  }
+  .nav.open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav.open .nav-burger span:nth-child(2) { opacity: 0; }
+  .nav.open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   /* ── nav trial form ──────────────────────────────────── */
   .nav-trial {
     margin-left: auto;
@@ -1111,8 +1138,30 @@
 
   /* ── responsive ──────────────────────────────────────── */
   @media (max-width: 880px) {
-    .nav-links { display: none; }
-    .nav-trial input[type="email"] { width: 140px; padding: 8px 10px; font-size: 13px; }
+    .nav-burger { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: oklch(0.97 0.005 80 / 0.96);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      backdrop-filter: blur(20px) saturate(180%);
+      padding: 8px 20px 16px;
+      flex-direction: column;
+      gap: 0;
+      margin: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 28px -10px rgba(0,0,0,0.12);
+    }
+    .nav.open .nav-links { display: flex; }
+    .nav.open .nav-links a {
+      padding: 12px 4px;
+      font-size: 16px;
+      border-bottom: 1px dashed var(--grey);
+      color: var(--ink);
+    }
+    .nav.open .nav-links a:last-child { border-bottom: 0; }
+    .nav-trial input[type="email"] { width: 130px; padding: 8px 10px; font-size: 13px; }
     .nav-trial .btn { padding: 8px 12px; font-size: 13px; }
     .hero-grid, .pain-grid, .tryit-inner, .drag-grid { grid-template-columns: 1fr; gap: 32px; }
     .drag-preview-phone { height: 440px; }
@@ -1121,6 +1170,45 @@
     .float-stamp { left: 8px; }
     .dots { right: 10px; padding: 10px 6px; gap: 10px; }
     .page { padding: 80px 18px 28px; }
+  }
+
+  /* ── extra small screens (iPhone SE / Pixel 4a 等) ──── */
+  @media (max-width: 480px) {
+    .float-card, .float-stamp { display: none; }
+    .page { padding: 76px 14px 24px; }
+    .nav { padding: 12px 16px; }
+    .nav-trial { display: none; }
+    .dots { right: 8px; padding: 8px 5px; gap: 9px; }
+    .dots button { width: 8px; height: 8px; }
+
+    .kpi-card { padding: 8px 10px; }
+    .kpi-value { font-size: 21px; }
+
+    .pain-text h3 { font-size: 22px; line-height: 1.2; }
+    .pain-text p { font-size: 15px; }
+    .pain-visual { padding: 18px; }
+
+    .drag-item { padding: 9px 12px; font-size: 14px; }
+    .drag-preview-phone { width: 240px; height: 380px; }
+    .drag-head { margin-bottom: 24px; }
+
+    .tryit-controls input[type="text"],
+    .tryit-controls input[type="number"] { font-size: 16px; padding: 12px 14px; }
+    .tryit-controls .row-2 .col-price { width: 110px; }
+    .industry-chip { font-size: 12px; padding: 6px 10px; }
+    .color-row button { width: 32px; height: 32px; }
+    .tryit-phone { width: 240px; }
+
+    .faq-q { padding: 14px 16px; gap: 10px; }
+    .faq-q .num { width: 22px; font-size: 11px; }
+    .faq-q .q-text { font-size: 16px; }
+    .faq-a > div { padding: 0 16px 0 48px; }
+    .faq-a p { font-size: 14px; padding-bottom: 16px; }
+
+    .final-page h2 { font-size: 28px; }
+    .final-waitlist { margin-top: 22px; }
+    .final-waitlist input[type="email"] { font-size: 16px; padding: 14px 16px; }
+    .final-waitlist .btn-lg { padding: 13px 20px; font-size: 15px; }
   }
 </style>
 </head>
@@ -1141,6 +1229,9 @@
       <span class="check">✓</span> 收到了,上線會通知你
     </span>
   </form>
+  <button class="nav-burger" id="navBurger" aria-label="開啟選單" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <aside class="dots" id="dots" aria-label="頁面導覽">
@@ -2008,6 +2099,23 @@
   }
   bindWaitlist(document.getElementById('navWaitlist'),   document.getElementById('navEmail'),   'nav');
   bindWaitlist(document.getElementById('finalWaitlist'), document.getElementById('finalEmail'), 'final');
+
+  // ── 手機 hamburger 選單 ───────────────────────────────
+  const navBurger = document.getElementById('navBurger');
+  const navEl = document.querySelector('.nav');
+  if (navBurger && navEl) {
+    navBurger.addEventListener('click', () => {
+      const open = navEl.classList.toggle('open');
+      navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // 點任何一個 nav link / dot / page → 自動收起
+    navEl.querySelectorAll('.nav-links a').forEach((a) => {
+      a.addEventListener('click', () => {
+        navEl.classList.remove('open');
+        navBurger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // ── FAQ accordion ────────────────────────────────────
   document.querySelectorAll('#faqGrid .faq-q').forEach((btn) => {
