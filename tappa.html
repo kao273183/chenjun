@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>Tappa 客來 · 三分鐘開好你的預約系統 | 宸鈞數位</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tappa 客來 — 為台灣中小商家打造的客製化 LINE 預約 SaaS。拖拉編輯、6 業態切換、LIFF / Telegram / Web 三通路一頁完成。宸鈞數位開發中,搶先留 email 取得上線通知。">
+<meta name="keywords" content="Tappa, 客來, LINE 預約系統, LIFF 預約, 預約 SaaS, 商家預約, 美容預約, 健身預約, 宸鈞數位, ChenJun Digital">
+<meta name="author" content="宸鈞數位有限公司">
+<link rel="canonical" href="https://chenjundigital.com/tappa.html">
+<link rel="icon" type="image/png" href="/favicon.png?v=20260513">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chenjundigital.com/tappa.html">
+<meta property="og:title" content="Tappa 客來 · 三分鐘開好你的預約系統">
+<meta property="og:description" content="為台灣中小商家打造的客製化 LINE 預約 SaaS。拖拉編輯、6 業態切換、即時預覽。即將上線。">
+<meta property="og:image" content="https://chenjundigital.com/chenjun-logo.png">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="宸鈞數位">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://chenjundigital.com/tappa.html">
+<meta name="twitter:title" content="Tappa 客來 · 三分鐘開好你的預約系統">
+<meta name="twitter:description" content="為台灣中小商家打造的客製化 LINE 預約 SaaS。拖拉編輯、6 業態切換、即時預覽。即將上線。">
+<meta name="twitter:image" content="https://chenjundigital.com/chenjun-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Kalam:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: oklch(0.72 0.15 35);
+    --accent-soft: oklch(0.94 0.05 35);
+    --accent-dark: oklch(0.58 0.18 35);
+    --ink: #1a1a18;
+    --ink-soft: #4a4842;
+    --paper: #faf9f4;
+    --paper-warm: #f3efe4;
+    --line: #1a1a18;
+    --grey: #d8d6cc;
+    --muted: #8a8678;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .sketch { font-family: 'Patrick Hand', cursive; }
+
+  /* ── scroll-snap container ──────────────────────────── */
+  .snap {
+    height: 100vh; height: 100dvh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .snap::-webkit-scrollbar { display: none; }
+
+  .page {
+    min-height: 100vh; min-height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex; align-items: center;
+    position: relative;
+    padding: 96px 32px 48px;
+    box-sizing: border-box;
+  }
+  .page > .container {
+    width: 100%; max-width: 1200px; margin: 0 auto;
+  }
+
+  /* short screens — soften snap so over-tall content is scrollable */
+  @media (max-height: 720px) {
+    .snap { scroll-snap-type: y proximity; }
+    .page { padding: 80px 24px 32px; }
+  }
+
+  /* ── nav (fixed translucent) ────────────────────────── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 14px 32px;
+    display: flex; align-items: center; gap: 24px;
+    background: oklch(0.97 0.005 80 / 0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .logo-mark {
+    width: 30px; height: 30px;
+    background: var(--ink); color: var(--paper);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Patrick Hand', cursive; font-size: 18px;
+  }
+  .logo-zh {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 15px; font-weight: 400;
+    color: var(--accent);
+    margin-left: 4px;
+    letter-spacing: 0.02em;
+  }
+  .final-page footer .logo-zh { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 24px; margin-left: auto;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .nav-links a { color: inherit; text-decoration: none; cursor: pointer; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1.5px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+  }
+  .btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(26,26,24,.18); }
+  .btn-accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-accent:hover { transform: translateY(-1px); box-shadow: 0 10px 24px oklch(0.72 0.15 35 / 0.35); }
+  .btn-ghost { color: var(--ink-soft); }
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-lg { padding: 14px 24px; font-size: 16px; border-radius: 12px; }
+
+  /* ── nav trial form ──────────────────────────────────── */
+  .nav-trial {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 8px;
+    position: relative;
+  }
+  .nav-trial input[type="email"] {
+    appearance: none;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.55);
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-family: inherit; font-size: 14px;
+    color: var(--ink);
+    width: 220px;
+    outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .nav-trial input[type="email"]::placeholder { color: var(--muted); }
+  .nav-trial input[type="email"]:focus {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.15);
+  }
+  .nav-trial .btn { padding: 9px 16px; font-size: 14px; }
+  .nav-trial .trial-success { display: none; }
+  .nav-trial.done input[type="email"],
+  .nav-trial.done > .btn { display: none; }
+  .nav-trial.done .trial-success {
+    display: inline-flex;
+    align-items: center; gap: 8px;
+    padding: 8px 14px;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    border: 1.5px solid var(--accent);
+    border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    font-family: inherit;
+    animation: trialIn .35s cubic-bezier(.2,.7,.3,1);
+  }
+  .nav-trial .trial-success .check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+  }
+  @keyframes trialIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ── progress dots ──────────────────────────────────── */
+  .dots {
+    position: fixed; right: 22px; top: 50%; transform: translateY(-50%);
+    z-index: 60;
+    display: flex; flex-direction: column; gap: 14px;
+    padding: 14px 7px;
+    background: rgba(255,255,255,0.48);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .dots button {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink-soft);
+    background: transparent; cursor: pointer; padding: 0;
+    transition: all .25s ease;
+  }
+  .dots button:hover { transform: scale(1.3); }
+  .dots button[aria-current="true"] {
+    background: var(--accent); border-color: var(--accent);
+    transform: scale(1.4);
+    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.18);
+  }
+
+  /* ── entrance animations (per page when .active) ────── */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.3,1);
+  }
+  .page.active .stagger > * { opacity: 1; transform: none; }
+  .page.active .stagger > *:nth-child(1) { transition-delay: 0.05s; }
+  .page.active .stagger > *:nth-child(2) { transition-delay: 0.15s; }
+  .page.active .stagger > *:nth-child(3) { transition-delay: 0.25s; }
+  .page.active .stagger > *:nth-child(4) { transition-delay: 0.35s; }
+  .page.active .stagger > *:nth-child(5) { transition-delay: 0.45s; }
+  .page.active .stagger > *:nth-child(6) { transition-delay: 0.55s; }
+
+  /* visual side slides in from right */
+  .page .visual-in {
+    opacity: 0; transform: translateX(40px) scale(.96);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.3,1);
+    transition-delay: 0.3s;
+  }
+  .page.active .visual-in { opacity: 1; transform: none; }
+
+  /* reverse pages: visual slides in from left */
+  .page.reverse .visual-in {
+    transform: translateX(-40px) scale(.96);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .snap { scroll-snap-type: none; scroll-behavior: auto; }
+    .stagger > *, .page .visual-in {
+      opacity: 1 !important; transform: none !important; transition: none !important;
+    }
+  }
+
+  /* ── hero ────────────────────────────────────────────── */
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: 56px; align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    background: var(--accent-soft);
+    border-radius: 999px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 14px;
+    color: var(--accent-dark);
+    margin-bottom: 20px;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+  }
+  h1 {
+    margin: 0 0 20px;
+    font-size: clamp(36px, 4.6vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+  }
+  h1 .accent {
+    color: var(--accent);
+    font-family: 'Patrick Hand', cursive;
+    font-weight: 400;
+    background-image: linear-gradient(180deg, transparent 70%, oklch(0.92 0.06 35) 70%, oklch(0.92 0.06 35) 92%, transparent 92%);
+    padding: 0 6px;
+  }
+  .sub {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin: 0 0 28px;
+  }
+  .cta-row {
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .trust {
+    display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+    font-size: 13px; color: var(--muted);
+  }
+  .trust span::before {
+    content: '✓'; color: var(--accent); font-weight: 700; margin-right: 6px;
+  }
+
+  /* preview right column */
+  .preview-wrap { position: relative; }
+  .preview {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 14px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 30px 60px -20px rgba(26,26,24,.25),
+      0 18px 36px -18px rgba(26,26,24,.22);
+    overflow: hidden;
+    transform: rotate(-0.6deg);
+  }
+  .preview-chrome {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1.5px dashed var(--grey);
+    background: var(--paper-warm);
+  }
+  .preview-chrome .dots-row { display: flex; gap: 5px; }
+  .preview-chrome .dots-row i {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--grey); display: inline-block;
+  }
+  .preview-chrome .url {
+    flex: 1;
+    font-family: ui-monospace, 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    background: var(--paper);
+    padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--grey);
+  }
+  .preview-body { padding: 18px; }
+  .preview-greet {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .greet-text {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 22px; line-height: 1.1;
+  }
+  .greet-text .shop {
+    color: var(--accent);
+    border-right: 2px solid var(--accent);
+    animation: caret 1s steps(2) infinite;
+    padding-right: 2px;
+  }
+  @keyframes caret { 50% { border-color: transparent; } }
+  .greet-date {
+    font-family: ui-monospace, monospace; font-size: 11px;
+    color: var(--muted);
+  }
+  .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+  .kpi-card {
+    border: 1.5px solid var(--grey);
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: var(--paper);
+  }
+  .kpi-card.highlight { border-color: var(--accent); background: var(--accent-soft); }
+  .kpi-label {
+    font-family: ui-monospace, monospace;
+    font-size: 10px; color: var(--muted);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .kpi-value {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 24px; line-height: 1.1; margin-top: 2px;
+  }
+  .kpi-delta {
+    font-size: 11px; color: var(--accent);
+    font-family: 'Patrick Hand', cursive; margin-top: 2px;
+  }
+  .upcoming {
+    border: 1.5px solid var(--grey); border-radius: 8px; padding: 12px;
+  }
+  .upcoming-title {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Patrick Hand', cursive; font-size: 14px; margin-bottom: 8px;
+  }
+  .upcoming-title .more {
+    font-family: ui-monospace, monospace;
+    font-size: 10px; color: var(--muted);
+  }
+  .booking-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 0; border-bottom: 1px dashed var(--grey);
+  }
+  .booking-row:last-child { border-bottom: none; }
+  .booking-time {
+    font-family: ui-monospace, monospace; font-size: 11px;
+    color: var(--ink-soft); width: 44px;
+  }
+  .avatar {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1.5px solid var(--ink); background: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Patrick Hand', cursive; font-size: 11px;
+    flex: 0 0 auto;
+  }
+  .booking-info { flex: 1; font-family: 'Patrick Hand', cursive; font-size: 13px; }
+  .booking-info small {
+    display: block; font-family: ui-monospace, monospace;
+    font-size: 10px; color: var(--muted);
+  }
+  .pill {
+    font-family: 'Patrick Hand', cursive; font-size: 11px;
+    padding: 2px 9px; border-radius: 999px;
+    border: 1.5px solid var(--ink);
+  }
+  .pill.accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .float-card {
+    position: absolute; right: -24px; top: 38%;
+    background: #fff;
+    border: 1.5px solid var(--ink); border-radius: 12px;
+    padding: 10px 14px;
+    box-shadow: 0 18px 40px -10px rgba(26,26,24,.25);
+    display: flex; align-items: center; gap: 10px;
+    transform: rotate(2.4deg);
+    animation: bob 3.5s ease-in-out infinite;
+  }
+  @keyframes bob { 50% { transform: rotate(2.4deg) translateY(-6px); } }
+  .float-card .badge {
+    width: 28px; height: 28px;
+    background: #06c755; color: #fff;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+  .float-card .text { font-family: 'Patrick Hand', cursive; font-size: 13px; line-height: 1.2; }
+  .float-card .text small {
+    display: block; font-family: ui-monospace, monospace;
+    font-size: 10px; color: var(--muted);
+  }
+  .float-stamp {
+    position: absolute; left: -28px; bottom: 32px;
+    background: var(--accent); color: #fff;
+    padding: 8px 14px; border-radius: 999px;
+    font-family: 'Patrick Hand', cursive; font-size: 14px;
+    transform: rotate(-6deg);
+    box-shadow: 0 10px 24px oklch(0.72 0.15 35 / 0.4);
+  }
+
+  /* ── pain page ───────────────────────────────────────── */
+  .pain-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 56px; align-items: center;
+  }
+  .page.reverse .pain-grid > .pain-visual { order: -1; }
+  .pain-label {
+    display: inline-block;
+    background: #2a2520; color: var(--paper);
+    padding: 5px 12px; border-radius: 999px;
+    font-family: 'Patrick Hand', cursive; font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .pain-text h3 {
+    font-size: clamp(26px, 3vw, 36px);
+    letter-spacing: -0.02em; line-height: 1.18;
+    font-weight: 800; margin: 0 0 14px;
+  }
+  .pain-text h3 .strike {
+    text-decoration: line-through;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 3px;
+    color: var(--muted);
+  }
+  .pain-text p { font-size: 17px; color: var(--ink-soft); margin: 0 0 20px; }
+  .feature-list { list-style: none; padding: 0; margin: 0; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 0;
+    font-family: 'Patrick Hand', cursive; font-size: 15px;
+  }
+  .feature-list li::before {
+    content: '✓'; color: var(--accent); font-weight: 800; margin-top: 1px;
+  }
+  .pain-visual {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 24px 50px -16px rgba(26,26,24,.2);
+  }
+
+  .phone-mini {
+    width: 240px; margin: 0 auto;
+    border: 1.5px solid var(--ink); border-radius: 22px;
+    background: var(--paper); overflow: hidden;
+  }
+  .phone-mini .bar {
+    padding: 6px 12px; border-bottom: 1.5px dashed var(--grey);
+    font-family: 'Patrick Hand', cursive; font-size: 11px;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .phone-mini .line-dot { width: 9px; height: 9px; border-radius: 50%; background: #06c755; }
+  .phone-mini .content { padding: 12px; }
+  .phone-mini .head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .phone-mini .av {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 1.5px solid var(--ink); background: var(--accent-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Patrick Hand'; font-size: 13px;
+  }
+  .phone-mini h4 { margin: 0; font-family: 'Patrick Hand', cursive; font-size: 14px; }
+  .phone-mini .rating { font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted); }
+  .phone-mini .pick-row {
+    border: 1.5px solid var(--accent); background: var(--accent-soft);
+    border-radius: 8px; padding: 8px;
+    display: flex; gap: 8px; align-items: center; margin-bottom: 6px;
+  }
+  .phone-mini .row-min {
+    border: 1.5px dashed var(--grey); border-radius: 8px;
+    padding: 7px 8px;
+    display: flex; gap: 8px; align-items: center; margin-bottom: 6px;
+    font-family: 'Patrick Hand'; font-size: 12px;
+  }
+  .phone-mini .thumb {
+    width: 30px; height: 30px;
+    background-image: repeating-linear-gradient(45deg, transparent 0 5px, rgba(0,0,0,.1) 5px 6px);
+    border-radius: 5px; flex: 0 0 auto;
+  }
+  .phone-mini .title { font-family: 'Patrick Hand'; font-size: 13px; flex: 1; }
+  .phone-mini .footer-btn {
+    background: var(--ink); color: var(--paper);
+    border-radius: 8px; padding: 8px; text-align: center;
+    font-family: 'Patrick Hand'; font-size: 13px; margin-top: 6px;
+  }
+
+  .notif-stack { display: flex; flex-direction: column; gap: 14px; max-width: 320px; margin: 0 auto; }
+  .notif {
+    background: #fff; border: 1.5px solid var(--ink); border-radius: 14px;
+    padding: 12px 14px; display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 8px 22px -10px rgba(26,26,24,.2);
+  }
+  .notif:nth-child(1) { transform: rotate(-1.2deg); }
+  .notif:nth-child(2) { transform: rotate(1deg); margin-left: 22px; }
+  .notif:nth-child(3) { transform: rotate(-0.5deg); }
+  .notif .icon {
+    width: 36px; height: 36px; flex: 0 0 auto; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px; color: #fff;
+  }
+  .notif.line .icon { background: #06c755; }
+  .notif.sms .icon { background: var(--accent); }
+  .notif.stamp .icon { background: var(--ink); }
+  .notif .text { font-family: 'Patrick Hand', cursive; font-size: 14px; line-height: 1.25; }
+  .notif .text small {
+    display: block; font-family: ui-monospace, monospace;
+    font-size: 10px; color: var(--muted); margin-top: 2px;
+  }
+
+  .blocks-demo { display: flex; flex-direction: column; gap: 8px; max-width: 320px; margin: 0 auto; }
+  .block {
+    border: 1.5px solid var(--ink); border-radius: 8px;
+    padding: 10px 12px; background: var(--paper);
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Patrick Hand', cursive; font-size: 14px;
+  }
+  .block.active { background: var(--accent-soft); border-color: var(--accent); }
+  .block.ghost { border-style: dashed; color: var(--muted); }
+  .block .grip { font-family: ui-monospace, monospace; color: var(--muted); }
+  .block .badge {
+    margin-left: auto; font-family: ui-monospace, monospace;
+    font-size: 10px; color: var(--muted);
+  }
+
+  /* ── try-it ──────────────────────────────────────────── */
+  .tryit-page { background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%); }
+  .tryit-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .tryit-head { text-align: center; margin-bottom: 32px; }
+  .section-eyebrow {
+    font-family: 'Patrick Hand', cursive;
+    color: var(--accent-dark); font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: clamp(28px, 3.4vw, 40px);
+    letter-spacing: -0.02em; line-height: 1.12;
+    font-weight: 800; margin: 0 0 12px;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--ink-soft);
+    max-width: 580px; margin: 0 auto;
+  }
+  .tryit-controls label {
+    display: block;
+    font-family: ui-monospace, monospace; font-size: 11px;
+    color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tryit-controls .input-group { margin-bottom: 22px; }
+  .tryit-controls input[type="text"] {
+    width: 100%; padding: 14px 18px;
+    border: 1.5px solid var(--ink); border-radius: 12px;
+    background: #fff;
+    font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+    color: var(--ink); outline: none;
+    transition: box-shadow .15s;
+  }
+  .tryit-controls input[type="text"]:focus,
+  .tryit-controls input[type="number"]:focus {
+    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.2);
+  }
+  .tryit-controls input[type="number"] {
+    width: 100%; padding: 14px 18px;
+    border: 1.5px solid var(--ink); border-radius: 12px;
+    background: #fff;
+    font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+    color: var(--ink); outline: none;
+    transition: box-shadow .15s;
+  }
+  .tryit-controls .row-2 { display: flex; gap: 8px; }
+  .tryit-controls .row-2 .col-grow { flex: 1; }
+  .tryit-controls .row-2 .col-price { width: 130px; flex: 0 0 auto; }
+  .tryit-controls .row-2 input { font-size: 16px; padding: 12px 14px; }
+
+  /* preview hero — name + tagline overlay */
+  .tryit-phone .hero-img {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+  .tryit-phone .hero-img .tagline {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 11px; color: #fff;
+    background: rgba(0,0,0,0.55);
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .tryit-phone .hero-img .tagline:empty { display: none; }
+  .color-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .color-row button {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1.5px solid var(--ink); cursor: pointer;
+    position: relative; padding: 0;
+    transition: transform .12s;
+  }
+  .color-row button:hover { transform: translateY(-2px); }
+  .color-row button[aria-pressed="true"]::after {
+    content: ''; position: absolute; inset: -5px;
+    border: 2px solid var(--ink); border-radius: 50%;
+  }
+  .tryit-cta { margin-top: 24px; }
+
+  .tryit-preview { display: flex; justify-content: center; }
+  .tryit-phone {
+    width: 280px;
+    border: 1.5px solid var(--ink); border-radius: 28px;
+    background: var(--paper); padding: 8px;
+    box-shadow: 0 30px 60px -20px rgba(26,26,24,.3);
+  }
+  .tryit-phone .inner { background: var(--paper); border-radius: 22px; overflow: hidden; }
+  .tryit-phone .liff-bar {
+    background: #06c755; color: #fff;
+    padding: 8px 14px; font-size: 11px;
+    font-family: 'Patrick Hand', cursive;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tryit-phone .liff-bar .x { margin-left: auto; }
+  .tryit-phone .hero-img {
+    height: 110px;
+    background-image: repeating-linear-gradient(45deg, transparent 0 6px, rgba(0,0,0,.08) 6px 7px);
+    display: flex; align-items: flex-end; padding: 12px 14px;
+  }
+  .tryit-phone .hero-img .name {
+    font-family: 'Patrick Hand', cursive; font-size: 22px;
+    color: var(--demo-accent, var(--accent));
+    background: rgba(255,255,255,.88);
+    padding: 2px 10px; border-radius: 6px;
+  }
+  .tryit-phone .body { padding: 14px; }
+  .tryit-phone .body h5 { margin: 0 0 8px; font-family: 'Patrick Hand', cursive; font-size: 14px; }
+  .tryit-phone .svc {
+    border: 1.5px solid var(--demo-accent, var(--accent));
+    background: var(--demo-accent-soft, var(--accent-soft));
+    border-radius: 8px; padding: 8px;
+    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  }
+  .tryit-phone .svc-dim {
+    border: 1.5px dashed var(--grey);
+    border-radius: 8px; padding: 8px;
+    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  }
+  .tryit-phone .svc .thumb, .tryit-phone .svc-dim .thumb {
+    width: 32px; height: 32px;
+    background-image: repeating-linear-gradient(45deg, transparent 0 5px, rgba(0,0,0,.1) 5px 6px);
+    border-radius: 5px; flex: 0 0 auto;
+  }
+  .tryit-phone .svc .info, .tryit-phone .svc-dim .info {
+    flex: 1; font-family: 'Patrick Hand'; font-size: 13px;
+  }
+  .tryit-phone .svc .info small, .tryit-phone .svc-dim .info small {
+    display: block; font-family: ui-monospace, monospace;
+    color: var(--muted); font-size: 10px;
+  }
+  .tryit-phone .book-btn {
+    background: var(--demo-accent, var(--accent)); color: #fff;
+    text-align: center; padding: 9px; border-radius: 8px;
+    font-family: 'Patrick Hand'; font-size: 13px; margin-top: 10px;
+  }
+
+  /* ── final waitlist form ─────────────────────────────── */
+  .final-waitlist {
+    max-width: 480px;
+    margin: 30px auto 0;
+    display: flex; flex-direction: column;
+    gap: 12px;
+  }
+  .final-waitlist input[type="email"] {
+    appearance: none;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-family: inherit; font-size: 17px;
+    color: var(--paper);
+    outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+    text-align: center;
+  }
+  .final-waitlist input[type="email"]::placeholder {
+    color: oklch(0.94 0.05 35 / 0.45);
+  }
+  .final-waitlist input[type="email"]:focus {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.14);
+    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.25);
+  }
+  .final-waitlist .btn-lg { width: 100%; justify-content: center; }
+  .final-waitlist .waitlist-success {
+    display: none;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    border: 1.5px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 24px;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+    animation: trialIn .4s cubic-bezier(.2,.7,.3,1);
+  }
+  .final-waitlist.done input[type="email"],
+  .final-waitlist.done > .btn,
+  .final-waitlist.done .hint { display: none; }
+  .final-waitlist.done .waitlist-success { display: flex; }
+  .final-waitlist .waitlist-success .check {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800;
+    flex: 0 0 auto;
+  }
+  .final-waitlist .waitlist-success strong {
+    display: block; font-size: 16px; margin-bottom: 2px;
+    color: var(--ink);
+  }
+  .final-waitlist .waitlist-success small {
+    font-size: 13px;
+    color: oklch(0.4 0.08 35);
+  }
+  .final-waitlist .hint {
+    font-size: 13px;
+    color: oklch(0.94 0.05 35 / 0.55);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* ── final cta page (dark) ──────────────────────────── */
+  .final-page {
+    background: var(--ink); color: var(--paper);
+    flex-direction: column;
+    padding: 96px 0 0;
+  }
+  .final-page .container {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 32px;
+  }
+  .final-page h2 {
+    font-size: clamp(36px, 4.4vw, 56px); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.08; margin: 0 0 18px;
+  }
+  .final-page h2 .accent {
+    color: var(--accent); font-family: 'Patrick Hand', cursive; font-weight: 400;
+  }
+  .final-page p {
+    font-size: 18px; color: oklch(0.94 0.05 35 / 0.7); margin: 0 0 32px;
+    max-width: 560px;
+  }
+  .final-page .cta-row { justify-content: center; }
+  .final-page .btn-ghost { color: oklch(0.94 0.05 35 / 0.75); }
+  .final-page .btn-ghost:hover { color: var(--paper); }
+  .final-page footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 22px 32px;
+    font-size: 13px; color: oklch(0.94 0.05 35 / 0.5);
+    display: flex; gap: 20px; flex-wrap: wrap;
+    width: 100%; max-width: none; margin: 0;
+    flex: 0 0 auto;
+  }
+  .final-page footer a { color: inherit; text-decoration: none; }
+  .final-page footer a:hover { color: var(--paper); }
+  .final-page footer .grow { flex: 1; }
+  .final-page footer .logo { color: var(--paper); }
+
+  /* industry chip row */
+  .industry-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .industry-chip {
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--ink);
+    transition: all .15s ease;
+  }
+  .industry-chip:hover { background: var(--paper-warm); transform: translateY(-1px); }
+  .industry-chip[aria-pressed="true"] {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+    box-shadow: 0 6px 14px oklch(0.72 0.15 35 / 0.32);
+  }
+
+  /* channel segmented (LIFF / TG / Web) */
+  .channel-seg {
+    display: inline-flex; padding: 3px;
+    background: rgba(0,0,0,0.06); border-radius: 10px;
+  }
+  .channel-seg button {
+    appearance: none; border: 0;
+    padding: 7px 14px;
+    background: transparent;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--ink-soft);
+    transition: all .15s ease;
+  }
+  .channel-seg button[aria-pressed="true"] {
+    background: #fff; color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,.12);
+    font-weight: 700;
+  }
+
+  /* channel chrome variants on the phone */
+  .tryit-phone .liff-bar { transition: background .25s ease, color .25s ease; }
+  .tryit-phone .liff-bar .ch-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #fff;
+    transition: background .25s;
+  }
+  .tryit-phone .liff-bar .ch-label { flex: 1; }
+  .tryit-phone .liff-bar.tg { background: #2aabee; }
+  .tryit-phone .liff-bar.web {
+    background: var(--paper-warm); color: var(--ink-soft);
+    font-family: ui-monospace, monospace;
+  }
+  .tryit-phone .liff-bar.web .ch-dot { background: var(--muted); }
+
+  /* service list fade transitions */
+  .tryit-phone .body .svc,
+  .tryit-phone .body .svc-dim {
+    transition: border-color .25s, background .25s;
+  }
+
+  /* ── drag-demo page ──────────────────────────────────── */
+  .drag-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 56px; align-items: center;
+  }
+  .drag-head { text-align: center; margin-bottom: 32px; }
+  .drag-head .section-sub { margin-left: auto; margin-right: auto; }
+  .drag-list {
+    display: flex; flex-direction: column;
+    gap: 8px; position: relative;
+    max-width: 380px; margin: 0 auto;
+  }
+  .drag-item {
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--paper);
+    padding: 11px 14px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 15px;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    transition: transform .25s cubic-bezier(.2,.7,.3,1),
+                box-shadow .15s, opacity .25s, border-color .15s, background .15s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  }
+  .drag-item:hover { border-color: var(--accent); background: var(--paper-warm); }
+  .drag-item.disabled { opacity: 0.42; background: var(--paper); }
+  .drag-item.disabled:hover { border-color: var(--ink); background: var(--paper); }
+  .drag-item:active { cursor: grabbing; }
+  .drag-item.dragging {
+    z-index: 10;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.18), 0 0 0 2px var(--accent);
+    background: #fff;
+    transition: none;
+    cursor: grabbing;
+  }
+  .drag-item .grip {
+    font-family: ui-monospace, monospace;
+    color: var(--muted); font-size: 13px;
+    letter-spacing: -3px;
+    cursor: grab;
+  }
+  .drag-item .ic {
+    width: 30px; height: 30px;
+    border: 1.5px solid var(--ink);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--paper-warm);
+    flex: 0 0 auto;
+    font-size: 15px;
+  }
+  .drag-item .name { flex: 1; }
+  .drag-item .toggle {
+    width: 32px; height: 18px;
+    border-radius: 999px;
+    background: var(--accent);
+    position: relative;
+    cursor: pointer;
+    border: 1.5px solid var(--ink);
+    flex: 0 0 auto;
+    transition: background .15s;
+    padding: 0;
+  }
+  .drag-item .toggle i {
+    position: absolute; top: 1px; right: 1px;
+    width: 12px; height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    transition: right .15s;
+  }
+  .drag-item.disabled .toggle { background: var(--grey); }
+  .drag-item.disabled .toggle i { right: 17px; }
+  .drag-hint {
+    font-family: ui-monospace, monospace;
+    font-size: 11px; color: var(--muted);
+    text-align: center;
+    margin-top: 14px;
+  }
+
+  .drag-preview-phone {
+    width: 280px; margin: 0 auto;
+    border: 1.5px solid var(--ink);
+    border-radius: 28px;
+    background: var(--paper);
+    padding: 8px;
+    box-shadow: 0 30px 60px -20px rgba(26,26,24,.3);
+    height: 520px;
+    display: flex; flex-direction: column;
+  }
+  .drag-preview-phone .inner {
+    background: var(--paper);
+    border-radius: 22px;
+    overflow: hidden;
+    flex: 1;
+    display: flex; flex-direction: column;
+  }
+  .drag-preview-phone .top {
+    background: #06c755; color: #fff;
+    padding: 8px 14px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 11px;
+    display: flex; align-items: center; gap: 8px;
+    flex: 0 0 auto;
+  }
+  .drag-preview-phone .top .x { margin-left: auto; }
+  .drag-preview-phone .stack {
+    flex: 1;
+    display: flex; flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    overflow: hidden;
+  }
+  .preview-block {
+    border-radius: 7px;
+    padding: 8px 10px;
+    background: var(--paper-warm);
+    border: 1.5px solid var(--grey);
+    animation: blockEnter .3s cubic-bezier(.2,.7,.3,1);
+    flex: 0 0 auto;
+  }
+  .preview-block.hl {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 3px oklch(0.72 0.15 35 / 0.18);
+  }
+  @keyframes blockEnter {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ── FAQ page ─────────────────────────────────────────── */
+  .faq-page { background: var(--paper-warm); }
+  .faq-head { text-align: center; margin-bottom: 32px; }
+  .faq-head .section-sub { margin-left: auto; margin-right: auto; }
+  .faq-head .section-sub a {
+    color: var(--accent-dark); text-decoration: underline;
+    text-decoration-thickness: 1.5px; text-underline-offset: 3px;
+  }
+  .faq-grid {
+    max-width: 760px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .faq-item {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .faq-item:hover { box-shadow: 0 8px 22px -8px rgba(0,0,0,0.12); }
+  .faq-item.open {
+    border-color: var(--accent);
+    box-shadow: 0 16px 36px -12px oklch(0.72 0.15 35 / 0.28);
+  }
+  .faq-q {
+    width: 100%;
+    padding: 18px 22px;
+    background: transparent;
+    border: 0;
+    display: flex; align-items: center; gap: 14px;
+    cursor: pointer;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+    text-align: left;
+    color: var(--ink);
+  }
+  .faq-q .num {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--accent);
+    width: 28px;
+    flex: 0 0 auto;
+    font-weight: 700;
+  }
+  .faq-q .q-text { flex: 1; line-height: 1.35; }
+  .faq-q .toggle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    flex: 0 0 auto;
+    background: var(--paper);
+    position: relative;
+    font-size: 0;            /* hide the "+" text glyph; we draw it below */
+    color: transparent;
+    transition: transform .3s cubic-bezier(.2,.7,.3,1), background .2s, border-color .2s;
+  }
+  .faq-q .toggle::before,
+  .faq-q .toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    background: var(--ink);
+    border-radius: 1px;
+    transition: background .2s;
+  }
+  .faq-q .toggle::before {     /* horizontal bar */
+    width: 11px; height: 2px;
+    transform: translate(-50%, -50%);
+  }
+  .faq-q .toggle::after {      /* vertical bar */
+    width: 2px; height: 11px;
+    transform: translate(-50%, -50%);
+  }
+  .faq-item.open .toggle {
+    transform: rotate(45deg);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .faq-item.open .toggle::before,
+  .faq-item.open .toggle::after {
+    background: #fff;
+  }
+  .faq-a {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .35s cubic-bezier(.2,.7,.3,1);
+  }
+  .faq-item.open .faq-a { grid-template-rows: 1fr; }
+  .faq-a > div {
+    overflow: hidden;
+    padding: 0 22px 0 64px;
+  }
+  .faq-a p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0;
+    padding: 6px 0 20px;
+    border-top: 1px dashed var(--grey);
+    padding-top: 14px;
+    line-height: 1.65;
+    font-family: 'Inter', sans-serif;
+  }
+  .faq-a p b { color: var(--ink); font-weight: 600; }
+
+  /* ── responsive ──────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .nav-links { display: none; }
+    .nav-trial input[type="email"] { width: 140px; padding: 8px 10px; font-size: 13px; }
+    .nav-trial .btn { padding: 8px 12px; font-size: 13px; }
+    .hero-grid, .pain-grid, .tryit-inner, .drag-grid { grid-template-columns: 1fr; gap: 32px; }
+    .drag-preview-phone { height: 440px; }
+    .page.reverse .pain-grid > .pain-visual { order: 0; }
+    .float-card { right: 8px; }
+    .float-stamp { left: 8px; }
+    .dots { right: 10px; padding: 10px 6px; gap: 10px; }
+    .page { padding: 80px 18px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo"><span class="logo-mark">T</span> Tappa <span class="logo-zh">客來</span></div>
+  <div class="nav-links">
+    <a data-go="1">功能</a>
+    <a data-go="4">拖拉</a>
+    <a data-go="5">試玩</a>
+    <a data-go="6">Q&A</a>
+  </div>
+  <form class="nav-trial" id="navWaitlist" novalidate>
+    <input type="email" id="navEmail" placeholder="留個 email" autocomplete="email" required>
+    <button type="submit" class="btn btn-accent">我有興趣</button>
+    <span class="trial-success">
+      <span class="check">✓</span> 收到了,上線會通知你
+    </span>
+  </form>
+</nav>
+
+<aside class="dots" id="dots" aria-label="頁面導覽">
+  <button data-go="0" aria-current="true" aria-label="首頁"></button>
+  <button data-go="1" aria-label="痛點 1"></button>
+  <button data-go="2" aria-label="痛點 2"></button>
+  <button data-go="3" aria-label="痛點 3"></button>
+  <button data-go="4" aria-label="拖拉編輯"></button>
+  <button data-go="5" aria-label="試玩"></button>
+  <button data-go="6" aria-label="Q&A"></button>
+  <button data-go="7" aria-label="結語"></button>
+</aside>
+
+<main class="snap" id="snap">
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 0: HERO ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page hero-page" data-i="0">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="stagger">
+          <div class="eyebrow"><span class="dot"></span> 為台灣中小商家打造的客製化預約 SaaS</div>
+          <h1>讓客人在 LINE<br><span class="accent">點兩下</span>就完成預約</h1>
+          <p class="sub">
+            不用做網頁、不用裝 App。三分鐘把你的店搬上 LINE,
+            今晚客人就能自己下訂、自動提醒、自動累點 — 你只要專心顧店。
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-accent btn-lg" data-go="5">立刻試玩一下 →</a>
+            <a class="btn btn-ghost btn-lg" data-go="6">先看 Q&A</a>
+          </div>
+          <div class="trust">
+            <span>為怕麻煩的店家而做</span>
+            <span>操作就像在用 LINE</span>
+            <span>卡住有我們陪你</span>
+          </div>
+        </div>
+
+        <div class="preview-wrap visual-in">
+          <div class="preview">
+            <div class="preview-chrome">
+              <div class="dots-row"><i></i><i></i><i></i></div>
+              <div class="url">tappa.tw · 我的店</div>
+            </div>
+            <div class="preview-body">
+              <div class="preview-greet">
+                <div class="greet-text">早安,<span class="shop" id="shopname">Rosé 瑜伽</span></div>
+                <div class="greet-date">星期二 · 5月 12</div>
+              </div>
+              <div class="kpi">
+                <div class="kpi-card highlight">
+                  <div class="kpi-label">今日預約</div>
+                  <div class="kpi-value">19</div>
+                  <div class="kpi-delta">↗ +6 昨日</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">待確認</div>
+                  <div class="kpi-value">3</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">滿堂率</div>
+                  <div class="kpi-value">82%</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">本月營收</div>
+                  <div class="kpi-value">$11k</div>
+                  <div class="kpi-delta">↗ +18%</div>
+                </div>
+              </div>
+              <div class="upcoming">
+                <div class="upcoming-title">
+                  <span>今日預約</span><span class="more">查看全部 →</span>
+                </div>
+                <div class="booking-row">
+                  <span class="booking-time">09:00</span>
+                  <span class="avatar">陳</span>
+                  <div class="booking-info">Hatha 60 · 陳怡君<small>w/ Mei · 從 LINE 預約</small></div>
+                  <span class="pill accent">已確認</span>
+                </div>
+                <div class="booking-row">
+                  <span class="booking-time">10:30</span>
+                  <span class="avatar">林</span>
+                  <div class="booking-info">Vinyasa 75 · 林家豪<small>w/ Jen · 老客戶</small></div>
+                  <span class="pill accent">已確認</span>
+                </div>
+                <div class="booking-row">
+                  <span class="booking-time">14:00</span>
+                  <span class="avatar">黃</span>
+                  <div class="booking-info">Workshop · 黃子涵<small>w/ Mei · 第一次</small></div>
+                  <span class="pill">待確認</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="float-card">
+            <div class="badge">L</div>
+            <div class="text">客人在 LINE 預約了 Hatha 60<small>剛剛 · 已自動進入今日表</small></div>
+          </div>
+          <div class="float-stamp">今天又多 6 筆 ✦</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 1: PAIN 1 ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page" data-i="1">
+    <div class="container">
+      <div class="pain-grid">
+        <div class="pain-text stagger">
+          <span class="pain-label">痛點 01</span>
+          <h3>客人三更半夜傳訊問<br><span class="strike">「下週還有空嗎?」</span></h3>
+          <p>每天回訊回到手軟,漏訊息還被嫌冷漠。把你的時段公開在 LIFF 裡,客人自己挑、自己預約,你只負責提供服務。</p>
+          <ul class="feature-list">
+            <li>24 小時自動接單,再也不漏訊</li>
+            <li>客人在 LINE 內完成,不用跳 App</li>
+            <li>滿堂自動候補,多搶 30% 預約</li>
+          </ul>
+        </div>
+        <div class="pain-visual visual-in">
+          <div class="phone-mini">
+            <div class="bar"><span class="line-dot"></span> LINE · 你的店</div>
+            <div class="content">
+              <div class="head">
+                <div class="av">店</div>
+                <div>
+                  <h4>挑你想要的時段</h4>
+                  <span class="rating">★ 4.9 · 客人自己預約</span>
+                </div>
+              </div>
+              <div class="pick-row">
+                <div class="thumb"></div>
+                <div class="title">週五 5/15 · 14:00</div>
+                <span style="font-family:'Patrick Hand';color:var(--accent);font-weight:800;">✓</span>
+              </div>
+              <div class="row-min"><div class="thumb"></div><div class="title">週五 5/15 · 16:00</div></div>
+              <div class="row-min"><div class="thumb"></div><div class="title">週六 5/16 · 10:00</div></div>
+              <div class="footer-btn">確認預約 →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 2: PAIN 2 (reverse) ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page reverse" data-i="2">
+    <div class="container">
+      <div class="pain-grid">
+        <div class="pain-text stagger">
+          <span class="pain-label">痛點 02</span>
+          <h3>客人預約完就忘記,<br><span class="strike">整個時段空在那邊</span></h3>
+          <p>沒提醒等於沒預約。Tappa 自動在預約前 24 小時、2 小時各推一次,no-show 平均降 70%。需要更狠?開啟訂金預扣模組。</p>
+          <ul class="feature-list">
+            <li>LINE / SMS 雙通道自動提醒</li>
+            <li>客人一鍵改期,不必再傳訊問</li>
+            <li>連續爽約自動進黑名單</li>
+          </ul>
+        </div>
+        <div class="pain-visual visual-in">
+          <div class="notif-stack">
+            <div class="notif line">
+              <div class="icon">L</div>
+              <div class="text">明天 09:00 Hatha 60<small>已自動傳送給 19 位客人</small></div>
+            </div>
+            <div class="notif sms">
+              <div class="icon">✉</div>
+              <div class="text">SMS:今天 14:00 有預約喔<small>2 小時前 · 已送達</small></div>
+            </div>
+            <div class="notif stamp">
+              <div class="icon">✓</div>
+              <div class="text">本月 no-show 從 12 降到 3<small>+$8,400 沒被空堂掉的營收</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 3: PAIN 3 ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page" data-i="3">
+    <div class="container">
+      <div class="pain-grid">
+        <div class="pain-text stagger">
+          <span class="pain-label">痛點 03</span>
+          <h3>想做專屬預約頁,<br><span class="strike">但我又不會寫程式…</span></h3>
+          <p>不用碰一行 code。像玩積木一樣拖拉區段、換顏色、貼照片,三分鐘做出符合你店風格的預約頁。覺得自己美感不夠?12 種業態模板直接套。</p>
+          <ul class="feature-list">
+            <li>拖拉式編輯,所見即所得</li>
+            <li>一鍵套用品牌色,整頁瞬間變身</li>
+            <li>內建 LIFF、TG、QR Code 三通路</li>
+          </ul>
+        </div>
+        <div class="pain-visual visual-in">
+          <div class="blocks-demo">
+            <div class="block active"><span class="grip">⋮⋮</span> Hero · 大標 + 主圖 <span class="badge">編輯中</span></div>
+            <div class="block"><span class="grip">⋮⋮</span> 服務項目 卡片 <span class="badge">3 項</span></div>
+            <div class="block"><span class="grip">⋮⋮</span> 老師介紹 <span class="badge">4 位</span></div>
+            <div class="block"><span class="grip">⋮⋮</span> 行事曆 + 時段 <span class="badge">已連動</span></div>
+            <div class="block"><span class="grip">⋮⋮</span> 優惠橫幅 <span class="badge">首購 50%</span></div>
+            <div class="block ghost"><span class="grip">＋</span> 新增區段…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 4: DRAG-DEMO ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page drag-page" data-i="4">
+    <div class="container">
+      <div class="drag-head stagger">
+        <div class="section-eyebrow">拖一下試試 · DRAG IT</div>
+        <h2 class="section-title">像拼積木一樣,<br>排出你想要的順序</h2>
+        <p class="section-sub">抓住 ⋮⋮ 上下拖移、開關任一區段,右邊的預約頁會即時跟著變。</p>
+      </div>
+      <div class="drag-grid">
+        <div class="stagger">
+          <div class="drag-list" id="dragList">
+            <div class="drag-item" data-id="hero">
+              <span class="grip">⋮⋮</span>
+              <span class="ic">★</span>
+              <span class="name">Hero · 大標 + 主圖</span>
+              <button class="toggle" aria-label="開關"><i></i></button>
+            </div>
+            <div class="drag-item" data-id="services">
+              <span class="grip">⋮⋮</span>
+              <span class="ic">▦</span>
+              <span class="name">服務項目 · 卡片</span>
+              <button class="toggle" aria-label="開關"><i></i></button>
+            </div>
+            <div class="drag-item" data-id="staff">
+              <span class="grip">⋮⋮</span>
+              <span class="ic">◉</span>
+              <span class="name">老師介紹</span>
+              <button class="toggle" aria-label="開關"><i></i></button>
+            </div>
+            <div class="drag-item" data-id="calendar">
+              <span class="grip">⋮⋮</span>
+              <span class="ic">☷</span>
+              <span class="name">行事曆 + 時段</span>
+              <button class="toggle" aria-label="開關"><i></i></button>
+            </div>
+            <div class="drag-item" data-id="promo">
+              <span class="grip">⋮⋮</span>
+              <span class="ic">◐</span>
+              <span class="name">優惠橫幅</span>
+              <button class="toggle" aria-label="開關"><i></i></button>
+            </div>
+            <div class="drag-item" data-id="reviews">
+              <span class="grip">⋮⋮</span>
+              <span class="ic">☆</span>
+              <span class="name">客戶評價</span>
+              <button class="toggle" aria-label="開關"><i></i></button>
+            </div>
+          </div>
+          <div class="drag-hint">👆 抓住 ⋮⋮ 拖移 · 點圓鈕開關</div>
+        </div>
+        <div class="visual-in">
+          <div class="drag-preview-phone">
+            <div class="inner">
+              <div class="top">
+                <span style="width:8px;height:8px;border-radius:50%;background:#fff;"></span>
+                <span>LINE · Rosé 瑜伽</span>
+                <span class="x">✕</span>
+              </div>
+              <div class="stack" id="previewStack"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 5: TRY-IT ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page tryit-page" data-i="5">
+    <div class="container">
+      <div class="tryit-head stagger">
+        <div class="section-eyebrow">試一下 · TRY IT</div>
+        <h2 class="section-title">動動手指,打造屬於你的預約頁</h2>
+        <p class="section-sub">不用註冊、不用填表。填一填左邊,右邊立刻變成你的店。</p>
+      </div>
+      <div class="tryit-inner">
+        <div class="tryit-controls stagger">
+          <div class="input-group">
+            <label>① 你的業態</label>
+            <div class="industry-row" id="industryRow">
+              <button class="industry-chip" data-key="yoga"    aria-pressed="true">🧘 瑜伽</button>
+              <button class="industry-chip" data-key="beauty"  aria-pressed="false">💇 美容</button>
+              <button class="industry-chip" data-key="fitness" aria-pressed="false">💪 健身</button>
+              <button class="industry-chip" data-key="dental"  aria-pressed="false">🦷 牙醫</button>
+              <button class="industry-chip" data-key="cafe"    aria-pressed="false">☕ 咖啡</button>
+              <button class="industry-chip" data-key="cram"    aria-pressed="false">📚 補習</button>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>② 你的店名</label>
+            <input type="text" id="tryShop" value="Rosé 瑜伽" maxlength="16" placeholder="例:溫莎美容沙龍">
+          </div>
+          <div class="input-group">
+            <label>③ 一句店家標語</label>
+            <input type="text" id="tryTagline" value="給城市忙人的一小時" maxlength="20" placeholder="例:給城市忙人的一小時">
+          </div>
+          <div class="input-group">
+            <label>④ 主打服務 · 名稱 / 價格</label>
+            <div class="row-2">
+              <input class="col-grow" type="text" id="trySvcName" value="經典 Hatha · 60 分" maxlength="20" placeholder="例:剪髮造型 · 50 分">
+              <input class="col-price" type="number" id="trySvcPrice" value="600" min="0" max="99999" placeholder="600">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>⑤ 品牌主色</label>
+            <div class="color-row" id="colorRow">
+              <button data-color="oklch(0.72 0.15 35)" data-soft="oklch(0.94 0.05 35)" aria-pressed="true" style="background:oklch(0.72 0.15 35);" aria-label="橘"></button>
+              <button data-color="#06c755" data-soft="#dff7e8" style="background:#06c755;" aria-label="綠"></button>
+              <button data-color="#5468ff" data-soft="#e1e5ff" style="background:#5468ff;" aria-label="藍"></button>
+              <button data-color="#e91e63" data-soft="#fde2ea" style="background:#e91e63;" aria-label="粉"></button>
+              <button data-color="#9c5cff" data-soft="#eee0ff" style="background:#9c5cff;" aria-label="紫"></button>
+              <button data-color="#1a1a18" data-soft="#e8e6dd" style="background:#1a1a18;" aria-label="黑"></button>
+            </div>
+          </div>
+          <div class="input-group">
+            <label>⑥ 預覽通路</label>
+            <div class="channel-seg" id="channelSeg">
+              <button data-ch="liff" aria-pressed="true">LINE LIFF</button>
+              <button data-ch="tg"   aria-pressed="false">Telegram</button>
+              <button data-ch="web"  aria-pressed="false">直接網頁</button>
+            </div>
+          </div>
+        </div>
+        <div class="tryit-preview visual-in">
+          <div class="tryit-phone">
+            <div class="inner">
+              <div class="liff-bar" id="liffBar">
+                <span class="ch-dot"></span>
+                <span class="ch-label"><span class="ch-prefix">LINE · </span><span id="phoneTitle">Rosé 瑜伽</span></span>
+                <span class="x">✕</span>
+              </div>
+              <div class="hero-img">
+                <span class="name" id="phoneName">Rosé 瑜伽</span>
+                <span class="tagline" id="phoneTagline">給城市忙人的一小時</span>
+              </div>
+              <div class="body">
+                <h5 id="serviceHeader">挑選你的課程</h5>
+                <div id="serviceList"></div>
+                <div class="book-btn">下一步 · 選時段 →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 6: FAQ ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page faq-page" data-i="6">
+    <div class="container">
+      <div class="faq-head stagger">
+        <div class="section-eyebrow">常見問題 · Q&amp;A</div>
+        <h2 class="section-title">商家最常問的 5 件事</h2>
+        <p class="section-sub">沒看到你的問題? <a href="mailto:kao273183@chenjundigital.com">直接寫信問我們</a> →</p>
+      </div>
+      <div class="faq-grid stagger" id="faqGrid">
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="num">Q1</span>
+            <span class="q-text">我不懂技術,真的能自己開店嗎?</span>
+            <span class="toggle">+</span>
+          </button>
+          <div class="faq-a"><div>
+            <p>你只要會用 LINE、會打字,就能開。<b>3 分鐘照著步驟填一填</b>,系統會自動生成你的預約頁。第一次上線我們有真人客服在 LINE 上陪你,卡住可以直接問。</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="num">Q2</span>
+            <span class="q-text">客人不用 LINE 怎麼辦?</span>
+            <span class="toggle">+</span>
+          </button>
+          <div class="faq-a"><div>
+            <p>沒問題。同一個預約頁我們會同時生出三個入口:<b>LINE LIFF、Telegram Mini App、獨立網頁 + QR Code</b>。客人不管用哪一種,看到的預約畫面長得都一樣,你只要把對應的連結貼到 IG、FB、Google 商家就行。</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="num">Q3</span>
+            <span class="q-text">跟 SimplyBook、Calendly 那些差在哪?</span>
+            <span class="toggle">+</span>
+          </button>
+          <div class="faq-a"><div>
+            <p>那些工具是<b>歐美規格</b>,客人要學新介面、註冊新帳號才能訂。Tappa 從第一天就是為<b>台灣 LINE 生態</b>設計—客人在最常用的 App 裡完成預約、收提醒、累積點數,你也不用學新後台,中文介面、中文客服、繁中發票一條龍。</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="num">Q4</span>
+            <span class="q-text">客人的個資安全嗎?</span>
+            <span class="toggle">+</span>
+          </button>
+          <div class="faq-a"><div>
+            <p>所有資料用 <b>TLS 加密傳輸、AES-256 儲存</b>在台灣機房,符合個資法規範。我們不會拿你的客戶名單去做任何事;客戶想刪除自己的資料,也能在 LIFF 內一鍵申請,符合 GDPR 的「被遺忘權」。</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="num">Q5</span>
+            <span class="q-text">我已經有 IG / 官網 / FB,可以整合嗎?</span>
+            <span class="toggle">+</span>
+          </button>
+          <div class="faq-a"><div>
+            <p>可以。Tappa 會給你一條<b>短連結 + QR Code + 嵌入碼</b>,你想貼到哪都行—Instagram bio、Google 商家、FB 粉專、現有官網 banner、名片背面…客人從任何入口進來,都直接落在你的預約頁。</p>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━━━━━ page 7: waitlist + footer ━━━━━━━━━━━━━━━━━━ -->
+  <section class="page final-page" data-i="7">
+    <div class="container">
+      <div class="stagger">
+        <div class="section-eyebrow" style="color: oklch(0.94 0.05 35 / 0.7);">即將上線 · COMING SOON</div>
+        <h2>想 <span class="accent">第一個</span> 知道<br>Tappa 上線了嗎?</h2>
+        <p>我們還在打磨產品 · 留下 email,上線當天親自通知你。</p>
+        <form class="final-waitlist" id="finalWaitlist" novalidate>
+          <input type="email" id="finalEmail" placeholder="輸入你的 email" autocomplete="email" required>
+          <button type="submit" class="btn btn-accent btn-lg">告訴我上線 →</button>
+          <div class="hint">不轟炸、不轉賣、隨時可取消</div>
+          <div class="waitlist-success">
+            <span class="check">✓</span>
+            <div>
+              <strong>收到囉!</strong>
+              <small>Tappa 上線當天我們會親自通知你,謝謝你的興趣 ✦</small>
+            </div>
+          </div>
+        </form>
+        <div class="cta-row" style="margin-top: 28px; justify-content: center;">
+          <a class="btn btn-ghost btn-lg" data-go="5">先回去再玩一次</a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="logo"><span class="logo-mark">T</span> Tappa <span class="logo-zh">客來</span></div>
+      <div class="grow"></div>
+      <span>© 2026 Tappa</span>
+      <a href="#privacy">隱私權</a>
+      <a href="#terms">服務條款</a>
+      <a href="mailto:kao273183@chenjundigital.com">聯絡我們</a>
+    </footer>
+  </section>
+
+</main>
+
+<script>
+  // ── 店名輪播 ─────────────────────────────────────────
+  const names = [
+    'Rosé 瑜伽',
+    '溫莎美容沙龍',
+    'Apex 健身房',
+    '好牙醫診所',
+    '寵物友善咖啡',
+    'Lumina 補習班',
+  ];
+  const sname = document.getElementById('shopname');
+  let ni = 0, nj = 0, ndel = false;
+  function ntick() {
+    const w = names[ni];
+    sname.textContent = w.slice(0, nj);
+    if (!ndel && nj < w.length) { nj++; setTimeout(ntick, 90); }
+    else if (!ndel && nj === w.length) { ndel = true; setTimeout(ntick, 1600); }
+    else if (ndel && nj > 0) { nj--; setTimeout(ntick, 45); }
+    else { ndel = false; ni = (ni + 1) % names.length; setTimeout(ntick, 250); }
+  }
+  ntick();
+
+  // ── 試玩區: industry preset + live preview ────────────
+  const industries = {
+    yoga:    { name: 'Rosé 瑜伽',         tagline: '給城市忙人的一小時',     header: '挑選你的課程', services: [
+      { name: '經典 Hatha · 60 分',   price: 600,  hint: '多時段',  primary: true },
+      { name: '進階 Vinyasa · 75 分',  price: 700 },
+      { name: '舒緩 Restore · 45 分',  price: 500 },
+    ]},
+    beauty:  { name: '溫莎美容沙龍',       tagline: '讓妳今天比昨天更好看',   header: '挑選你的服務', services: [
+      { name: '剪髮造型 · 50 分',     price: 880,  hint: '熱門',    primary: true },
+      { name: '染髮 · 150 分',       price: 2800 },
+      { name: '頭皮 SPA · 60 分',    price: 1200 },
+    ]},
+    fitness: { name: 'Apex 健身工作室',    tagline: '每一次訓練,都更好一點', header: '挑選你的訓練', services: [
+      { name: '私人教練 · 60 分',     price: 1800, hint: '一對一',  primary: true },
+      { name: '團體課 · 45 分',      price: 500 },
+      { name: '體態評估 · 30 分',     price: 800 },
+    ]},
+    dental:  { name: '好牙醫診所',        tagline: '專業看診 · 健保特約',    header: '預約看診時段', services: [
+      { name: '一般檢查 · 30 分',     price: 0,    hint: '健保給付', primary: true },
+      { name: '洗牙 · 40 分',        price: 0,    hint: '健保給付' },
+      { name: '美白諮詢 · 30 分',     price: 500 },
+    ]},
+    cafe:    { name: '寵物友善咖啡',       tagline: '帶毛孩來坐坐,慢慢來',  header: '挑選預約類型', services: [
+      { name: '桌位預約 · 2 小時',    price: 0,    hint: '低消 NT$ 250', primary: true },
+      { name: '小型包場 · 4 小時',    price: 4000 },
+      { name: '生日派對場 · 3 小時',  price: 6000 },
+    ]},
+    cram:    { name: 'Lumina 補習班',     tagline: '一對一陪你穩穩進步',    header: '預約上課時段', services: [
+      { name: '試聽課 · 60 分',       price: 0,    hint: '免費體驗', primary: true },
+      { name: '一對一輔導 · 90 分',   price: 1500 },
+      { name: '小班教學 · 120 分',    price: 800 },
+    ]},
+  };
+
+  const shopInput     = document.getElementById('tryShop');
+  const taglineInput  = document.getElementById('tryTagline');
+  const svcNameInput  = document.getElementById('trySvcName');
+  const svcPriceInput = document.getElementById('trySvcPrice');
+  const phoneName     = document.getElementById('phoneName');
+  const phoneTagline  = document.getElementById('phoneTagline');
+  const phoneTitle    = document.getElementById('phoneTitle');
+  const colorRow      = document.getElementById('colorRow');
+  const industryRow   = document.getElementById('industryRow');
+  const channelSeg    = document.getElementById('channelSeg');
+  const serviceHeader = document.getElementById('serviceHeader');
+  const serviceList   = document.getElementById('serviceList');
+  const liffBar       = document.getElementById('liffBar');
+  const chPrefix      = liffBar.querySelector('.ch-prefix');
+  const chX           = liffBar.querySelector('.x');
+  const phoneEl       = document.querySelector('.tryit-phone');
+
+  let currentIndustry  = 'yoga';
+  let userTypedName    = false;
+  let userTypedTagline = false;
+  let userTypedSvcName = false;
+  let userTypedSvcPrice= false;
+
+  function renderServices() {
+    const ind = industries[currentIndustry];
+    serviceHeader.textContent = ind.header;
+    // build services: primary slot uses user inputs if typed; others stay industry default
+    const primary = ind.services[0];
+    const customPrimary = {
+      name:    userTypedSvcName  ? svcNameInput.value  : primary.name,
+      price:   userTypedSvcPrice ? Number(svcPriceInput.value) || 0 : primary.price,
+      hint:    primary.hint,
+      primary: true,
+    };
+    const list = [customPrimary, ...ind.services.slice(1)];
+    serviceList.innerHTML = list.map((s) => {
+      const priceText = s.price === 0 ? '' : 'NT$ ' + s.price.toLocaleString();
+      const meta = [priceText, s.hint || ''].filter(Boolean).join(' · ');
+      return (
+        '<div class="' + (s.primary ? 'svc' : 'svc-dim') + '">' +
+          '<div class="thumb"></div>' +
+          '<div class="info">' + s.name + '<small>' + meta + '</small></div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function setShopName(v) {
+    const safe = v || '你的店名';
+    phoneName.textContent = safe;
+    phoneTitle.textContent = safe;
+  }
+  function setTagline(v) {
+    phoneTagline.textContent = v || '';
+  }
+
+  // initial render
+  renderServices();
+
+  industryRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...industryRow.children].forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    currentIndustry = btn.dataset.key;
+    const ind = industries[currentIndustry];
+    if (!userTypedName) {
+      shopInput.value = ind.name;
+      setShopName(ind.name);
+    }
+    if (!userTypedTagline) {
+      taglineInput.value = ind.tagline;
+      setTagline(ind.tagline);
+    }
+    if (!userTypedSvcName) {
+      svcNameInput.value = ind.services[0].name;
+    }
+    if (!userTypedSvcPrice) {
+      svcPriceInput.value = ind.services[0].price;
+    }
+    renderServices();
+  });
+
+  shopInput.addEventListener('input', (e) => {
+    userTypedName = e.target.value.trim().length > 0;
+    setShopName(e.target.value);
+  });
+  taglineInput.addEventListener('input', (e) => {
+    userTypedTagline = e.target.value.length > 0;
+    setTagline(e.target.value);
+  });
+  svcNameInput.addEventListener('input', () => {
+    userTypedSvcName = svcNameInput.value.trim().length > 0;
+    renderServices();
+  });
+  svcPriceInput.addEventListener('input', () => {
+    userTypedSvcPrice = svcPriceInput.value.length > 0;
+    renderServices();
+  });
+
+  colorRow.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...colorRow.children].forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    phoneEl.style.setProperty('--demo-accent', btn.dataset.color);
+    phoneEl.style.setProperty('--demo-accent-soft', btn.dataset.soft);
+  });
+
+  channelSeg.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    [...channelSeg.children].forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    btn.setAttribute('aria-pressed', 'true');
+    const ch = btn.dataset.ch;
+    liffBar.className = 'liff-bar ' + ch;
+    if (ch === 'liff')      { chPrefix.textContent = 'LINE · ';      chX.textContent = '✕'; }
+    else if (ch === 'tg')   { chPrefix.textContent = 'Telegram · ';  chX.textContent = '✕'; }
+    else if (ch === 'web')  { chPrefix.textContent = 'tappa.tw/';  chX.textContent = '⌖'; }
+  });
+
+  // ── 拖拉區: drag + toggle + live preview ─────────────
+  const blockData = {
+    hero: {
+      label: 'Hero · 大標 + 主圖',
+      html: `
+        <div style="height:42px;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(0,0,0,.1) 5px 6px);border-radius:5px;border:1.5px dashed var(--grey);"></div>
+        <div style="margin-top:6px;font-family:'Patrick Hand',cursive;font-weight:700;font-size:13px;color:var(--ink);">預約你的瑜伽時光</div>`
+    },
+    services: {
+      label: '服務項目卡片',
+      html: `
+        <div style="font-family:ui-monospace,monospace;font-size:9px;color:var(--muted);margin-bottom:4px;">SERVICES</div>
+        <div style="display:flex;gap:4px;">
+          <div style="flex:1;height:32px;background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Patrick Hand';font-size:9px;color:var(--accent);">$600</div>
+          <div style="flex:1;height:32px;background:var(--paper);border:1.5px dashed var(--grey);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Patrick Hand';font-size:9px;color:var(--muted);">$700</div>
+          <div style="flex:1;height:32px;background:var(--paper);border:1.5px dashed var(--grey);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Patrick Hand';font-size:9px;color:var(--muted);">$500</div>
+        </div>`
+    },
+    staff: {
+      label: '老師介紹',
+      html: `
+        <div style="font-family:ui-monospace,monospace;font-size:9px;color:var(--muted);margin-bottom:4px;">TEACHERS</div>
+        <div style="display:flex;gap:8px;justify-content:center;">
+          ${['M','J','L','T'].map((c,i) => `<div style="width:26px;height:26px;border-radius:50%;border:1.5px solid var(--ink);background:${i===0?'var(--accent-soft)':'var(--paper)'};display:flex;align-items:center;justify-content:center;font-family:'Patrick Hand';font-size:11px;">${c}</div>`).join('')}
+        </div>`
+    },
+    calendar: {
+      label: '行事曆 + 時段',
+      html: `
+        <div style="font-family:ui-monospace,monospace;font-size:9px;color:var(--muted);margin-bottom:4px;">DATE · TIME</div>
+        <div style="display:flex;gap:3px;">
+          ${[12,13,14,15,16,17].map((d,i) => `<div style="flex:1;text-align:center;font-family:'Patrick Hand';font-size:10px;padding:3px 0;border:1.5px ${i===2?'solid var(--accent)':'dashed var(--grey)'};border-radius:3px;background:${i===2?'var(--accent)':'transparent'};color:${i===2?'#fff':'var(--ink)'};">${d}</div>`).join('')}
+        </div>`
+    },
+    promo: {
+      label: '優惠橫幅',
+      html: `
+        <div style="background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:5px;padding:7px 9px;display:flex;align-items:center;gap:6px;">
+          <span style="font-family:'Patrick Hand';color:var(--accent);font-weight:800;font-size:14px;">50%</span>
+          <span style="font-family:'Patrick Hand';font-size:11px;flex:1;">新會員首堂優惠</span>
+          <span style="background:var(--accent);color:#fff;font-family:'Patrick Hand';font-size:9px;padding:2px 6px;border-radius:3px;">立即用</span>
+        </div>`
+    },
+    reviews: {
+      label: '客戶評價',
+      html: `
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="color:var(--accent);font-size:12px;letter-spacing:1px;">★★★★★</span>
+          <span style="font-family:'Patrick Hand';font-size:11px;font-weight:700;">4.9</span>
+          <span style="font-family:ui-monospace;font-size:9px;color:var(--muted);">(218 則評價)</span>
+        </div>
+        <div style="font-family:'Patrick Hand';font-size:10px;margin-top:3px;color:var(--ink-soft);">「老師超有耐心,推薦!」— Yi-Jun</div>`
+    },
+  };
+
+  let blockOrder    = ['hero', 'services', 'calendar', 'staff', 'promo', 'reviews'];
+  const disabled    = new Set();
+  const dragList    = document.getElementById('dragList');
+  const previewStack= document.getElementById('previewStack');
+
+  function renderPreview() {
+    previewStack.innerHTML = blockOrder
+      .filter((id) => !disabled.has(id))
+      .map((id) => `<div class="preview-block" data-id="${id}">${blockData[id].html}</div>`)
+      .join('');
+  }
+
+  function reorderDom() {
+    // re-append items in the order of blockOrder so source order matches state
+    blockOrder.forEach((id) => {
+      const el = dragList.querySelector(`[data-id="${id}"]`);
+      if (el) dragList.appendChild(el);
+    });
+  }
+
+  // initial render
+  renderPreview();
+
+  // ── drag logic (pointer events) ──────────────────────
+  let drag = null;
+
+  dragList.addEventListener('pointerdown', (e) => {
+    const item = e.target.closest('.drag-item');
+    if (!item || e.target.closest('.toggle')) return;
+    e.preventDefault();
+
+    const items = [...dragList.children];
+    const rects = items.map((c) => c.getBoundingClientRect());
+    const idx   = items.indexOf(item);
+    const itemH = rects[0].height + 8; // gap
+
+    drag = { item, items, rects, idx, itemH, startY: e.clientY, currentTarget: idx };
+    item.setPointerCapture(e.pointerId);
+    item.classList.add('dragging');
+  });
+
+  dragList.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dy = e.clientY - drag.startY;
+    drag.item.style.transform = `translateY(${dy}px)`;
+
+    const target = Math.max(0, Math.min(drag.items.length - 1, drag.idx + Math.round(dy / drag.itemH)));
+    if (target !== drag.currentTarget) {
+      drag.currentTarget = target;
+      drag.items.forEach((it, i) => {
+        if (it === drag.item) return;
+        let shift = 0;
+        if (drag.idx < target && i > drag.idx && i <= target) shift = -drag.itemH;
+        else if (drag.idx > target && i < drag.idx && i >= target) shift = drag.itemH;
+        it.style.transform = `translateY(${shift}px)`;
+      });
+    }
+  });
+
+  function endDrag() {
+    if (!drag) return;
+    const { item, items, idx, currentTarget } = drag;
+    item.classList.remove('dragging');
+    items.forEach((it) => { it.style.transform = ''; });
+
+    if (currentTarget !== idx) {
+      const id = item.dataset.id;
+      blockOrder.splice(idx, 1);
+      blockOrder.splice(currentTarget, 0, id);
+      reorderDom();
+      renderPreview();
+    }
+    drag = null;
+  }
+  dragList.addEventListener('pointerup', endDrag);
+  dragList.addEventListener('pointercancel', endDrag);
+
+  // ── toggle on/off ────────────────────────────────────
+  dragList.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.toggle');
+    if (!toggle) return;
+    const item = toggle.closest('.drag-item');
+    const id   = item.dataset.id;
+    if (disabled.has(id)) { disabled.delete(id); item.classList.remove('disabled'); }
+    else                  { disabled.add(id);    item.classList.add('disabled'); }
+    renderPreview();
+  });
+
+  // ── hover highlights matching preview block ──────────
+  dragList.addEventListener('pointerover', (e) => {
+    const item = e.target.closest('.drag-item');
+    if (!item) return;
+    previewStack.querySelectorAll('.preview-block').forEach((b) => {
+      b.classList.toggle('hl', b.dataset.id === item.dataset.id);
+    });
+  });
+  dragList.addEventListener('pointerout', (e) => {
+    if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('#dragList')) {
+      previewStack.querySelectorAll('.preview-block').forEach((b) => b.classList.remove('hl'));
+    }
+  });
+
+  // ── snap navigation: active tracking + dots + keyboard ─
+  const snap = document.getElementById('snap');
+  const pages = [...document.querySelectorAll('.page')];
+  const dots = [...document.querySelectorAll('#dots button')];
+  const navLinks = [...document.querySelectorAll('.nav-links a[data-go]')];
+
+  function setActive(idx) {
+    pages.forEach((p, i) => p.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => d.setAttribute('aria-current', i === idx ? 'true' : 'false'));
+  }
+  // first paint
+  setActive(0);
+
+  const io = new IntersectionObserver((entries) => {
+    // pick the entry most in view
+    let best = null;
+    entries.forEach((e) => {
+      if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+    });
+    if (best && best.intersectionRatio > 0.55) {
+      const idx = pages.indexOf(best.target);
+      if (idx >= 0) setActive(idx);
+    }
+  }, { root: snap, threshold: [0.3, 0.55, 0.75] });
+  pages.forEach((p) => io.observe(p));
+
+  function goTo(i) {
+    const target = pages[Math.max(0, Math.min(pages.length - 1, i))];
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  dots.forEach((d) => d.addEventListener('click', () => goTo(+d.dataset.go)));
+  navLinks.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); goTo(+a.dataset.go); }));
+  // any other [data-go] link (hero / final CTA shortcuts)
+  document.querySelectorAll('[data-go]').forEach((el) => {
+    if (dots.includes(el) || navLinks.includes(el)) return;
+    el.addEventListener('click', (e) => { e.preventDefault(); goTo(+el.dataset.go); });
+  });
+
+  // ── waitlist 表單 → Google Sheet (Apps Script) ────────
+  //
+  // 設定方式:打開同資料夾的 apps-script.gs,照註解步驟部署,
+  //          把拿到的 Web app URL 貼進下面這個字串。
+  //
+  const WAITLIST_URL = 'https://script.google.com/macros/s/AKfycbysL4dPdfGrJjpsv087Mee9QWcaZbGDbeneiJhxtWp_fQ8FvdjMdvLzZ8NQZR6BTSJsBA/exec';
+
+  function bindWaitlist(form, input, source) {
+    if (!form || !input) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = input.value.trim();
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (!ok) {
+        input.focus();
+        input.style.borderColor = '#c44';
+        setTimeout(() => { input.style.borderColor = ''; }, 1200);
+        return;
+      }
+      // 樂觀更新:no-cors 下無法讀回應,所以送出當下就顯示成功
+      form.classList.add('done');
+
+      if (WAITLIST_URL) {
+        fetch(WAITLIST_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Apps Script 不送 CORS header,只能 no-cors
+          body: JSON.stringify({
+            email: v,
+            source: source,
+            userAgent: navigator.userAgent,
+            referrer: document.referrer,
+          }),
+        }).catch((err) => console.error('[waitlist] post failed:', err));
+      } else {
+        console.log('[waitlist mock — set WAITLIST_URL]', { email: v, source });
+      }
+    });
+  }
+  bindWaitlist(document.getElementById('navWaitlist'),   document.getElementById('navEmail'),   'nav');
+  bindWaitlist(document.getElementById('finalWaitlist'), document.getElementById('finalEmail'), 'final');
+
+  // ── FAQ accordion ────────────────────────────────────
+  document.querySelectorAll('#faqGrid .faq-q').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.closest('.faq-item').classList.toggle('open');
+    });
+  });
+
+  // current page from scroll position (cheap fallback for keyboard)
+  function currentIdx() {
+    return Math.round(snap.scrollTop / window.innerHeight);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.target.matches('input, textarea')) return;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault(); goTo(currentIdx() + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault(); goTo(currentIdx() - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(pages.length - 1);
+    }
+  });
+</script>
+
+</body>
+</html>
