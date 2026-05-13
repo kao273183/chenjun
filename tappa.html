@@ -1919,10 +1919,13 @@
     },
   };
 
-  let blockOrder    = ['hero', 'services', 'calendar', 'staff', 'promo', 'reviews'];
-  const disabled    = new Set();
   const dragList    = document.getElementById('dragList');
   const previewStack= document.getElementById('previewStack');
+  // 從 DOM 真實順序推導 — 避免 JS 陣列跟 HTML 順序對不上,導致拖移時 splice 錯位
+  let blockOrder    = [...dragList.children]
+    .filter((el) => el.classList && el.classList.contains('drag-item'))
+    .map((el) => el.dataset.id);
+  const disabled    = new Set();
 
   function renderPreview() {
     previewStack.innerHTML = blockOrder
@@ -1986,10 +1989,15 @@
 
     if (currentTarget !== idx) {
       const id = item.dataset.id;
-      blockOrder.splice(idx, 1);
-      blockOrder.splice(currentTarget, 0, id);
-      reorderDom();
-      renderPreview();
+      // 用 ID 在 blockOrder 找正確 index,而不是用 DOM idx —
+      // 避免 DOM 跟 state 萬一還沒同步時 splice 到錯誤項目
+      const from = blockOrder.indexOf(id);
+      if (from !== -1) {
+        blockOrder.splice(from, 1);
+        blockOrder.splice(currentTarget, 0, id);
+        reorderDom();
+        renderPreview();
+      }
     }
     drag = null;
   }
