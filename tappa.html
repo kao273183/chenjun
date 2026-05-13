@@ -28,13 +28,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Kalam:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --accent: oklch(0.72 0.15 35);
-    --accent-soft: oklch(0.94 0.05 35);
-    --accent-dark: oklch(0.58 0.18 35);
-    --ink: #1a1a18;
+    --accent: oklch(0.58 0.11 168);
+    --accent-soft: oklch(0.93 0.04 168);
+    --accent-dark: oklch(0.42 0.13 168);
+    --ink: #1c2825;
     --ink-soft: #4a4842;
-    --paper: #faf9f4;
-    --paper-warm: #f3efe4;
+    --paper: #f6f8f4;
+    --paper-warm: #eef0eb;
     --line: #1a1a18;
     --grey: #d8d6cc;
     --muted: #8a8678;
@@ -133,7 +133,7 @@
   .btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(26,26,24,.18); }
   .btn-accent { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .btn-accent:hover { transform: translateY(-1px); box-shadow: 0 10px 24px oklch(0.72 0.15 35 / 0.35); }
+  .btn-accent:hover { transform: translateY(-1px); box-shadow: 0 10px 24px oklch(0.58 0.11 168 / 0.35); }
   .btn-ghost { color: var(--ink-soft); }
   .btn-ghost:hover { color: var(--ink); }
   .btn-lg { padding: 14px 24px; font-size: 16px; border-radius: 12px; }
@@ -187,7 +187,7 @@
   .nav-trial input[type="email"]:focus {
     border-color: var(--accent);
     background: #fff;
-    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.15);
+    box-shadow: 0 0 0 4px oklch(0.58 0.11 168 / 0.15);
   }
   .nav-trial .btn { padding: 9px 16px; font-size: 14px; }
   .nav-trial .trial-success { display: none; }
@@ -240,7 +240,7 @@
   .dots button[aria-current="true"] {
     background: var(--accent); border-color: var(--accent);
     transform: scale(1.4);
-    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.18);
+    box-shadow: 0 0 0 4px oklch(0.58 0.11 168 / 0.18);
   }
 
   /* ── entrance animations (per page when .active) ────── */
@@ -307,7 +307,7 @@
     color: var(--accent);
     font-family: 'Patrick Hand', cursive;
     font-weight: 400;
-    background-image: linear-gradient(180deg, transparent 70%, oklch(0.92 0.06 35) 70%, oklch(0.92 0.06 35) 92%, transparent 92%);
+    background-image: linear-gradient(180deg, transparent 70%, oklch(0.92 0.06 168) 70%, oklch(0.92 0.06 168) 92%, transparent 92%);
     padding: 0 6px;
   }
   .sub {
@@ -469,7 +469,7 @@
     padding: 8px 14px; border-radius: 999px;
     font-family: 'Patrick Hand', cursive; font-size: 14px;
     transform: rotate(-6deg);
-    box-shadow: 0 10px 24px oklch(0.72 0.15 35 / 0.4);
+    box-shadow: 0 10px 24px oklch(0.58 0.11 168 / 0.4);
   }
 
   /* ── pain page ───────────────────────────────────────── */
@@ -632,7 +632,7 @@
   }
   .tryit-controls input[type="text"]:focus,
   .tryit-controls input[type="number"]:focus {
-    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.2);
+    box-shadow: 0 0 0 4px oklch(0.58 0.11 168 / 0.2);
   }
   .tryit-controls input[type="number"] {
     width: 100%; padding: 14px 18px;
@@ -752,12 +752,12 @@
     text-align: center;
   }
   .final-waitlist input[type="email"]::placeholder {
-    color: oklch(0.94 0.05 35 / 0.45);
+    color: oklch(0.93 0.04 168 / 0.45);
   }
   .final-waitlist input[type="email"]:focus {
     border-color: var(--accent);
     background: rgba(255,255,255,0.14);
-    box-shadow: 0 0 0 4px oklch(0.72 0.15 35 / 0.25);
+    box-shadow: 0 0 0 4px oklch(0.58 0.11 168 / 0.25);
   }
   .final-waitlist .btn-lg { width: 100%; justify-content: center; }
   .final-waitlist .waitlist-success {
@@ -790,11 +790,11 @@
   }
   .final-waitlist .waitlist-success small {
     font-size: 13px;
-    color: oklch(0.4 0.08 35);
+    color: oklch(0.34 0.10 168);
   }
   .final-waitlist .hint {
     font-size: 13px;
-    color: oklch(0.94 0.05 35 / 0.55);
+    color: oklch(0.93 0.04 168 / 0.55);
     text-align: center;
     margin-top: 4px;
   }
@@ -819,16 +819,16 @@
     color: var(--accent); font-family: 'Patrick Hand', cursive; font-weight: 400;
   }
   .final-page p {
-    font-size: 18px; color: oklch(0.94 0.05 35 / 0.7); margin: 0 0 32px;
+    font-size: 18px; color: oklch(0.93 0.04 168 / 0.7); margin: 0 0 32px;
     max-width: 560px;
   }
   .final-page .cta-row { justify-content: center; }
-  .final-page .btn-ghost { color: oklch(0.94 0.05 35 / 0.75); }
+  .final-page .btn-ghost { color: oklch(0.93 0.04 168 / 0.75); }
   .final-page .btn-ghost:hover { color: var(--paper); }
   .final-page footer {
     border-top: 1px solid rgba(255,255,255,0.1);
     padding: 22px 32px;
-    font-size: 13px; color: oklch(0.94 0.05 35 / 0.5);
+    font-size: 13px; color: oklch(0.93 0.04 168 / 0.5);
     display: flex; gap: 20px; flex-wrap: wrap;
     width: 100%; max-width: none; margin: 0;
     flex: 0 0 auto;
@@ -854,7 +854,7 @@
   .industry-chip:hover { background: var(--paper-warm); transform: translateY(-1px); }
   .industry-chip[aria-pressed="true"] {
     background: var(--accent); color: #fff; border-color: var(--accent);
-    box-shadow: 0 6px 14px oklch(0.72 0.15 35 / 0.32);
+    box-shadow: 0 6px 14px oklch(0.58 0.11 168 / 0.32);
   }
 
   /* channel segmented (LIFF / TG / Web) */
@@ -1025,7 +1025,7 @@
   .preview-block.hl {
     border-color: var(--accent);
     background: var(--accent-soft);
-    box-shadow: 0 0 0 3px oklch(0.72 0.15 35 / 0.18);
+    box-shadow: 0 0 0 3px oklch(0.58 0.11 168 / 0.18);
   }
   @keyframes blockEnter {
     from { opacity: 0; transform: translateY(-6px); }
@@ -1054,7 +1054,7 @@
   .faq-item:hover { box-shadow: 0 8px 22px -8px rgba(0,0,0,0.12); }
   .faq-item.open {
     border-color: var(--accent);
-    box-shadow: 0 16px 36px -12px oklch(0.72 0.15 35 / 0.28);
+    box-shadow: 0 16px 36px -12px oklch(0.58 0.11 168 / 0.28);
   }
   .faq-q {
     width: 100%;
@@ -1563,7 +1563,7 @@
           <div class="input-group">
             <label>⑤ 品牌主色</label>
             <div class="color-row" id="colorRow">
-              <button data-color="oklch(0.72 0.15 35)" data-soft="oklch(0.94 0.05 35)" aria-pressed="true" style="background:oklch(0.72 0.15 35);" aria-label="橘"></button>
+              <button data-color="oklch(0.58 0.11 168)" data-soft="oklch(0.93 0.04 168)" aria-pressed="true" style="background:oklch(0.58 0.11 168);" aria-label="森綠"></button>
               <button data-color="#06c755" data-soft="#dff7e8" style="background:#06c755;" aria-label="綠"></button>
               <button data-color="#5468ff" data-soft="#e1e5ff" style="background:#5468ff;" aria-label="藍"></button>
               <button data-color="#e91e63" data-soft="#fde2ea" style="background:#e91e63;" aria-label="粉"></button>
@@ -1676,7 +1676,7 @@
   <section class="page final-page" data-i="7">
     <div class="container">
       <div class="stagger">
-        <div class="section-eyebrow" style="color: oklch(0.94 0.05 35 / 0.7);">即將上線 · COMING SOON</div>
+        <div class="section-eyebrow" style="color: oklch(0.93 0.04 168 / 0.7);">即將上線 · COMING SOON</div>
         <h2>想 <span class="accent">第一個</span> 知道<br>Tappa 上線了嗎?</h2>
         <p>我們還在打磨產品 · 留下 email,上線當天親自通知你。</p>
         <form class="final-waitlist" id="finalWaitlist" novalidate>
