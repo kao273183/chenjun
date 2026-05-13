@@ -1138,14 +1138,35 @@
 
   /* ── responsive ──────────────────────────────────────── */
   @media (max-width: 880px) {
+    /* 手機 scroll-snap 改成 proximity,避免手指跟瀏覽器打架 */
+    .snap { scroll-snap-type: y proximity; height: 100svh; }
+    .page { scroll-snap-stop: normal; min-height: 100svh; }
+
+    /* backdrop-filter 在中階手機 GPU 很吃,改用實心 bg */
+    .nav {
+      background: oklch(0.97 0.005 80 / 0.95);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .dots {
+      background: rgba(255,255,255,0.88);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    /* 永遠跑著的浮動小卡動畫關掉 */
+    .float-card { animation: none; }
+
+    /* 進場 stagger 動畫加速,讓它快點結束別卡住滾動 */
+    .stagger > *,
+    .page .visual-in { transition-duration: .35s !important; }
+
     .nav-burger { display: flex; }
     .nav-links {
       display: none;
       position: absolute;
       top: 100%; left: 0; right: 0;
       background: oklch(0.97 0.005 80 / 0.96);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      backdrop-filter: blur(20px) saturate(180%);
       padding: 8px 20px 16px;
       flex-direction: column;
       gap: 0;
